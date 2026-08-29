@@ -318,27 +318,50 @@
     }
 
     /* ── SKILLS ─ */
-    .skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
-    .skill-cat-title {
-      font-family: var(--mono); font-size: 0.67rem; color: var(--accent);
-      letter-spacing: 0.13em; text-transform: uppercase; margin-bottom: 1.5rem;
+    /* ── MARQUEE SKILLS ─ */
+    .marquee-section { display: flex; flex-direction: column; gap: 2.2rem; }
+    .marquee-row { display: flex; flex-direction: column; gap: 0.75rem; }
+    .marquee-row-label {
+      font-family: var(--mono); font-size: 0.62rem; color: var(--subtle);
+      letter-spacing: 0.14em; text-transform: uppercase;
     }
-    .skill-bars { display: flex; flex-direction: column; gap: 1.1rem; }
-    .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
-    .skill-bar-name { font-size: 0.88rem; font-weight: 500; color: var(--text); }
-    .skill-bar-pct { font-family: var(--mono); font-size: 0.7rem; color: var(--subtle); }
-    .skill-bar-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .skill-bar-fill { height: 100%; border-radius: 2px; width: 0%; transition: width 1.3s cubic-bezier(0.4,0,0.2,1); }
-    .sfill-lang { background: linear-gradient(90deg, var(--accent), #5ff5c8); }
-    .sfill-fw   { background: linear-gradient(90deg, var(--accent2), #d8b4fe); }
-    .tech-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
-    .tech-pill {
-      display: flex; align-items: center; gap: 0.45rem;
-      padding: 0.42rem 0.9rem; border-radius: 7px;
-      background: var(--surface); border: 1px solid var(--border);
-      font-size: 0.8rem; color: var(--text); font-weight: 500; transition: all 0.2s;
+    .marquee-container {
+      overflow: hidden; position: relative;
+      -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+      mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
     }
-    .tech-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+    .marquee-container:hover .marquee-track { animation-play-state: paused; }
+    .marquee-track {
+      display: flex; gap: 0.65rem;
+      width: max-content;
+      animation: mq-left 38s linear infinite;
+    }
+    .marquee-track.rev { animation: mq-right 30s linear infinite; }
+    .marquee-track.slow { animation-duration: 50s; }
+    @keyframes mq-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+    @keyframes mq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    .skill-pill {
+      display: inline-flex; align-items: center;
+      padding: 0.48rem 1.1rem; border-radius: 8px; white-space: nowrap;
+      background: rgba(16,16,26,0.7); border: 1px solid var(--border);
+      font-family: var(--mono); font-size: 0.76rem; color: var(--subtle);
+      cursor: default; transition: color 0.22s, border-color 0.22s, background 0.22s, box-shadow 0.22s, transform 0.22s;
+      user-select: none;
+    }
+    .skill-pill:hover {
+      color: var(--accent); border-color: rgba(34,211,160,0.4);
+      background: rgba(34,211,160,0.06);
+      box-shadow: 0 0 20px rgba(34,211,160,0.15), 0 0 0 1px rgba(34,211,160,0.1);
+      transform: translateY(-2px);
+    }
+    .skill-pill.p {
+      color: rgba(167,139,250,0.7); border-color: rgba(167,139,250,0.18);
+    }
+    .skill-pill.p:hover {
+      color: var(--accent2); border-color: rgba(167,139,250,0.45);
+      background: rgba(167,139,250,0.06);
+      box-shadow: 0 0 20px rgba(167,139,250,0.15), 0 0 0 1px rgba(167,139,250,0.12);
+    }
 
     /* ── ACTIVITY ─ */
     #activity { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -520,7 +543,7 @@
       .projects-grid { grid-template-columns: 1fr; }
       .stats-inner { flex-wrap: wrap; gap: 1.5rem; }
       .stat-item { flex: 1 1 40%; border-left: none !important; padding: 0 1rem; }
-      .skills-container { grid-template-columns: 1fr; }
+      .marquee-row-label { text-align: left; }
       nav { padding: 1rem 1.25rem; }
       nav.scrolled { padding: 0.75rem 1.25rem; }
       .section { padding: 4rem 1.25rem; }
@@ -1031,27 +1054,91 @@
 <section id="skills" class="section">
   <p class="section-label reveal">Skills</p>
   <h2 class="reveal">Tech I work with</h2>
-  <div class="skills-container">
-    <div class="reveal">
-      <p class="skill-cat-title">Languages</p>
-      <div class="skill-bars" id="lang-bars"></div>
+  <div class="marquee-section reveal">
+
+    <!-- Row 1 — Languages -->
+    <div class="marquee-row">
+      <div class="marquee-row-label">Languages</div>
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill p">Java</span>
+          <span class="skill-pill">C</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill p">MATLAB</span>
+          <span class="skill-pill">Nios II Assembly</span>
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill p">Java</span>
+          <span class="skill-pill">C</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill p">MATLAB</span>
+          <span class="skill-pill">Nios II Assembly</span>
+        </div>
+      </div>
     </div>
-    <div class="reveal">
-      <p class="skill-cat-title">Frameworks &amp; Tools</p>
-      <div class="skill-bars" id="fw-bars"></div>
+
+    <!-- Row 2 — Frameworks (reverse) -->
+    <div class="marquee-row">
+      <div class="marquee-row-label">Frameworks &amp; Libraries</div>
+      <div class="marquee-container">
+        <div class="marquee-track rev">
+          <span class="skill-pill">React</span>
+          <span class="skill-pill p">FastAPI</span>
+          <span class="skill-pill">Node.js</span>
+          <span class="skill-pill">Express</span>
+          <span class="skill-pill p">SQLModel</span>
+          <span class="skill-pill">Pydantic</span>
+          <span class="skill-pill">React Native</span>
+          <span class="skill-pill p">Expo</span>
+          <span class="skill-pill">Vite</span>
+          <span class="skill-pill">Tailwind CSS</span>
+          <span class="skill-pill">React</span>
+          <span class="skill-pill p">FastAPI</span>
+          <span class="skill-pill">Node.js</span>
+          <span class="skill-pill">Express</span>
+          <span class="skill-pill p">SQLModel</span>
+          <span class="skill-pill">Pydantic</span>
+          <span class="skill-pill">React Native</span>
+          <span class="skill-pill p">Expo</span>
+          <span class="skill-pill">Vite</span>
+          <span class="skill-pill">Tailwind CSS</span>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="reveal" style="margin-top:3rem;">
-    <p class="skill-cat-title" style="margin-bottom:1.2rem;">Also comfortable with</p>
-    <div class="tech-pills">
-      <span class="tech-pill">🐳 Docker</span>
-      <span class="tech-pill">🐘 PostgreSQL</span>
-      <span class="tech-pill">⚡ Supabase</span>
-      <span class="tech-pill">🔗 REST APIs</span>
-      <span class="tech-pill">📐 Git &amp; GitHub</span>
-      <span class="tech-pill">🔢 Nios II Assembly</span>
-      <span class="tech-pill">📊 MATLAB</span>
+
+    <!-- Row 3 — Infrastructure (slow) -->
+    <div class="marquee-row">
+      <div class="marquee-row-label">Infrastructure &amp; Tools</div>
+      <div class="marquee-container">
+        <div class="marquee-track slow">
+          <span class="skill-pill p">Supabase</span>
+          <span class="skill-pill">PostgreSQL</span>
+          <span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill p">Git</span>
+          <span class="skill-pill">PostGIS</span>
+          <span class="skill-pill">Cloudinary</span>
+          <span class="skill-pill">Resend</span>
+          <span class="skill-pill">REST APIs</span>
+          <span class="skill-pill p">GitHub</span>
+          <span class="skill-pill p">Supabase</span>
+          <span class="skill-pill">PostgreSQL</span>
+          <span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill p">Git</span>
+          <span class="skill-pill">PostGIS</span>
+          <span class="skill-pill">Cloudinary</span>
+          <span class="skill-pill">Resend</span>
+          <span class="skill-pill">REST APIs</span>
+          <span class="skill-pill p">GitHub</span>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -1207,46 +1294,6 @@
     });
   }, { threshold: 0.5 }).observe(document.getElementById('stats-band'));
 
-  // ── Skill bars
-  const langSkills = [
-    { name: 'Python',           pct: 90 },
-    { name: 'TypeScript / JS',  pct: 83 },
-    { name: 'Java',             pct: 72 },
-    { name: 'SQL',              pct: 76 },
-    { name: 'C',                pct: 65 },
-    { name: 'MATLAB',           pct: 70 },
-  ];
-  const fwSkills = [
-    { name: 'React',               pct: 85 },
-    { name: 'FastAPI',             pct: 88 },
-    { name: 'Node.js',             pct: 72 },
-    { name: 'SQLModel / Pydantic', pct: 81 },
-    { name: 'Supabase',            pct: 78 },
-  ];
-  function renderBars(skills, id, cls) {
-    document.getElementById(id).innerHTML = skills.map(s =>
-      `<div class="skill-bar-item">
-        <div class="skill-bar-header">
-          <span class="skill-bar-name">${s.name}</span>
-          <span class="skill-bar-pct">${s.pct}%</span>
-        </div>
-        <div class="skill-bar-track">
-          <div class="skill-bar-fill ${cls}" data-pct="${s.pct}"></div>
-        </div>
-      </div>`
-    ).join('');
-  }
-  renderBars(langSkills, 'lang-bars', 'sfill-lang');
-  renderBars(fwSkills,  'fw-bars',   'sfill-fw');
-  new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.skill-bar-fill').forEach(b => {
-          setTimeout(() => b.style.width = b.dataset.pct + '%', 150);
-        });
-      }
-    });
-  }, { threshold: 0.2 }).observe(document.getElementById('skills'));
 
   // ── Contribution graph
   function buildFakeContrib() {
