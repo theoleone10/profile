@@ -318,50 +318,47 @@
     }
 
     /* ── SKILLS ─ */
-    /* ── MARQUEE SKILLS ─ */
-    .marquee-section { display: flex; flex-direction: column; gap: 2.2rem; }
-    .marquee-row { display: flex; flex-direction: column; gap: 0.75rem; }
-    .marquee-row-label {
-      font-family: var(--mono); font-size: 0.62rem; color: var(--subtle);
-      letter-spacing: 0.14em; text-transform: uppercase;
+    /* ── SKILLS BENTO GRID ─ */
+    .skills-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
     }
-    .marquee-container {
-      overflow: hidden; position: relative;
-      padding: 10px 0; margin: -10px 0;
-      -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
-      mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    .skill-card {
+      position: relative; border-radius: 14px;
+      padding: 1.5rem 1.6rem 1.8rem;
+      background: var(--surface); border: 1px solid var(--border);
+      overflow: hidden; transition: border-color 0.3s;
     }
-    .marquee-container:hover .marquee-track { animation-play-state: paused; }
-    .marquee-track {
-      display: flex; gap: 0.65rem;
-      width: max-content;
-      animation: mq-left 38s linear infinite;
+    .skill-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(
+        380px circle at var(--mx, -200px) var(--my, -200px),
+        rgba(34,211,160,0.1), transparent 65%
+      );
+      opacity: 0; transition: opacity 0.4s; pointer-events: none;
     }
-    .marquee-track.rev { animation: mq-right 30s linear infinite; }
-    .marquee-track.slow { animation-duration: 50s; }
-    @keyframes mq-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
-    @keyframes mq-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-    .skill-pill {
-      display: inline-flex; align-items: center;
-      padding: 0.48rem 1.1rem; border-radius: 8px; white-space: nowrap;
-      background: rgba(16,16,26,0.7); border: 1px solid var(--border);
-      font-family: var(--mono); font-size: 0.76rem; color: var(--subtle);
-      cursor: default; transition: color 0.22s, border-color 0.22s, background 0.22s, box-shadow 0.22s, transform 0.22s;
-      user-select: none;
+    .skill-card:hover { border-color: rgba(34,211,160,0.28); }
+    .skill-card:hover::before { opacity: 1; }
+    .sk-label {
+      font-family: var(--mono); font-size: 0.6rem; color: var(--accent);
+      letter-spacing: 0.16em; text-transform: uppercase;
+      margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.55rem;
     }
-    .skill-pill:hover {
-      color: var(--accent); border-color: rgba(34,211,160,0.4);
-      background: rgba(34,211,160,0.06);
-      box-shadow: 0 0 22px rgba(34,211,160,0.2), 0 0 0 1px rgba(34,211,160,0.12);
+    .sk-label::after { content:''; flex: 0 0 28px; height: 1px; background: var(--accent); opacity: 0.3; }
+    .sk-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .sk {
+      padding: 0.3rem 0.78rem; border-radius: 6px; cursor: default; user-select: none;
+      font-family: var(--mono); font-size: 0.72rem;
+      background: rgba(34,211,160,0.07); color: var(--accent);
+      border: 1px solid rgba(34,211,160,0.15);
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
-    .skill-pill.p {
-      color: rgba(167,139,250,0.7); border-color: rgba(167,139,250,0.18);
-    }
-    .skill-pill.p:hover {
-      color: var(--accent2); border-color: rgba(167,139,250,0.45);
-      background: rgba(167,139,250,0.06);
-      box-shadow: 0 0 22px rgba(167,139,250,0.2), 0 0 0 1px rgba(167,139,250,0.14);
-    }
+    .sk:hover { background: rgba(34,211,160,0.14); border-color: rgba(34,211,160,0.38); box-shadow: 0 0 14px rgba(34,211,160,0.18); }
+    .sk.v { background: rgba(167,139,250,0.07); color: var(--accent2); border-color: rgba(167,139,250,0.15); }
+    .sk.v:hover { background: rgba(167,139,250,0.14); border-color: rgba(167,139,250,0.38); box-shadow: 0 0 14px rgba(167,139,250,0.18); }
+    .sk.a { background: rgba(251,191,36,0.07); color: var(--amber); border-color: rgba(251,191,36,0.15); }
+    .sk.a:hover { background: rgba(251,191,36,0.14); border-color: rgba(251,191,36,0.38); box-shadow: 0 0 14px rgba(251,191,36,0.15); }
 
     /* ── ACTIVITY ─ */
     #activity { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -543,7 +540,7 @@
       .projects-grid { grid-template-columns: 1fr; }
       .stats-inner { flex-wrap: wrap; gap: 1.5rem; }
       .stat-item { flex: 1 1 40%; border-left: none !important; padding: 0 1rem; }
-      .marquee-row-label { text-align: left; }
+      .skills-bento { grid-template-columns: 1fr; }
       nav { padding: 1rem 1.25rem; }
       nav.scrolled { padding: 0.75rem 1.25rem; }
       .section { padding: 4rem 1.25rem; }
@@ -1054,88 +1051,50 @@
 <section id="skills" class="section">
   <p class="section-label reveal">Skills</p>
   <h2 class="reveal">Tech I work with</h2>
-  <div class="marquee-section reveal">
+  <div class="skills-bento reveal">
 
-    <!-- Row 1 — Languages -->
-    <div class="marquee-row">
-      <div class="marquee-row-label">Languages</div>
-      <div class="marquee-container">
-        <div class="marquee-track">
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">TypeScript</span>
-          <span class="skill-pill">JavaScript</span>
-          <span class="skill-pill p">Java</span>
-          <span class="skill-pill">C</span>
-          <span class="skill-pill">SQL</span>
-          <span class="skill-pill p">MATLAB</span>
-          <span class="skill-pill">Nios II Assembly</span>
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">TypeScript</span>
-          <span class="skill-pill">JavaScript</span>
-          <span class="skill-pill p">Java</span>
-          <span class="skill-pill">C</span>
-          <span class="skill-pill">SQL</span>
-          <span class="skill-pill p">MATLAB</span>
-          <span class="skill-pill">Nios II Assembly</span>
-        </div>
+    <div class="skill-card">
+      <div class="sk-label">Languages</div>
+      <div class="sk-pills">
+        <span class="sk">Python</span>
+        <span class="sk">TypeScript</span>
+        <span class="sk">JavaScript</span>
+        <span class="sk v">Java</span>
+        <span class="sk">C</span>
+        <span class="sk">SQL</span>
+        <span class="sk v">MATLAB</span>
+        <span class="sk a">Nios II Assembly</span>
       </div>
     </div>
 
-    <!-- Row 2 — Frameworks (reverse) -->
-    <div class="marquee-row">
-      <div class="marquee-row-label">Frameworks &amp; Libraries</div>
-      <div class="marquee-container">
-        <div class="marquee-track rev">
-          <span class="skill-pill">React</span>
-          <span class="skill-pill p">FastAPI</span>
-          <span class="skill-pill">Node.js</span>
-          <span class="skill-pill">Express</span>
-          <span class="skill-pill p">SQLModel</span>
-          <span class="skill-pill">Pydantic</span>
-          <span class="skill-pill">React Native</span>
-          <span class="skill-pill p">Expo</span>
-          <span class="skill-pill">Vite</span>
-          <span class="skill-pill">Tailwind CSS</span>
-          <span class="skill-pill">React</span>
-          <span class="skill-pill p">FastAPI</span>
-          <span class="skill-pill">Node.js</span>
-          <span class="skill-pill">Express</span>
-          <span class="skill-pill p">SQLModel</span>
-          <span class="skill-pill">Pydantic</span>
-          <span class="skill-pill">React Native</span>
-          <span class="skill-pill p">Expo</span>
-          <span class="skill-pill">Vite</span>
-          <span class="skill-pill">Tailwind CSS</span>
-        </div>
+    <div class="skill-card">
+      <div class="sk-label">Frameworks</div>
+      <div class="sk-pills">
+        <span class="sk">React</span>
+        <span class="sk">FastAPI</span>
+        <span class="sk v">Node.js</span>
+        <span class="sk">Express</span>
+        <span class="sk">SQLModel</span>
+        <span class="sk v">Pydantic</span>
+        <span class="sk">React Native</span>
+        <span class="sk">Expo</span>
+        <span class="sk">Vite</span>
+        <span class="sk v">Tailwind CSS</span>
       </div>
     </div>
 
-    <!-- Row 3 — Infrastructure (slow) -->
-    <div class="marquee-row">
-      <div class="marquee-row-label">Infrastructure &amp; Tools</div>
-      <div class="marquee-container">
-        <div class="marquee-track slow">
-          <span class="skill-pill p">Supabase</span>
-          <span class="skill-pill">PostgreSQL</span>
-          <span class="skill-pill">MongoDB</span>
-          <span class="skill-pill">Docker</span>
-          <span class="skill-pill p">Git</span>
-          <span class="skill-pill">PostGIS</span>
-          <span class="skill-pill">Cloudinary</span>
-          <span class="skill-pill">Resend</span>
-          <span class="skill-pill">REST APIs</span>
-          <span class="skill-pill p">GitHub</span>
-          <span class="skill-pill p">Supabase</span>
-          <span class="skill-pill">PostgreSQL</span>
-          <span class="skill-pill">MongoDB</span>
-          <span class="skill-pill">Docker</span>
-          <span class="skill-pill p">Git</span>
-          <span class="skill-pill">PostGIS</span>
-          <span class="skill-pill">Cloudinary</span>
-          <span class="skill-pill">Resend</span>
-          <span class="skill-pill">REST APIs</span>
-          <span class="skill-pill p">GitHub</span>
-        </div>
+    <div class="skill-card">
+      <div class="sk-label">Infrastructure</div>
+      <div class="sk-pills">
+        <span class="sk">Supabase</span>
+        <span class="sk v">PostgreSQL</span>
+        <span class="sk">MongoDB</span>
+        <span class="sk">Docker</span>
+        <span class="sk v">Git</span>
+        <span class="sk">PostGIS</span>
+        <span class="sk">Cloudinary</span>
+        <span class="sk a">Resend</span>
+        <span class="sk">REST APIs</span>
       </div>
     </div>
 
@@ -1654,6 +1613,15 @@
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
       card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    });
+  });
+
+  // ── Skill card glow
+  document.querySelectorAll('.skill-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
     });
   });
 </script>
