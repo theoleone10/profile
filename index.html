@@ -95,6 +95,12 @@
       box-shadow: 0 0 0 0 rgba(34,211,160,0.4);
       animation: pulse-ring 2.2s ease infinite;
     }
+    .nav-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(34,211,160,0.35);
+      flex-shrink: 0;
+    }
     @keyframes pulse-ring {
       0%   { box-shadow: 0 0 0 0   rgba(34,211,160,0.5); }
       70%  { box-shadow: 0 0 0 7px rgba(34,211,160,0); }
@@ -538,7 +544,7 @@
 <!-- ── NAV ── -->
 <nav id="main-nav">
   <span class="nav-logo">
-    <span class="nav-pulse"></span>
+    <img src="IMG_2885.JPG" class="nav-avatar" alt="Theo Leone" />
     theo.leone
   </span>
   <ul class="nav-links">
