@@ -327,6 +327,7 @@
     }
     .marquee-container {
       overflow: hidden; position: relative;
+      padding: 10px 0; margin: -10px 0;
       -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
       mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
     }
@@ -351,8 +352,7 @@
     .skill-pill:hover {
       color: var(--accent); border-color: rgba(34,211,160,0.4);
       background: rgba(34,211,160,0.06);
-      box-shadow: 0 0 20px rgba(34,211,160,0.15), 0 0 0 1px rgba(34,211,160,0.1);
-      transform: translateY(-2px);
+      box-shadow: 0 0 22px rgba(34,211,160,0.2), 0 0 0 1px rgba(34,211,160,0.12);
     }
     .skill-pill.p {
       color: rgba(167,139,250,0.7); border-color: rgba(167,139,250,0.18);
@@ -360,7 +360,7 @@
     .skill-pill.p:hover {
       color: var(--accent2); border-color: rgba(167,139,250,0.45);
       background: rgba(167,139,250,0.06);
-      box-shadow: 0 0 20px rgba(167,139,250,0.15), 0 0 0 1px rgba(167,139,250,0.12);
+      box-shadow: 0 0 22px rgba(167,139,250,0.2), 0 0 0 1px rgba(167,139,250,0.14);
     }
 
     /* ── ACTIVITY ─ */
