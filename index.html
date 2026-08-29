@@ -227,13 +227,10 @@
     .stats-inner {
       max-width: 1140px; margin: 0 auto;
       padding: 2.5rem 2.5rem;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+      display: flex; justify-content: center; align-items: center; gap: 0;
     }
-    .stat-item { text-align: center; position: relative; }
-    .stat-item + .stat-item::before {
-      content: ''; position: absolute; left: 0; top: 15%; bottom: 15%;
-      width: 1px; background: var(--border);
-    }
+    .stat-item { text-align: center; position: relative; padding: 0 3.5rem; }
+    .stat-item + .stat-item { border-left: 1px solid var(--border); }
     .stat-num {
       font-family: var(--display); font-size: 2.6rem; font-weight: 800;
       letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.3rem;
@@ -521,7 +518,8 @@
       .hero-right { display: none; }
       .about-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .stats-inner { flex-wrap: wrap; gap: 1.5rem; }
+      .stat-item { flex: 1 1 40%; border-left: none !important; padding: 0 1rem; }
       .skills-container { grid-template-columns: 1fr; }
       nav { padding: 1rem 1.25rem; }
       nav.scrolled { padding: 0.75rem 1.25rem; }
@@ -530,7 +528,7 @@
     @media (max-width: 480px) {
       .nav-links li:nth-child(n+4) { display: none; }
       .nav-links { gap: 1.25rem; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stats-inner { gap: 1rem; }
     }
   </style>
 </head>
