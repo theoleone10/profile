@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Theo Leone — Applied Mathematics &amp; Computer Engineering</title>
   <meta name="description" content="Theo Leone — Full-stack developer and systems programmer at Queen's University." />
+  <link rel="icon" type="image/jpeg" href="IMG_2885.JPG" />
+  <link rel="apple-touch-icon" href="IMG_2885.JPG" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -95,6 +97,12 @@
       box-shadow: 0 0 0 0 rgba(34,211,160,0.4);
       animation: pulse-ring 2.2s ease infinite;
     }
+    .nav-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(34,211,160,0.35);
+      flex-shrink: 0;
+    }
     @keyframes pulse-ring {
       0%   { box-shadow: 0 0 0 0   rgba(34,211,160,0.5); }
       70%  { box-shadow: 0 0 0 7px rgba(34,211,160,0); }
@@ -148,10 +156,13 @@
       margin-bottom: 1rem; color: var(--text);
     }
     .hero-name .grad {
-      background: linear-gradient(130deg, var(--accent) 0%, var(--accent2) 80%);
+      background: linear-gradient(130deg, var(--accent) 0%, var(--accent2) 45%, var(--accent) 100%);
+      background-size: 200% auto;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: text-shimmer 5s linear infinite;
     }
+    @keyframes text-shimmer { to { background-position: 200% center; } }
     .hero-typewriter {
       font-family: var(--mono); font-size: 0.88rem;
       color: var(--accent); margin-bottom: 1.3rem; min-height: 1.4rem;
@@ -190,10 +201,11 @@
     }
     .float-card {
       position: absolute;
-      background: rgba(16,16,24,0.92);
-      border: 1px solid var(--border2); border-radius: 10px;
+      background: rgba(8,8,18,0.72);
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 10px;
       padding: 0.7rem 1rem;
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
       animation: floatY 4s ease-in-out infinite;
       white-space: nowrap;
     }
@@ -215,13 +227,10 @@
     .stats-inner {
       max-width: 1140px; margin: 0 auto;
       padding: 2.5rem 2.5rem;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+      display: flex; justify-content: center; align-items: center; gap: 0;
     }
-    .stat-item { text-align: center; position: relative; }
-    .stat-item + .stat-item::before {
-      content: ''; position: absolute; left: 0; top: 15%; bottom: 15%;
-      width: 1px; background: var(--border);
-    }
+    .stat-item { text-align: center; position: relative; padding: 0 3.5rem; }
+    .stat-item + .stat-item { border-left: 1px solid var(--border); }
     .stat-num {
       font-family: var(--display); font-size: 2.6rem; font-weight: 800;
       letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.3rem;
@@ -379,12 +388,138 @@
     @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
 
     /* ── MOBILE ─ */
+    /* ── NOISE OVERLAY ─ */
+    .bg-noise {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.032;
+      z-index: -1; pointer-events: none;
+    }
+
+    /* ── CARD SPOTLIGHT ─ */
+    .project-card::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 14px;
+      background: radial-gradient(280px circle at var(--mx, -200px) var(--my, -200px), rgba(34,211,160,0.09), transparent 65%);
+      opacity: 0; transition: opacity 0.4s;
+      pointer-events: none; z-index: 0;
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    /* ── ANIMATED GRADIENT BORDER — featured card ─ */
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .project-card.featured {
+      grid-column: 1 / -1;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(var(--surface), var(--surface)) padding-box,
+        conic-gradient(from var(--border-angle), var(--accent) 0%, var(--accent2) 30%, rgba(255,255,255,0.05) 50%, var(--accent2) 70%, var(--accent) 100%) border-box;
+      animation: border-spin 5s linear infinite;
+      --border-angle: 0deg;
+    }
+    @keyframes border-spin { to { --border-angle: 360deg; } }
+    .project-card.featured .project-thumb { height: 200px; }
+
+    /* ── PROJECT MODAL ─ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,8,0.82);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-container {
+      width: 100%; max-width: 740px; max-height: 90vh;
+      background: #0c0c18;
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      overflow: hidden; overflow-y: auto;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(34,211,160,0.07);
+      transform: scale(0.94) translateY(18px);
+      transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      opacity: 0;
+      scrollbar-width: thin; scrollbar-color: var(--border2) transparent;
+    }
+    .modal-container::-webkit-scrollbar { width: 5px; }
+    .modal-container::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+    .modal-overlay.open .modal-container { transform: scale(1) translateY(0); opacity: 1; }
+    .modal-thumb-wrap {
+      width: 100%; height: 230px; background: var(--bg);
+      overflow: hidden; position: relative; flex-shrink: 0;
+    }
+    .modal-thumb-wrap svg { width: 100%; height: 100%; }
+    .modal-thumb-wrap::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 70px;
+      background: linear-gradient(transparent, #0c0c18);
+      pointer-events: none;
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 20;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--subtle); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--border2); }
+    .modal-inner { padding: 1.8rem 2.2rem 2.5rem; }
+    .modal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+    .modal-title { font-family: var(--display); font-size: 1.9rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text); }
+    .modal-year { font-family: var(--mono); font-size: 0.63rem; color: var(--subtle); margin-top: 0.35rem; letter-spacing: 0.06em; }
+    .modal-desc { color: var(--subtle); line-height: 1.9; font-size: 0.95rem; margin-bottom: 2rem; }
+    .modal-section { margin-bottom: 2rem; }
+    .modal-section-label {
+      font-family: var(--mono); font-size: 0.63rem; color: var(--accent);
+      letter-spacing: 0.16em; text-transform: uppercase;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .modal-section-label::after { content:''; flex:0 0 36px; height:1px; background:var(--accent); opacity:0.3; }
+    .modal-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .modal-features li { display: flex; gap: 0.7rem; font-size: 0.9rem; color: var(--subtle); align-items: flex-start; }
+    .modal-features li .arr { color: var(--accent); font-family: var(--mono); flex-shrink: 0; font-size: 0.75rem; margin-top: 0.2rem; }
+    .modal-stack { display: flex; flex-direction: column; gap: 0.9rem; }
+    .stack-row { display: flex; align-items: flex-start; gap: 1rem; }
+    .stack-cat { font-family: var(--mono); font-size: 0.6rem; color: var(--subtle); letter-spacing: 0.06em; min-width: 72px; padding-top: 0.15rem; }
+    .stack-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .modal-links-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .modal-video-wrap {
+      width: 100%; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border); background: #000;
+    }
+    .modal-video-wrap video { width: 100%; display: block; max-height: 420px; }
+    .modal-loom-wrap {
+      position: relative; padding-bottom: 56.25%;
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .modal-loom-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .media-caption {
+      font-family: var(--mono); font-size: 0.62rem;
+      color: var(--subtle); margin-top: 0.55rem; letter-spacing: 0.05em;
+    }
+    .modal-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 600px) {
+      .modal-inner { padding: 1.3rem 1.1rem 2rem; }
+      .modal-title { font-size: 1.5rem; }
+      .modal-thumb-wrap { height: 170px; }
+    }
+
     @media (max-width: 820px) {
       .hero-inner { grid-template-columns: 1fr; }
       .hero-right { display: none; }
       .about-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .stats-inner { flex-wrap: wrap; gap: 1.5rem; }
+      .stat-item { flex: 1 1 40%; border-left: none !important; padding: 0 1rem; }
       .skills-container { grid-template-columns: 1fr; }
       nav { padding: 1rem 1.25rem; }
       nav.scrolled { padding: 0.75rem 1.25rem; }
@@ -393,7 +528,7 @@
     @media (max-width: 480px) {
       .nav-links li:nth-child(n+4) { display: none; }
       .nav-links { gap: 1.25rem; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stats-inner { gap: 1rem; }
     }
   </style>
 </head>
@@ -404,6 +539,7 @@
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
 <div class="bg-glow2"></div>
+<div class="bg-noise"></div>
 
 <!-- ── NAV ── -->
 <nav id="main-nav">
@@ -459,7 +595,7 @@
       </div>
       <div class="float-card fc-2">
         <div class="fc-label">Currently building</div>
-        <div class="fc-value" style="font-size:0.85rem;">Passage ⚱️</div>
+        <div class="fc-value" style="font-size:0.8rem;">DCP Federated learning</div>
       </div>
       <div class="float-card fc-3">
         <div class="fc-label">Location</div>
@@ -475,10 +611,6 @@
     <div class="stat-item">
       <div class="stat-num"><span class="counter a" data-target="7">0</span><span class="a">+</span></div>
       <div class="stat-label">Languages</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num"><span class="counter" data-target="4">0</span></div>
-      <div class="stat-label">Projects shipped</div>
     </div>
     <div class="stat-item">
       <div class="stat-num"><span class="counter" data-target="500">0</span><span class="a">+</span></div>
@@ -540,7 +672,7 @@
         <div class="tl" style="margin-top:0.4rem;"><span class="tp">~/</span><span class="tc">theo --status</span></div>
         <span class="to">
           <span class="tg">✓</span> <span class="tv">Open to internships</span><br>
-          <span class="tg">✓</span> <span class="tv">Building Passage</span><br>
+          <span class="tg">✓</span> <span class="tv">Building DCP Federated Learning</span><br>
           <span class="tg">✓</span> <span class="tv">Studying distributed systems</span>
         </span>
         <div class="tl" style="margin-top:0.4rem;"><span class="tp">~/</span><span class="tw-cursor" style="vertical-align:middle;"></span></div>
@@ -560,46 +692,7 @@
     <!-- Paperboy -->
     <div class="project-card reveal">
       <div class="project-thumb">
-        <svg viewBox="0 0 400 168" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="168" fill="#07070f"/>
-          <!-- Waveform visualizer -->
-          <g opacity="0.85">
-            <rect x="22" y="78" width="5" height="12" rx="2.5" fill="#22d3a0"/>
-            <rect x="31" y="65" width="5" height="38" rx="2.5" fill="#22d3a0"/>
-            <rect x="40" y="54" width="5" height="60" rx="2.5" fill="#22d3a0"/>
-            <rect x="49" y="70" width="5" height="28" rx="2.5" fill="#22d3a0" opacity="0.8"/>
-            <rect x="58" y="59" width="5" height="50" rx="2.5" fill="#22d3a0"/>
-            <rect x="67" y="48" width="5" height="72" rx="2.5" fill="#22d3a0" opacity="0.6"/>
-            <rect x="76" y="66" width="5" height="36" rx="2.5" fill="#22d3a0"/>
-            <rect x="85" y="74" width="5" height="20" rx="2.5" fill="#22d3a0"/>
-            <rect x="94" y="57" width="5" height="54" rx="2.5" fill="#22d3a0"/>
-            <rect x="103" y="69" width="5" height="30" rx="2.5" fill="#22d3a0"/>
-            <rect x="112" y="50" width="5" height="68" rx="2.5" fill="#22d3a0" opacity="0.5"/>
-            <rect x="121" y="75" width="5" height="18" rx="2.5" fill="#22d3a0"/>
-            <rect x="130" y="61" width="5" height="46" rx="2.5" fill="#22d3a0"/>
-            <rect x="139" y="52" width="5" height="64" rx="2.5" fill="#22d3a0"/>
-            <rect x="148" y="71" width="5" height="26" rx="2.5" fill="#22d3a0" opacity="0.7"/>
-            <rect x="157" y="63" width="5" height="42" rx="2.5" fill="#22d3a0"/>
-          </g>
-          <!-- Email card on the right -->
-          <rect x="200" y="22" width="172" height="120" rx="10" fill="#111125" stroke="#1c1c2e" stroke-width="1.5"/>
-          <rect x="200" y="22" width="172" height="28" rx="10" fill="#161630"/>
-          <rect x="200" y="40" width="172" height="10" fill="#161630"/>
-          <circle cx="216" cy="36" r="5" fill="#f87171" opacity="0.7"/>
-          <circle cx="230" cy="36" r="5" fill="#fbbf24" opacity="0.7"/>
-          <circle cx="244" cy="36" r="5" fill="#22d3a0" opacity="0.7"/>
-          <!-- Email body lines -->
-          <path d="M212 65 L286 100 L360 65" stroke="#a78bfa" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <rect x="212" y="65" width="148" height="64" rx="4" fill="none" stroke="#1c1c2e" stroke-width="1"/>
-          <rect x="222" y="108" width="65" height="5" rx="2" fill="#28284a"/>
-          <rect x="222" y="118" width="45" height="5" rx="2" fill="#1c1c2e"/>
-          <!-- Arrow connector -->
-          <path d="M168 84 L198 84" stroke="#22d3a0" stroke-width="1.5" stroke-dasharray="3 3"/>
-          <polygon points="198,80 206,84 198,88" fill="#22d3a0"/>
-          <!-- Labels -->
-          <text x="22" y="154" font-family="monospace" font-size="9" fill="#22d3a0">Gmail → Daily Podcast</text>
-          <text x="270" y="154" font-family="monospace" font-size="9" fill="#666688">FastAPI · TTS · React</text>
-        </svg>
+        <img src="PaperboyBanner.jpg" alt="Paperboy" style="width:100%;height:100%;object-fit:cover;" />
       </div>
       <div class="project-body">
         <div class="project-header">
@@ -614,7 +707,6 @@
         </div>
       </div>
     </div>
-
     <!-- EngSoc -->
     <div class="project-card reveal">
       <div class="project-thumb">
@@ -775,6 +867,161 @@
         </div>
       </div>
     </div>
+
+    <!-- Waypass — featured full-width -->
+    <div class="project-card featured reveal">
+      <div class="project-thumb">
+        <img src="Waypass (3).png" alt="Waypass" style="width:100%;height:100%;object-fit:cover;" />
+        <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <rect width="800" height="200" fill="#07070f"/>
+          <!-- App window -->
+          <rect x="10" y="10" width="480" height="178" rx="10" fill="#0d0d1a" stroke="#1c1c2e" stroke-width="1.5"/>
+          <!-- Titlebar -->
+          <rect x="10" y="10" width="480" height="28" rx="10" fill="#111120"/>
+          <rect x="10" y="28" width="480" height="10" fill="#111120"/>
+          <circle cx="26" cy="24" r="4.5" fill="#f87171" opacity="0.7"/>
+          <circle cx="40" cy="24" r="4.5" fill="#fbbf24" opacity="0.7"/>
+          <circle cx="54" cy="24" r="4.5" fill="#22d3a0" opacity="0.7"/>
+          <text x="250" y="27" font-family="monospace" font-size="7.5" fill="#666688" text-anchor="middle">waypass — case management</text>
+          <!-- Sidebar -->
+          <rect x="10" y="38" width="68" height="150" fill="#0a0a15"/>
+          <rect x="18" y="50" width="52" height="10" rx="5" fill="#22d3a0" opacity="0.12"/>
+          <rect x="22" y="53" width="28" height="4" rx="2" fill="#22d3a0" opacity="0.65"/>
+          <rect x="22" y="68" width="36" height="4" rx="2" fill="#28284a"/>
+          <rect x="22" y="82" width="28" height="4" rx="2" fill="#28284a"/>
+          <rect x="22" y="96" width="32" height="4" rx="2" fill="#28284a"/>
+          <rect x="22" y="110" width="24" height="4" rx="2" fill="#28284a"/>
+          <rect x="22" y="124" width="30" height="4" rx="2" fill="#28284a"/>
+          <circle cx="35" cy="175" r="4.5" fill="#22d3a0" opacity="0.55"/>
+          <rect x="44" y="172" width="26" height="4" rx="2" fill="#1e3a30"/>
+          <!-- Column headers -->
+          <rect x="84" y="44" width="60" height="5" rx="2" fill="#1c1c2e"/>
+          <rect x="152" y="44" width="50" height="5" rx="2" fill="#1c1c2e"/>
+          <rect x="210" y="44" width="55" height="5" rx="2" fill="#1c1c2e"/>
+          <rect x="274" y="44" width="40" height="5" rx="2" fill="#1c1c2e"/>
+          <rect x="322" y="44" width="60" height="5" rx="2" fill="#1c1c2e"/>
+          <rect x="390" y="44" width="45" height="5" rx="2" fill="#1c1c2e"/>
+          <!-- Case row 1 -->
+          <rect x="82" y="55" width="400" height="16" rx="3" fill="#0d1f18"/>
+          <rect x="82" y="55" width="3.5" height="16" rx="1.5" fill="#22d3a0" opacity="0.9"/>
+          <rect x="92" y="60" width="55" height="4" rx="2" fill="#28284a"/>
+          <rect x="156" y="60" width="42" height="4" rx="2" fill="#28284a"/>
+          <rect x="208" y="58" width="55" height="8" rx="3" fill="#1e3a30"/>
+          <text x="235" y="64.5" font-family="monospace" font-size="5.5" fill="#22d3a0" text-anchor="middle">In Transit</text>
+          <rect x="273" y="60" width="38" height="4" rx="2" fill="#28284a"/>
+          <rect x="323" y="60" width="55" height="4" rx="2" fill="#28284a"/>
+          <!-- Case row 2 -->
+          <rect x="82" y="76" width="400" height="16" rx="3" fill="#0f0f20"/>
+          <rect x="82" y="76" width="3.5" height="16" rx="1.5" fill="#a78bfa" opacity="0.9"/>
+          <rect x="92" y="81" width="48" height="4" rx="2" fill="#28284a"/>
+          <rect x="156" y="81" width="48" height="4" rx="2" fill="#28284a"/>
+          <rect x="208" y="79" width="55" height="8" rx="3" fill="#1c1c36"/>
+          <text x="235" y="85.5" font-family="monospace" font-size="5.5" fill="#a78bfa" text-anchor="middle">Pending</text>
+          <rect x="273" y="81" width="32" height="4" rx="2" fill="#28284a"/>
+          <rect x="323" y="81" width="50" height="4" rx="2" fill="#28284a"/>
+          <!-- Case row 3 -->
+          <rect x="82" y="97" width="400" height="16" rx="3" fill="#14140e"/>
+          <rect x="82" y="97" width="3.5" height="16" rx="1.5" fill="#fbbf24" opacity="0.9"/>
+          <rect x="92" y="102" width="60" height="4" rx="2" fill="#28284a"/>
+          <rect x="156" y="102" width="38" height="4" rx="2" fill="#28284a"/>
+          <rect x="208" y="100" width="55" height="8" rx="3" fill="#22180a"/>
+          <text x="235" y="106.5" font-family="monospace" font-size="5.5" fill="#fbbf24" text-anchor="middle">Review</text>
+          <rect x="273" y="102" width="44" height="4" rx="2" fill="#28284a"/>
+          <rect x="323" y="102" width="45" height="4" rx="2" fill="#28284a"/>
+          <!-- Case row 4 -->
+          <rect x="82" y="118" width="400" height="16" rx="3" fill="#0d0d1a"/>
+          <rect x="82" y="118" width="3.5" height="16" rx="1.5" fill="#22d3a0" opacity="0.4"/>
+          <rect x="92" y="123" width="44" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="156" y="123" width="50" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="208" y="121" width="55" height="8" rx="3" fill="#1e3a30"/>
+          <text x="235" y="127.5" font-family="monospace" font-size="5.5" fill="#22d3a0" text-anchor="middle">Complete</text>
+          <rect x="273" y="123" width="36" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="323" y="123" width="52" height="4" rx="2" fill="#1c1c2e"/>
+          <!-- Case row 5 -->
+          <rect x="82" y="139" width="400" height="16" rx="3" fill="#0f0f20"/>
+          <rect x="82" y="139" width="3.5" height="16" rx="1.5" fill="#22d3a0" opacity="0.6"/>
+          <rect x="92" y="144" width="52" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="156" y="144" width="44" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="208" y="142" width="55" height="8" rx="3" fill="#0d1f18"/>
+          <text x="235" y="148.5" font-family="monospace" font-size="5.5" fill="#22d3a0" text-anchor="middle">Intake</text>
+          <rect x="273" y="144" width="40" height="4" rx="2" fill="#1c1c2e"/>
+          <!-- Bottom label -->
+          <text x="14" y="193" font-family="monospace" font-size="8.5" fill="#666688">Funeral Home SaaS · Multi-tenant · PostGIS Geospatial</text>
+
+          <!-- Right: Booking widget -->
+          <rect x="506" y="10" width="138" height="100" rx="9" fill="#0d0d1a" stroke="#1c1c2e" stroke-width="1.5"/>
+          <rect x="506" y="10" width="138" height="26" rx="9" fill="#111120"/>
+          <rect x="506" y="26" width="138" height="10" fill="#111120"/>
+          <text x="575" y="25" font-family="monospace" font-size="7" fill="#666688" text-anchor="middle">Cremation Booking</text>
+          <rect x="516" y="42" width="52" height="20" rx="5" fill="#22d3a0" opacity="0.82"/>
+          <text x="542" y="54.5" font-family="monospace" font-size="7" fill="#04100d" text-anchor="middle">9:00 AM</text>
+          <rect x="574" y="42" width="52" height="20" rx="5" fill="#1c1c2e"/>
+          <text x="600" y="54.5" font-family="monospace" font-size="7" fill="#666688" text-anchor="middle">11:00</text>
+          <rect x="516" y="68" width="52" height="20" rx="5" fill="#1e3a30" stroke="#22d3a0" stroke-width="0.8"/>
+          <text x="542" y="80.5" font-family="monospace" font-size="7" fill="#22d3a0" text-anchor="middle">2:00 PM</text>
+          <rect x="574" y="68" width="52" height="20" rx="5" fill="#1c1c2e"/>
+          <text x="600" y="80.5" font-family="monospace" font-size="7" fill="#666688" text-anchor="middle">4:00</text>
+          <rect x="516" y="95" width="110" height="10" rx="4" fill="#22d3a0" opacity="0.88"/>
+          <text x="571" y="102.5" font-family="monospace" font-size="6.5" fill="#04100d" text-anchor="middle">Confirm Slot</text>
+
+          <!-- Right: Partner network map -->
+          <rect x="506" y="118" width="138" height="72" rx="9" fill="#0d0d1a" stroke="#1c1c2e" stroke-width="1.5"/>
+          <text x="575" y="133" font-family="monospace" font-size="7" fill="#666688" text-anchor="middle">Partner Network</text>
+          <!-- Map dots -->
+          <circle cx="522" cy="155" r="4" fill="#22d3a0" opacity="0.85"/>
+          <circle cx="542" cy="147" r="3" fill="#22d3a0" opacity="0.5"/>
+          <circle cx="558" cy="160" r="2.5" fill="#22d3a0" opacity="0.4"/>
+          <circle cx="575" cy="150" r="4" fill="#a78bfa" opacity="0.8"/>
+          <circle cx="592" cy="158" r="2.5" fill="#22d3a0" opacity="0.45"/>
+          <circle cx="610" cy="145" r="3" fill="#22d3a0" opacity="0.55"/>
+          <circle cx="628" cy="155" r="3.5" fill="#22d3a0" opacity="0.65"/>
+          <line x1="522" y1="155" x2="542" y2="147" stroke="#22d3a0" stroke-width="0.8" opacity="0.3"/>
+          <line x1="542" y1="147" x2="558" y2="160" stroke="#22d3a0" stroke-width="0.8" opacity="0.25"/>
+          <line x1="558" y1="160" x2="575" y2="150" stroke="#a78bfa" stroke-width="0.8" opacity="0.35"/>
+          <line x1="575" y1="150" x2="592" y2="158" stroke="#22d3a0" stroke-width="0.8" opacity="0.25"/>
+          <line x1="592" y1="158" x2="610" y2="145" stroke="#22d3a0" stroke-width="0.8" opacity="0.3"/>
+          <line x1="610" y1="145" x2="628" y2="155" stroke="#22d3a0" stroke-width="0.8" opacity="0.3"/>
+
+          <!-- Right: Notifications -->
+          <rect x="652" y="10" width="138" height="180" rx="9" fill="#0d0d1a" stroke="#1c1c2e" stroke-width="1.5"/>
+          <rect x="652" y="10" width="138" height="26" rx="9" fill="#111120"/>
+          <rect x="652" y="26" width="138" height="10" fill="#111120"/>
+          <text x="721" y="25" font-family="monospace" font-size="7" fill="#666688" text-anchor="middle">Inbox</text>
+          <!-- Notif rows -->
+          <rect x="662" y="42" width="118" height="26" rx="5" fill="#0f1f18"/>
+          <circle cx="674" cy="55" r="5" fill="#22d3a0" opacity="0.8"/>
+          <rect x="684" y="49" width="68" height="4" rx="2" fill="#28284a"/>
+          <rect x="684" y="57" width="50" height="3.5" rx="2" fill="#1e3a30"/>
+          <rect x="662" y="74" width="118" height="26" rx="5" fill="#0d0d1a"/>
+          <circle cx="674" cy="87" r="5" fill="#a78bfa" opacity="0.75"/>
+          <rect x="684" y="81" width="60" height="4" rx="2" fill="#28284a"/>
+          <rect x="684" y="89" width="44" height="3.5" rx="2" fill="#1c1c2e"/>
+          <rect x="662" y="106" width="118" height="26" rx="5" fill="#0d0d1a"/>
+          <circle cx="674" cy="119" r="5" fill="#fbbf24" opacity="0.7"/>
+          <rect x="684" y="113" width="72" height="4" rx="2" fill="#28284a"/>
+          <rect x="684" y="121" width="38" height="3.5" rx="2" fill="#1c1c2e"/>
+          <rect x="662" y="138" width="118" height="26" rx="5" fill="#0d0d1a"/>
+          <circle cx="674" cy="151" r="5" fill="#22d3a0" opacity="0.5"/>
+          <rect x="684" y="145" width="55" height="4" rx="2" fill="#1c1c2e"/>
+          <rect x="684" y="153" width="42" height="3.5" rx="2" fill="#1c1c2e"/>
+
+          <text x="660" y="193" font-family="monospace" font-size="8.5" fill="#22d3a0">React · Node.js · Supabase · PostGIS</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-header">
+          <span class="project-name">Waypass</span>
+          <a href="https://github.com/waypass-ca/waypass" target="_blank" rel="noopener" class="project-link" aria-label="Waypass on GitHub">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+        <p class="project-desc">Funeral home management and cremation booking platform. Digitizes the full cremation workflow — from case intake through cremation completion — connecting funeral homes with crematoriums and shipping partners. Features a family portal, financial dashboard, partner network with geospatial search, in-app inbox, multi-tenant workspaces, and a global Cmd+K command palette.</p>
+        <div class="project-tags">
+          <span class="tag">React 19</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">Supabase</span><span class="tag">PostGIS</span><span class="tag">Tailwind CSS</span><span class="tag">Cloudinary</span><span class="tag">Resend</span><span class="tag">Google Maps API</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -854,6 +1101,37 @@
     </a>
   </div>
 </section>
+
+<!-- ── PROJECT MODAL ── -->
+<div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Project details">
+  <div class="modal-container" id="modal-container">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div class="modal-thumb-wrap" id="modal-thumb"></div>
+    <div class="modal-inner">
+      <div class="modal-top">
+        <div>
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-year" id="modal-year"></div>
+        </div>
+        <a id="modal-gh-btn" href="#" target="_blank" rel="noopener" class="btn btn-ghost" style="flex-shrink:0;white-space:nowrap;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub ↗
+        </a>
+      </div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div id="modal-media"></div>
+      <div class="modal-section">
+        <div class="modal-section-label">Features</div>
+        <ul class="modal-features" id="modal-features"></ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Tech Stack</div>
+        <div class="modal-stack" id="modal-stack"></div>
+      </div>
+      <div class="modal-links-row" id="modal-links"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -1023,6 +1301,314 @@
   }
 
   buildContrib();
+
+  // ── PROJECT MODAL
+  const MODAL_DATA = {
+    'Paperboy': {
+      github: 'https://github.com/theoleone10/paperboy',
+      year: '2026',
+      desc: 'Paperboy connects to your Gmail, filters your newsletter subscriptions, and synthesises a personalised daily podcast using text-to-speech. Each morning you get a fresh audio briefing built directly from your inbox — pick your newsletters, voice, and delivery time.',
+      features: [
+        'OAuth2 Gmail API integration to fetch and filter newsletter emails by sender whitelist',
+        'LLM-powered transcript generation that distils multiple newsletters into a clean podcast script',
+        'Multiple TTS voice options (OpenAI, ElevenLabs) with configurable delivery time scheduling',
+        'React Native mobile app with voice selection, archive view, and episode playback',
+        'FastAPI backend with Supabase storing podcasts, transcripts, and per-user preferences',
+        'Background job runner that auto-generates and stores episodes on a daily schedule',
+      ],
+      stack: {
+        'Backend': ['Python', 'FastAPI', 'Supabase', 'PostgreSQL'],
+        'Frontend': ['React Native', 'Expo', 'TypeScript'],
+        'APIs': ['Gmail API', 'OpenAI TTS', 'ElevenLabs'],
+      },
+      codeFile: 'api/podcast.py',
+      codeHtml: `<span class="cc"># Core podcast generation endpoint</span>
+<span class="ck">@router</span>.post(<span class="cs">"/generate"</span>)
+<span class="ck">async def</span> <span class="cf">generate_podcast</span>(req: GenerateRequest, user=Depends(auth)):
+    emails  = <span class="ck">await</span> gmail.<span class="cf">fetch_newsletters</span>(user.id, req.newsletters)
+    summary = <span class="ck">await</span> llm.<span class="cf">summarize</span>(emails, style=<span class="cs">"podcast"</span>)
+    audio   = <span class="ck">await</span> tts.<span class="cf">synthesize</span>(summary, voice=req.voice)
+
+    <span class="ck">await</span> db.podcasts.<span class="cf">insert</span>({
+        <span class="cs">"user_id"</span>:   user.id,
+        <span class="cs">"audio_url"</span>: audio.url,
+        <span class="cs">"transcript"</span>: summary,
+        <span class="cs">"duration_s"</span>: audio.duration,
+    })
+    <span class="ck">return</span> GenerateResponse(audio_url=audio.url, duration=audio.duration)`,
+      headerImage: 'PaperboyBanner.jpg',
+      media: [
+        { type: 'video', src: 'paperboy-google-tts.MOV', label: 'Google TTS — live demo recording' },
+      ],
+    },
+
+    'EngSoc User Centre': {
+      github: 'https://github.com/jack-fergusson/EngSoc-User-Center',
+      year: '2026',
+      desc: "Official event management platform for Queen's Engineering Society, serving ~2,000 engineering students. Handles event discovery, RSVP and registration, member management, and admin tooling — built collaboratively across one semester.",
+      features: [
+        'Event discovery feed with filtering by category, club, and date range',
+        'RSVP and registration system with real-time capacity tracking via Supabase subscriptions',
+        'QR code check-in flow for event-day attendee verification',
+        'Admin dashboard for creating events, managing attendees, and exporting lists',
+        'Member directory with role-based access controls for society executives',
+        'Email confirmation and waitlist logic when events reach capacity',
+      ],
+      stack: {
+        'Frontend': ['React', 'TypeScript', 'Vite'],
+        'Backend': ['Supabase', 'PostgreSQL', 'Row-Level Security'],
+        'Auth': ['Supabase Auth', 'Magic Links'],
+      },
+      codeFile: 'lib/registrations.ts',
+      codeHtml: `<span class="cc">// Register a user for an event with capacity check</span>
+<span class="ck">async function</span> <span class="cf">registerForEvent</span>(eventId: <span class="ck">string</span>, userId: <span class="ck">string</span>) {
+  <span class="ck">const</span> { data: event } = <span class="ck">await</span> supabase
+    .from(<span class="cs">'events'</span>)
+    .select(<span class="cs">'capacity, registrations(count)'</span>)
+    .eq(<span class="cs">'id'</span>, eventId).single();
+
+  <span class="ck">if</span> (event.registrations[<span class="cn">0</span>].count &gt;= event.capacity)
+    <span class="ck">throw new</span> Error(<span class="cs">'Event is at capacity'</span>);
+
+  <span class="ck">return</span> supabase.from(<span class="cs">'registrations'</span>).insert({
+    event_id:      eventId,
+    user_id:       userId,
+    registered_at: <span class="ck">new</span> Date().toISOString(),
+  });
+}`,
+    },
+
+    'LeoLearn SRS': {
+      github: 'https://github.com/theoleone10/leolearn-srs',
+      year: '2024',
+      desc: 'Full-stack spaced repetition system for managing flashcard decks and scheduling reviews. Implements the SM-2 algorithm to determine the optimal interval between repetitions, maximising long-term retention while minimising total study time.',
+      features: [
+        'SM-2 spaced repetition algorithm scheduling cards at mathematically optimal intervals',
+        'Deck and card management — create, edit, import from CSV or markdown files',
+        'Review sessions with Again / Hard / Good / Easy rating system and keyboard shortcuts',
+        'Streak tracker, daily review stats, and retention rate analytics dashboard',
+        'FastAPI backend with SQLModel ORM, Pydantic validation, and Alembic migrations',
+        'React frontend with real-time session progress and animated card flip transitions',
+      ],
+      stack: {
+        'Backend': ['Python', 'FastAPI', 'SQLModel', 'Pydantic', 'PostgreSQL'],
+        'Frontend': ['React', 'TypeScript', 'Vite'],
+        'Infra': ['Supabase', 'Alembic'],
+      },
+      codeFile: 'core/sm2.py',
+      codeHtml: `<span class="cc"># SM-2 spaced repetition scheduling algorithm</span>
+<span class="ck">def</span> <span class="cf">sm2_schedule</span>(card: Card, rating: <span class="ck">int</span>) -&gt; Card:
+    <span class="cc">"""rating: 0=Again  1=Hard  2=Good  3=Easy"""</span>
+    <span class="ck">if</span> rating &lt; <span class="cn">2</span>:
+        card.interval, card.reps = <span class="cn">1</span>, <span class="cn">0</span>
+    <span class="ck">else</span>:
+        card.interval = (
+            <span class="cn">1</span>   <span class="ck">if</span> card.reps == <span class="cn">0</span> <span class="ck">else</span>
+            <span class="cn">6</span>   <span class="ck">if</span> card.reps == <span class="cn">1</span> <span class="ck">else</span>
+            round(card.interval * card.ease_factor)
+        )
+        card.reps += <span class="cn">1</span>
+
+    <span class="cc"># Adjust ease factor — rewards fluency, penalises struggle</span>
+    card.ease_factor = max(<span class="cn">1.3</span>, card.ease_factor + (
+        <span class="cn">0.1</span> - (<span class="cn">3</span> - rating) * (<span class="cn">0.08</span> + (<span class="cn">3</span> - rating) * <span class="cn">0.02</span>)
+    ))
+    card.due_date = date.today() + timedelta(days=card.interval)
+    <span class="ck">return</span> card`,
+    },
+
+    'Lost Hiker Consensus': {
+      github: 'https://github.com/theoleone10/lost_hiker_consensus',
+      year: '2026',
+      desc: 'MATLAB simulation of distributed consensus algorithms for networks of autonomous agents. Models formation control, rendezvous, and flocking behaviours grounded in algebraic graph theory and Laplacian dynamics, with optional leader-follower extensions.',
+      features: [
+        'Average consensus via Laplacian dynamics — provably converges for any connected graph',
+        'Formation control: agents maintain a prescribed geometric shape while moving to a target',
+        'Rendezvous protocol: all agents converge to a common meeting point without global knowledge',
+        'Reynolds-rule flocking with velocity alignment and soft collision avoidance',
+        'Leader-follower extension with pinning control across varying graph topologies',
+        'Real-time animated MATLAB visualisation of agent trajectories and convergence',
+      ],
+      stack: {
+        'Language': ['MATLAB'],
+        'Theory': ['Algebraic Graph Theory', 'Control Theory', 'ODE Solvers'],
+        'Concepts': ['Laplacian Matrices', 'Lyapunov Stability', 'Consensus Protocols'],
+      },
+      codeFile: 'consensus/update.m',
+      codeHtml: `<span class="cc">% Laplacian-based average consensus update law</span>
+<span class="ck">function</span> x_new = <span class="cf">consensus_update</span>(x, L, dt)
+  <span class="cc">% dx/dt = -L*x  →  discrete: x(t+1) = x(t) - dt*L*x(t)</span>
+  x_new = x - dt * L * x;
+<span class="ck">end</span>
+
+<span class="ck">function</span> L = <span class="cf">build_laplacian</span>(A)
+  D = diag(sum(A, <span class="cn">2</span>));  <span class="cc">% degree matrix</span>
+  L = D - A;             <span class="cc">% L = D − A  (positive semi-definite)</span>
+<span class="ck">end</span>
+
+<span class="cc">% Simulation loop — watch agents converge</span>
+<span class="ck">for</span> t = <span class="cn">1</span>:T
+  x = <span class="cf">consensus_update</span>(x, L, dt);
+  <span class="cf">plot_agents</span>(x, t * dt);   <span class="cc">% live animation</span>
+<span class="ck">end</span>`,
+    },
+
+    'Waypass': {
+      github: 'https://github.com/waypass-ca/waypass',
+      year: '2026',
+      desc: 'Funeral home management and cremation booking platform. Waypass digitizes the full cremation workflow — from case intake through completion — connecting funeral homes with crematoriums and shipping partners. Multi-tenant SaaS with role-based access, family portals, financial dashboards, and PostGIS geospatial partner search.',
+      features: [
+        'Case management pipeline tracking deceased through intake, custody, documentation, and completion',
+        'Cremation booking: funeral homes propose time slots, crematoriums respond, homes confirm',
+        'PostGIS geospatial search to discover nearby crematoriums and shipping partners via Google Maps',
+        'Family portal — external-facing view for families to track case status and send messages',
+        'Financial dashboard with revenue tracking, package pricing, and weekly billing reports',
+        'In-app inbox and Resend email notifications with per-user preference controls',
+        'Document management with Cloudinary file storage scoped per case',
+        'Global Cmd+K command palette search across cases, crematoriums, partners, and messages',
+        'Multi-tenant workspaces with role-based access: admin, staff, and read-only roles',
+      ],
+      stack: {
+        'Frontend': ['React 19', 'Vite', 'React Router v7', 'Tailwind CSS 4'],
+        'Backend': ['Node.js', 'Express 4', 'Supabase Auth', 'JWT'],
+        'Database': ['Supabase PostgreSQL', 'PostGIS', 'Row-Level Security'],
+        'Services': ['Cloudinary', 'Resend', 'Google Maps JS API'],
+      },
+      codeFile: 'routes/bookings.js',
+      codeHtml: `<span class="cc">// Propose cremation booking slots to a partner crematorium</span>
+<span class="ck">async function</span> <span class="cf">proposeBooking</span>(caseId, crematoriumId, slots) {
+  <span class="ck">const</span> { data } = <span class="ck">await</span> supabase
+    .from(<span class="cs">'bookings'</span>)
+    .insert({
+      case_id:        caseId,
+      crematorium_id: crematoriumId,
+      proposed_slots: slots,
+      status:         <span class="cs">'pending'</span>,
+    })
+    .select().single();
+
+  <span class="ck">await</span> <span class="cf">notifyPartner</span>(crematoriumId, {
+    type:       <span class="cs">'BOOKING_PROPOSAL'</span>,
+    booking_id: data.id,
+    case_id:    caseId,
+  });
+  <span class="ck">return</span> data;
+}`,
+      headerImage: 'Waypass (3).png',
+      media: [
+        { type: 'loom', id: 'ac7c3802d7064607b15e56bb90d14e40', label: 'Platform walkthrough — full demo' },
+      ],
+    },
+  };
+
+  const modalOverlay  = document.getElementById('project-modal');
+  const modalClose    = document.getElementById('modal-close');
+  const modalTitle    = document.getElementById('modal-title');
+  const modalYear     = document.getElementById('modal-year');
+  const modalDesc     = document.getElementById('modal-desc');
+  const modalGhBtn    = document.getElementById('modal-gh-btn');
+  const modalThumb    = document.getElementById('modal-thumb');
+  const modalFeatures = document.getElementById('modal-features');
+  const modalStack    = document.getElementById('modal-stack');
+  const modalLinks    = document.getElementById('modal-links');
+
+  function openProjectModal(card) {
+    const name = card.querySelector('.project-name').textContent.trim();
+    const d = MODAL_DATA[name];
+    if (!d) return;
+
+    // Modal header — banner image if available, else clone SVG
+    modalThumb.innerHTML = '';
+    if (d.headerImage) {
+      const img = document.createElement('img');
+      img.src = d.headerImage;
+      img.alt = name;
+      modalThumb.appendChild(img);
+    } else {
+      const srcSvg = card.querySelector('.project-thumb svg');
+      if (srcSvg) modalThumb.appendChild(srcSvg.cloneNode(true));
+    }
+
+    // Populate
+    modalTitle.textContent = name;
+    modalYear.textContent  = d.year;
+    modalDesc.textContent  = d.desc;
+
+    // Media section (video / loom embed)
+    const mediaEl = document.getElementById('modal-media');
+    if (d.media && d.media.length) {
+      mediaEl.innerHTML = '<div class="modal-section"><div class="modal-section-label">Demo</div>' +
+        d.media.map(m => {
+          if (m.type === 'video') return `
+            <div class="modal-video-wrap">
+              <video controls preload="metadata">
+                <source src="${m.src}" type="video/quicktime">
+                <source src="${m.src}" type="video/mp4">
+              </video>
+            </div>
+            <div class="media-caption">${m.label}</div>`;
+          if (m.type === 'loom') return `
+            <div class="modal-loom-wrap">
+              <iframe src="https://www.loom.com/embed/${m.id}?hide_owner=true&hide_share=true&hide_title=false&hideEmbedTopBar=true"
+                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+            <div class="media-caption">${m.label}</div>`;
+          return '';
+        }).join('') + '</div>';
+    } else {
+      mediaEl.innerHTML = '';
+    }
+    modalGhBtn.href        = d.github;
+
+    modalFeatures.innerHTML = d.features.map(f =>
+      `<li><span class="arr">→</span>${f}</li>`
+    ).join('');
+
+    modalStack.innerHTML = Object.entries(d.stack).map(([cat, pills]) =>
+      `<div class="stack-row">
+        <span class="stack-cat">${cat}</span>
+        <div class="stack-pills">${pills.map(p => `<span class="tag">${p}</span>`).join('')}</div>
+      </div>`
+    ).join('');
+
+    modalLinks.innerHTML = `
+      <a href="${d.github}" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        View on GitHub
+      </a>
+      <a href="${d.github}/commits" target="_blank" rel="noopener" class="btn btn-ghost">Commit History ↗</a>
+    `;
+
+    document.getElementById('modal-container').scrollTop = 0;
+    modalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      openProjectModal(card);
+    });
+  });
+
+  // ── Card spotlight effect
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    });
+  });
 </script>
 </body>
 </html>
