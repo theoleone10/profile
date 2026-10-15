@@ -346,62 +346,17 @@
     <span class="mono muted">2025 &ndash; 2026</span>
   </div>
   <ol class="index">
-    <li><a href="#kaeru" data-peek="img/kaeru-04-map.jpg"><span class="mono muted">01</span><span class="name">Kaeru</span><span class="what">An iOS app for learning Japanese grammar, from N5 to N1</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
-    <li><a href="#paperboy" data-peek="img/paperboy-player.jpg"><span class="mono muted">02</span><span class="name">Paperboy</span><span class="what">Your Gmail newsletters, read aloud each morning</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
-    <li><a href="#waypass" data-peek="img/waypass.png"><span class="mono muted">03</span><span class="name">Waypass</span><span class="what">Software for funeral homes to run cases and book cremations</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
+    <li><a href="#paperboy" data-peek="img/paperboy-player.jpg"><span class="mono muted">01</span><span class="name">Paperboy</span><span class="what">Your Gmail newsletters, read aloud each morning</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
+    <li><a href="#waypass" data-peek="img/waypass.png"><span class="mono muted">02</span><span class="name">Waypass</span><span class="what">Software for funeral homes to run cases and book cremations</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
+    <li><a href="#kaeru" data-peek="img/kaeru-04-map.jpg"><span class="mono muted">03</span><span class="name">Kaeru</span><span class="what">An iOS app for learning Japanese grammar, from N5 to N1</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
     <li><a href="#engsoc"><span class="mono muted">04</span><span class="name">EngSoc User Centre</span><span class="what">The events platform for Queen&rsquo;s Engineering Society</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
   </ol>
   <div class="peek" aria-hidden="true"><img alt="" /></div>
 
-  <!-- ── 01 KAERU ── -->
-  <article class="case" id="kaeru">
-    <div class="case-meta reveal">
-      <div class="case-num">No. 01</div>
-      <h3 class="case-title">Kaeru</h3>
-      <p class="case-pitch">A JLPT grammar trainer that fits into one daily routine.</p>
-      <div class="meta-list">
-        <div><span class="mono muted">Year</span><span>2026</span></div>
-        <div><span class="mono muted">Role</span><span>Solo: design, code, content</span></div>
-        <div><span class="mono muted">Platform</span><span>iOS (Expo / React Native)</span></div>
-        <div><span class="mono muted">Stack</span><span>TypeScript, SQLite, FSRS, Supabase, Jest</span></div>
-      </div>
-      <div class="links"><span class="tag-private mono">&#9679; Private repo &middot; App Store soon</span></div>
-    </div>
-    <div class="reveal">
-      <div class="stage kaeru">
-        <div class="stage-brand"><img src="img/kaeru-icon.png" alt="" /><span>Kaeru</span><small class="mono">JLPT N5 &rarr; N1</small></div>
-        <div class="stage-row">
-          <img class="shot" src="img/kaeru-01-today.jpg" alt="Kaeru Today screen: the daily study plan" loading="lazy" />
-          <div class="phone" data-video>
-            <video src="img/kaeru-demo.mp4" poster="img/kaeru-poster.jpg" preload="none" playsinline></video>
-            <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
-          </div>
-          <img class="shot" src="img/kaeru-04-map.jpg" alt="Kaeru grammar map, drawn as train lines from N5 to N1" loading="lazy" />
-        </div>
-      </div>
-      <div class="case-body">
-        <div>
-          <h4 class="mono muted" style="margin-bottom:12px">The idea</h4>
-          <p>Each JLPT level is a train line and each grammar point is a stop. The Today screen gives you one plan to work through: learn a couple of new points, review what&rsquo;s due, do your Anki flashcards, then reach your immersion time goal. It works fully offline. Signing in is optional and only backs your progress up to the cloud.</p>
-        </div>
-        <div>
-          <h4 class="mono muted" style="margin-bottom:12px">What I built</h4>
-          <ul class="built">
-            <li>FSRS spaced-repetition scheduling over a local SQLite database, with migrations and versioned backups</li>
-            <li>Cloud sync through Supabase (Apple, Google or email sign-in) that shares one format with the backup file</li>
-            <li>Typed-answer reviews: romaji turns into kana as you type, and a correct but different answer gets &ldquo;Close!&rdquo; instead of a fail</li>
-            <li>Anki .apkg import that renders your own decks, plus a built-in study timer</li>
-            <li>Grammar content for N5&ndash;N1, checked by tests. The whole Jest suite runs in four time zones</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <!-- ── 02 PAPERBOY ── -->
+  <!-- ── 01 PAPERBOY ── -->
   <article class="case" id="paperboy">
     <div class="case-meta reveal">
-      <div class="case-num">No. 02</div>
+      <div class="case-num">No. 01</div>
       <h3 class="case-title">Paperboy</h3>
       <p class="case-pitch">Your newsletters, turned into one short audio brief every morning.</p>
       <div class="meta-list">
@@ -446,10 +401,10 @@
     </div>
   </article>
 
-  <!-- ── 03 WAYPASS ── -->
+  <!-- ── 02 WAYPASS ── -->
   <article class="case" id="waypass">
     <div class="case-meta reveal">
-      <div class="case-num">No. 03</div>
+      <div class="case-num">No. 02</div>
       <h3 class="case-title">Waypass</h3>
       <p class="case-pitch">The whole cremation workflow, from intake to completion, on one platform.</p>
       <div class="meta-list">
@@ -481,6 +436,51 @@
             <li>PostGIS search for nearby partners, shown on Google Maps</li>
             <li>Family portal, financial dashboard, in-app inbox and Resend email</li>
             <li>Workspaces with roles, and a Cmd+K command palette that searches everything</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── 03 KAERU ── -->
+  <article class="case" id="kaeru">
+    <div class="case-meta reveal">
+      <div class="case-num">No. 03</div>
+      <h3 class="case-title">Kaeru</h3>
+      <p class="case-pitch">A JLPT grammar trainer that fits into one daily routine.</p>
+      <div class="meta-list">
+        <div><span class="mono muted">Year</span><span>2026</span></div>
+        <div><span class="mono muted">Role</span><span>Solo: design, code, content</span></div>
+        <div><span class="mono muted">Platform</span><span>iOS (Expo / React Native)</span></div>
+        <div><span class="mono muted">Stack</span><span>TypeScript, SQLite, FSRS, Supabase, Jest</span></div>
+      </div>
+      <div class="links"><span class="tag-private mono">&#9679; Private repo &middot; App Store soon</span></div>
+    </div>
+    <div class="reveal">
+      <div class="stage kaeru">
+        <div class="stage-brand"><img src="img/kaeru-icon.png" alt="" /><span>Kaeru</span><small class="mono">JLPT N5 &rarr; N1</small></div>
+        <div class="stage-row">
+          <img class="shot" src="img/kaeru-01-today.jpg" alt="Kaeru Today screen: the daily study plan" loading="lazy" />
+          <div class="phone" data-video>
+            <video src="img/kaeru-demo.mp4" poster="img/kaeru-poster.jpg" preload="none" playsinline></video>
+            <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
+          </div>
+          <img class="shot" src="img/kaeru-04-map.jpg" alt="Kaeru grammar map, drawn as train lines from N5 to N1" loading="lazy" />
+        </div>
+      </div>
+      <div class="case-body">
+        <div>
+          <h4 class="mono muted" style="margin-bottom:12px">The idea</h4>
+          <p>Each JLPT level is a train line and each grammar point is a stop. The Today screen gives you one plan to work through: learn a couple of new points, review what&rsquo;s due, do your Anki flashcards, then reach your immersion time goal. It works fully offline. Signing in is optional and only backs your progress up to the cloud.</p>
+        </div>
+        <div>
+          <h4 class="mono muted" style="margin-bottom:12px">What I built</h4>
+          <ul class="built">
+            <li>FSRS spaced-repetition scheduling over a local SQLite database, with migrations and versioned backups</li>
+            <li>Cloud sync through Supabase (Apple, Google or email sign-in) that shares one format with the backup file</li>
+            <li>Typed-answer reviews: romaji turns into kana as you type, and a correct but different answer gets &ldquo;Close!&rdquo; instead of a fail</li>
+            <li>Anki .apkg import that renders your own decks, plus a built-in study timer</li>
+            <li>Grammar content for N5&ndash;N1, checked by tests. The whole Jest suite runs in four time zones</li>
           </ul>
         </div>
       </div>
