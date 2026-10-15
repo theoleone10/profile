@@ -137,7 +137,8 @@
       transition: opacity 0.2s, transform 0.3s cubic-bezier(.2,.7,.2,1);
     }
     .peek.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
-    .peek img { width: 100%; height: 100%; object-fit: cover; }
+    .peek img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+    .peek.icon { width: 160px; aspect-ratio: 1; border: none; border-radius: 36px; box-shadow: 0 18px 40px rgba(0,0,0,0.25); }
     @media (hover: none) { .peek { display: none; } }
 
     /* ── CASE STUDIES ── */
@@ -346,9 +347,9 @@
     <span class="mono muted">2025 &ndash; 2026</span>
   </div>
   <ol class="index">
-    <li><a href="#paperboy" data-peek="img/paperboy-player.jpg"><span class="mono muted">01</span><span class="name">Paperboy</span><span class="what">Your Gmail newsletters, read aloud each morning</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
+    <li><a href="#paperboy" data-peek="img/paperboy-icon.png" data-peek-icon><span class="mono muted">01</span><span class="name">Paperboy</span><span class="what">Your Gmail newsletters, read aloud each morning</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
     <li><a href="#waypass" data-peek="img/waypass.png"><span class="mono muted">02</span><span class="name">Waypass</span><span class="what">Software for funeral homes to run cases and book cremations</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
-    <li><a href="#kaeru" data-peek="img/kaeru-04-map.jpg"><span class="mono muted">03</span><span class="name">Kaeru</span><span class="what">An iOS app for learning Japanese grammar, from N5 to N1</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
+    <li><a href="#kaeru" data-peek="img/kaeru-icon.png" data-peek-icon><span class="mono muted">03</span><span class="name">Kaeru</span><span class="what">An iOS app for learning Japanese grammar, from N5 to N1</span><span class="mono muted">2026</span><span class="arrow">&searr;</span></a></li>
     <li><a href="#engsoc"><span class="mono muted">04</span><span class="name">EngSoc User Centre</span><span class="what">The events platform for Queen&rsquo;s Engineering Society</span><span class="mono muted">2025&ndash;26</span><span class="arrow">&searr;</span></a></li>
   </ol>
   <div class="peek" aria-hidden="true"><img alt="" /></div>
@@ -588,6 +589,7 @@
     a.addEventListener('mouseenter', () => {
       if (!a.dataset.peek) return;
       peekImg.src = a.dataset.peek;
+      peek.classList.toggle('icon', 'peekIcon' in a.dataset);
       peek.classList.add('on');
     });
     a.addEventListener('mouseleave', () => peek.classList.remove('on'));
