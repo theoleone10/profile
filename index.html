@@ -172,10 +172,7 @@
     .built li::before { content: counter(b, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--accent); padding-top: 3px; }
 
     /* Kaeru stage */
-    .stage.kaeru {
-      background: #3f51a8; padding: clamp(24px, 4vw, 48px);
-      display: flex; gap: clamp(12px, 2.5vw, 28px); align-items: center; justify-content: center;
-    }
+    .stage.kaeru { background: #3f51a8; padding: clamp(24px, 4vw, 48px) clamp(24px, 4vw, 48px) clamp(28px, 4vw, 52px); }
     .stage.kaeru .shot { width: 27%; border-radius: 10px; box-shadow: 0 20px 40px rgba(10,15,50,0.35); }
     .stage.kaeru .shot:first-child { transform: rotate(-3deg) translateY(12px); }
     .stage.kaeru .shot:last-child { transform: rotate(3deg) translateY(12px); }
@@ -200,15 +197,15 @@
     .stage.paperboy {
       background: #5b55bb; padding: clamp(24px, 4vw, 48px) clamp(24px, 4vw, 48px) clamp(28px, 4vw, 52px);
     }
-    .pb-brand { display: flex; align-items: center; gap: 12px; color: #fbf3e4; margin-bottom: clamp(20px, 3vw, 32px); }
-    .pb-brand img { width: 44px; height: 44px; border-radius: 11px; box-shadow: 0 6px 16px rgba(20,15,70,0.35); }
-    .pb-brand span { font-family: var(--serif); font-size: 26px; }
-    .pb-brand small { margin-left: auto; color: rgba(251,243,228,0.7); }
-    .pb-row { display: flex; gap: clamp(12px, 2.5vw, 28px); align-items: center; justify-content: center; }
+    .stage-brand { display: flex; align-items: center; gap: 12px; color: #fbf3e4; margin-bottom: clamp(20px, 3vw, 32px); }
+    .stage-brand img { width: 44px; height: 44px; border-radius: 11px; box-shadow: 0 6px 16px rgba(20,15,70,0.35); }
+    .stage-brand span { font-family: var(--serif); font-size: 26px; }
+    .stage-brand small { margin-left: auto; color: rgba(251,243,228,0.7); }
+    .stage-row { display: flex; gap: clamp(12px, 2.5vw, 28px); align-items: center; justify-content: center; }
     .phone.mini { width: 27%; border-radius: 30px; padding: 6px; box-shadow: 0 20px 40px rgba(20,15,70,0.35), inset 0 0 0 1.5px #3a3a44; }
     .phone.mini img { width: 100%; border-radius: 24px; aspect-ratio: 440 / 960; object-fit: cover; object-position: top; }
-    .pb-row .mini:first-child { transform: rotate(-3deg) translateY(12px); }
-    .pb-row .mini:last-child { transform: rotate(3deg) translateY(12px); }
+    .stage-row .mini:first-child { transform: rotate(-3deg) translateY(12px); }
+    .stage-row .mini:last-child { transform: rotate(3deg) translateY(12px); }
 
     /* Waypass stage */
     .stage.waypass { background: #0b2a4a; }
@@ -294,16 +291,16 @@
       .facts { grid-template-columns: 1fr 1fr; }
       .facts > div:nth-child(3) { padding-left: 0; border-left: none; }
       .facts > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
-      .stage.kaeru { padding: 20px 12px; gap: 8px; }
+      .stage.kaeru { padding: 20px 12px 24px; }
       .stage.kaeru .shot { width: 29%; border-radius: 6px; }
       .phone { width: 36%; border-radius: 22px; padding: 5px; }
       .phone video { border-radius: 18px; }
       .play { width: 48px; height: 48px; }
       .stage.paperboy { padding: 20px 12px 24px; }
-      .pb-row { gap: 8px; }
+      .stage-row { gap: 8px; }
       .phone.mini { width: 29%; border-radius: 16px; padding: 3px; }
       .phone.mini img { border-radius: 13px; }
-      .pb-brand small { display: none; }
+      .stage-brand small { display: none; }
       .stage.engsoc { grid-template-columns: 1fr; }
       .commits { text-align: left; }
       .bar { margin-left: 0; }
@@ -372,12 +369,15 @@
     </div>
     <div class="reveal">
       <div class="stage kaeru">
-        <img class="shot" src="img/kaeru-01-today.jpg" alt="Kaeru Today screen: the daily study plan" loading="lazy" />
-        <div class="phone" data-video>
-          <video src="img/kaeru-demo.mp4" poster="img/kaeru-poster.jpg" preload="none" playsinline></video>
-          <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
+        <div class="stage-brand"><img src="img/kaeru-icon.png" alt="" /><span>Kaeru</span><small class="mono">JLPT N5 &rarr; N1</small></div>
+        <div class="stage-row">
+          <img class="shot" src="img/kaeru-01-today.jpg" alt="Kaeru Today screen: the daily study plan" loading="lazy" />
+          <div class="phone" data-video>
+            <video src="img/kaeru-demo.mp4" poster="img/kaeru-poster.jpg" preload="none" playsinline></video>
+            <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
+          </div>
+          <img class="shot" src="img/kaeru-04-map.jpg" alt="Kaeru grammar map, drawn as train lines from N5 to N1" loading="lazy" />
         </div>
-        <img class="shot" src="img/kaeru-04-map.jpg" alt="Kaeru grammar map, drawn as train lines from N5 to N1" loading="lazy" />
       </div>
       <div class="case-body">
         <div>
@@ -417,8 +417,8 @@
     </div>
     <div class="reveal">
       <div class="stage paperboy">
-        <div class="pb-brand"><img src="img/paperboy-icon.png" alt="" /><span>Paperboy</span><small class="mono">Recorded on device, Oct 2026</small></div>
-        <div class="pb-row">
+        <div class="stage-brand"><img src="img/paperboy-icon.png" alt="" /><span>Paperboy</span><small class="mono">Recorded on device, Oct 2026</small></div>
+        <div class="stage-row">
           <div class="phone mini"><img src="img/paperboy-today.jpg" alt="Paperboy Today screen with Thursday's brief" loading="lazy" /></div>
           <div class="phone" data-video>
             <video src="img/paperboy-demo.mp4" poster="img/paperboy-poster.jpg" preload="none" playsinline></video>
