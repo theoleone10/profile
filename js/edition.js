@@ -108,6 +108,18 @@
     videos.forEach((v) => { if (!e.detail.pages.some((p) => p.contains(v))) v.pause(); });
   });
 
+  // ── Contents menu (phones) ──
+  const menuBtn = $('#menu-btn');
+  const contents = $('#contents');
+  const setMenu = (open) => {
+    contents.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    if (open) $('.contents .on', contents)?.focus({ preventScroll: true });
+  };
+  menuBtn.addEventListener('click', () => setMenu(contents.hidden));
+  contents.addEventListener('click', (e) => { if (e.target === contents || e.target.closest('[data-go]')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !contents.hidden) { setMenu(false); menuBtn.focus(); } });
+
   // ── Copy email ──
   const copy = $('#copy-mail');
   copy.addEventListener('click', async () => {

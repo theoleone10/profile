@@ -17,8 +17,29 @@
 
 <header class="chrome-top">
   <a class="chrome-name" href="#cover" data-go="0">Theo Leone <span>&middot; The Morning Edition</span></a>
-  <a class="chrome-link" href="#back" data-go="6">Contact</a>
+  <span class="chrome-right">
+    <a class="chrome-link" href="#back" data-go="6" data-page="13">Contact</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Contents" aria-expanded="false" aria-controls="contents">
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 1h18M1 7h18M1 13h18"/></svg>
+    </button>
+  </span>
 </header>
+
+<!-- Contents (phones), opened from the menu button, like a book's table of contents -->
+<div class="contents" id="contents" hidden>
+  <div class="contents-sheet" role="dialog" aria-label="Contents">
+    <p class="contents-head"><span>Contents</span><span class="mono" id="contents-at"></span></p>
+    <ol>
+      <li><button data-go="0"><b>Front page</b><i>The Morning Edition</i><span class="mono">1</span></button></li>
+      <li><button data-go="1"><b>Inside</b><i>Today&rsquo;s edition &amp; about the author</i><span class="mono">2</span></button></li>
+      <li><button data-go="2"><b>Paperboy</b><i>Your newsletters, read aloud</i><span class="mono">4</span></button></li>
+      <li><button data-go="3"><b>Waypass</b><i>Cremations without the paper</i><span class="mono">6</span></button></li>
+      <li><button data-go="4"><b>Kaeru</b><i>Japanese grammar, N5 to N1</i><span class="mono">8</span></button></li>
+      <li><button data-go="5"><b>FL on DCP</b><i>Models that train where data lives</i><span class="mono">10</span></button></li>
+      <li><button data-go="6"><b>Classifieds &amp; letters</b><i>Other work, and how to reach me</i><span class="mono">12</span></button></li>
+    </ol>
+  </div>
+</div>
 
 <main class="desk">
   <div class="book" id="book" aria-live="polite">
@@ -62,7 +83,8 @@
         <h2 class="title op">Every story in this edition has something you can <em>try.</em></h2>
         <div class="cols dropcap">
           <p>Build a morning brief, book a cremation from both sides, answer a Japanese grammar card, or train a model whose data never leaves its owners. Each project&rsquo;s right-hand page is the thing itself, with the video and the real code a tab away.</p>
-          <p>Turn pages with the arrows below, the section names, or your keyboard.</p>
+          <p class="on-wide">Turn pages with the arrows beside the paper, the section names up top, or your keyboard.</p>
+          <p class="on-phone">Swipe, or tap the edge of the page, to turn it. The &#9776; menu has the contents.</p>
         </div>
         <div class="box">
           <p class="box-head mono">In this edition</p>

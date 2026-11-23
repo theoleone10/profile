@@ -197,8 +197,10 @@
 
   function layout() {
     const stacked = W < 460;
-    const plot = stacked ? { x: 0, y: 0, w: W, h: H * 0.7 } : { x: 0, y: 0, w: W * 0.62, h: H };
-    const net = stacked ? { x: 0, y: H * 0.7, w: W, h: H * 0.3 } : { x: W * 0.62, y: 0, w: W * 0.38, h: H };
+    // stacked (narrow): the server and clients keep a fixed-height strip under the plot
+    const strip = 76;
+    const plot = stacked ? { x: 0, y: 0, w: W, h: H - strip } : { x: 0, y: 0, w: W * 0.62, h: H };
+    const net = stacked ? { x: 0, y: H - strip, w: W, h: strip } : { x: W * 0.62, y: 0, w: W * 0.38, h: H };
     const server = { x: net.x + net.w / 2, y: net.y + (stacked ? 16 : net.h * 0.2) };
     const nodes = Array.from({ length: N_CLIENTS }, (_, k) => ({
       x: net.x + net.w * ((k + 0.5) / N_CLIENTS),

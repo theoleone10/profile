@@ -61,9 +61,10 @@
         settle();
       } else {
         book.className = 'book linear';
-        book.replaceChildren(...pages);
+        store.append(...pages);
+        book.replaceChildren(store, slotR, sheet);
         curPage = Math.max(0, 2 * cur - 1);
-        requestAnimationFrame(() => scrollToPage(curPage, false));
+        settleSingle();
       }
       announce('layout');
     }
@@ -143,23 +144,139 @@
     busyUntil = performance.now() + TURN_MS * 0.55;
   }
 
-  function scrollToPage(i, animate) {
-    book.scrollTo({ left: pages[i].offsetLeft - 12, behavior: animate && !reduced && !document.hidden ? 'smooth' : 'auto' });
+  // ── One page at a time (phones) ──
+  // Still a paper: the page you're on turns over at the spine to show the next
+  // one underneath, following your finger if you drag it.
+  function settleSingle() {
+    pages.forEach((p, i) => { if (i !== curPage && p.parentElement !== store) store.append(p); });
+    slotR.replaceChildren(pages[curPage]);
+    // the stack of pages still to come, along the edge
+    book.style.setProperty('--ahead', Math.min(4, pages.length - 1 - curPage));
   }
+
+  // set up a turn from curPage to target; returns the sheet's resting angles
+  function prepareSingle(target) {
+    const from = curPage;
+    const fwd = target > from;
+    if (fwd) {
+      slotR.replaceChildren(pages[target]);
+      front.replaceChildren(pages[from]);
+    } else {
+      front.replaceChildren(pages[target]);
+    }
+    back.replaceChildren();
+    sheet.hidden = false;
+    sheet.classList.remove('show-back');
+    return { from, fwd, open: fwd ? 0 : -180, done: fwd ? -180 : 0 };
+  }
+
+  let single = null; // the turn in progress: { from, target, fwd, open, done, a, raf }
+  const paintSingle = (a) => {
+    sheet.style.transform = `rotateY(${a}deg)`;
+    sheet.classList.toggle('show-back', a < -90);
+    sheet.style.setProperty('--shade', Math.sin((Math.abs(a) / 180) * Math.PI).toFixed(3));
+    single.a = a;
+  };
+  // animate the sheet to `to`; land on the new page, or put everything back
+  function settleTurn(to, commit) {
+    const t = single;
+    cancelAnimationFrame(t.raf);
+    const start = t.a, t0 = performance.now();
+    const ms = reduced ? 0 : Math.max(180, (Math.abs(to - start) / 180) * 620);
+    const ease = (x) => 1 - Math.pow(1 - x, 3);
+    const end = () => {
+      sheet.hidden = true;
+      sheet.style.transform = '';
+      sheet.style.setProperty('--shade', 0);
+      store.append(...front.children);
+      if (commit) curPage = t.target;
+      single = null;
+      settleSingle();
+      fitAll();
+      if (commit) { cur = Math.floor((curPage + 1) / 2); announce(t.source); }
+    };
+    if (!ms) return end();
+    t.raf = requestAnimationFrame(function frame(now) {
+      const k = Math.min(1, (now - t0) / ms);
+      paintSingle(start + (to - start) * ease(k));
+      if (k < 1) t.raf = requestAnimationFrame(frame); else end();
+    });
+  }
+  function turnSingle(target, source) {
+    if (single) settleTurn(single.done, true);
+    if (single) return;
+    if (target === curPage || target < 0 || target >= pages.length) return;
+    single = { ...prepareSingle(target), target, source };
+    paintSingle(single.open);
+    settleTurn(single.done, true);
+  }
+
+  // drag a page over with a finger (or mouse)
+  let drag = null;
+  const NO_DRAG = 'input, select, textarea, canvas, pre, video, iframe, [role="slider"], .editor-files';
+  book.addEventListener('pointerdown', (e) => {
+    if (mode !== 'linear' || single || e.button > 0 || e.target.closest(NO_DRAG)) return;
+    drag = { x: e.clientX, y: e.clientY, id: e.pointerId, t: performance.now(), on: false };
+  });
+  book.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.on) {
+      if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      const target = curPage + (dx < 0 ? 1 : -1);
+      if (target < 0 || target >= pages.length) { drag = null; return; }
+      drag.on = true;
+      book.setPointerCapture(e.pointerId);
+      single = { ...prepareSingle(target), target, source: 'user' };
+    }
+    const w = book.clientWidth;
+    const k = Math.min(1, Math.max(0, (single.fwd ? -dx : dx) / (w * 0.85)));
+    paintSingle(single.fwd ? -180 * k : -180 * (1 - k));
+    drag.v = dx / Math.max(1, performance.now() - drag.t);
+  });
+  const release = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag; drag = null;
+    if (!d.on || !single) return;
+    // the click that ends a drag isn't a tap on the page
+    addEventListener('click', (ev) => ev.stopPropagation(), { capture: true, once: true });
+    const progress = Math.abs(single.a - single.open) / 180;
+    const flick = Math.abs(d.v || 0) > 0.5 && Math.sign(d.v) === (single.fwd ? -1 : 1);
+    const commit = progress > 0.35 || flick;
+    settleTurn(commit ? single.done : single.open, commit);
+  };
+  book.addEventListener('pointerup', release);
+  book.addEventListener('pointercancel', release);
 
   function visiblePages() {
     return mode === 'spread' ? [L(cur), R(cur)].filter(Boolean) : [pages[curPage]];
   }
 
+  let tint;
+  const swatch = Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
   function announce(source) {
     const vis = visiblePages();
-    pages.forEach((p) => { p.inert = mode === 'spread' && !vis.includes(p); });
+    pages.forEach((p) => { p.inert = !vis.includes(p); });
     document.body.dataset.tone = vis[vis.length - 1].dataset.tone;
-    document.querySelectorAll('.nav-tabs [data-go]').forEach((b) => {
+    document.querySelectorAll('.nav-tabs [data-go], .contents [data-go]').forEach((b) => {
       const on = Number(b.dataset.go) === cur;
       b.classList.toggle('on', on);
-      if (on) b.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      if (on && b.closest('.nav-tabs')) b.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
+    const last = vis[vis.length - 1];
+    document.body.dataset.kind = last.classList.contains('page-demo') ? 'demo' : 'paper';
+    // Safari tints its own bars to match the page
+    clearTimeout(tint);
+    tint = setTimeout(() => {
+      const bar = getComputedStyle(document.querySelector(mode === 'linear' ? '.chrome-top' : 'body')).backgroundColor;
+      // as plain rgb: the computed colour can be oklab(), which browsers' bars don't take
+      swatch.fillStyle = '#000';
+      swatch.fillStyle = bar;
+      swatch.fillRect(0, 0, 1, 1);
+      const [r, g, b] = swatch.getImageData(0, 0, 1, 1).data;
+      document.querySelector('meta[name="theme-color"]').content = `rgb(${r}, ${g}, ${b})`;
+    }, 950); // after the bar and desk finish fading
+    document.getElementById('contents-at').textContent = `Page ${mode === 'linear' ? curPage + 1 : 2 * cur + (cur ? 0 : 1)} of ${pages.length}`;
     document.getElementById('nav-pages').textContent =
       mode === 'linear' ? `p. ${curPage + 1}` : cur === 0 ? 'p. 1' : `pp. ${2 * cur}–${2 * cur + 1}`;
     const atStart = mode === 'linear' ? curPage === 0 : cur === 0;
@@ -172,9 +289,8 @@
   function go(spread, source = 'user') {
     spread = Math.max(0, Math.min(SPREADS - 1, spread));
     if (mode === 'linear') {
-      curPage = Math.max(0, 2 * spread - 1);
-      cur = spread;
-      scrollToPage(curPage, true);
+      turnSingle(Math.max(0, 2 * spread - 1), source);
+      return;
     } else {
       if (spread === cur) return;
       turn(spread);
@@ -182,14 +298,8 @@
     announce(source);
   }
   function step(dir, source = 'user') {
-    if (mode === 'linear') {
-      const i = curPage + dir;
-      if (i < 0 || i >= pages.length) return;
-      curPage = i;
-      cur = Math.floor((i + 1) / 2);
-      scrollToPage(curPage, true);
-      announce(source);
-    } else go(cur + dir, source);
+    if (mode === 'linear') turnSingle(curPage + dir, source);
+    else go(cur + dir, source);
   }
   const next = (source) => step(1, source);
   const prev = (source) => step(-1, source);
@@ -222,9 +332,21 @@
     const turnBtn = e.target.closest('[data-turn]');
     if (turnBtn) { e.preventDefault(); turnBtn.dataset.turn === 'next' ? next() : prev(); return; }
     const g = e.target.closest('[data-go]');
-    if (g) { e.preventDefault(); go(Number(g.dataset.go)); return; }
+    if (g) {
+      e.preventDefault();
+      // a link can name an exact page for phones (Contact opens the letters page itself)
+      if (mode === 'linear' && g.dataset.page) turnSingle(Number(g.dataset.page) - 1, 'user');
+      else go(Number(g.dataset.go));
+      return;
+    }
     // the closed paper opens when you click its cover
-    if (cur === 0 && e.target.closest('.cover') && !e.target.closest('a, button, input')) next();
+    if ((mode === 'linear' ? curPage === 0 : cur === 0) && e.target.closest('.cover') && !e.target.closest('a, button, input')) { next(); return; }
+    // phones: tap the outer edges of the page to turn it, as in Books
+    if (mode === 'linear' && e.target.closest('#book') && !e.target.closest('a, button, input, label, canvas, pre, video, iframe, [role="slider"]')) {
+      const r = book.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      if (x > 0.8) next(); else if (x < 0.2) prev();
+    }
   });
   document.addEventListener('keydown', (e) => {
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -233,15 +355,6 @@
     if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); next(); }
     if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
   });
-  let raf = 0;
-  book.addEventListener('scroll', () => {
-    if (mode !== 'linear') return;
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const i = Math.round(book.scrollLeft / (pages[0].offsetWidth + 12));
-      if (i !== curPage && i >= 0 && i < pages.length) { curPage = i; cur = Math.floor((i + 1) / 2); announce('user'); }
-    });
-  }, { passive: true });
   window.addEventListener('hashchange', () => {
     const i = IDS.indexOf(location.hash.slice(1));
     if (i >= 0 && i !== cur) go(i);
