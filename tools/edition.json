@@ -1,0 +1,35 @@
+{
+  "voice": "Ashley",
+  "sections": [
+    {
+      "id": "front",
+      "title": "The front page",
+      "text": "Good morning, and welcome to the Morning Edition of Theo Leone. Theo studies applied math and computer engineering at Queen's, and builds apps for small daily routines, along with the systems that keep them running. Here's what's inside."
+    },
+    {
+      "id": "paperboy",
+      "title": "Paperboy",
+      "text": "First up: Paperboy, the app reading this to you right now. It turns your Gmail newsletters into one short audio brief every morning. Theo built all of it solo, from Gmail sync and the script-writing pipeline to text to speech and a native player with chapters, just like this one."
+    },
+    {
+      "id": "waypass",
+      "title": "Waypass",
+      "text": "Moving on to Waypass. Funeral homes still book cremations with phone calls and paper. Waypass runs each case from intake to completion: a booking handshake between the funeral home and the crematorium, nearby-partner search on PostGIS, and a portal so families can follow along."
+    },
+    {
+      "id": "kaeru",
+      "title": "Kaeru",
+      "text": "Next, Kaeru, out now on the App Store. It's a Japanese grammar trainer, from N5 all the way to N1, with spaced repetition. Type in romaji and it turns into kana as you go. It works fully offline, and syncs when you sign in."
+    },
+    {
+      "id": "fl",
+      "title": "Federated learning on DCP",
+      "text": "And what Theo is working on now: federated learning on the Distributive Compute Platform, with QMIND. The idea is to train models where the data lives, so only model updates ever move. Theo co-owns the logistic regression track."
+    },
+    {
+      "id": "back",
+      "title": "One thing to remember",
+      "text": "One thing to remember today: Theo is open to internships and co-ops. Flip to the back page for the email. Thanks for reading."
+    }
+  ]
+}
