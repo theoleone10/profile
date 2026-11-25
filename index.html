@@ -334,9 +334,6 @@ export async function recordBookingEvent({
         <h2 class="title">Kaeru</h2>
         <p class="deck">Japanese grammar, a little every day.</p>
         <p class="byline mono">By Theo Leone &middot; Solo: design, code, content &middot; 2026</p>
-        <figure class="kr-hero">
-          <img src="img/kaeru/hero.webp" width="1200" height="800" alt="Three iPhones showing Kaeru: today&rsquo;s plan, a typed review, and the N4 grammar line, with the frog mascot peeking over the middle phone" />
-        </figure>
         <div class="cols dropcap">
           <p>Each JLPT level is a train line and each grammar point a stop: 421 of them, N5 to N1. Each day you learn a few points, take a quiz, then review earlier ones by typing the missing grammar into real sentences, scheduled with FSRS. Anki decks and a study timer come built in.</p>
           <h4 class="mono">New in 1.1.0</h4>
@@ -362,7 +359,6 @@ export async function recordBookingEvent({
           <div class="pills" role="tablist" aria-label="Kaeru">
             <button role="tab" aria-selected="true" aria-controls="kr-try" id="kr-try-tab">Try it</button>
             <button role="tab" aria-selected="false" aria-controls="kr-video" id="kr-video-tab" tabindex="-1">Video</button>
-            <button role="tab" aria-selected="false" aria-controls="kr-shots" id="kr-shots-tab" tabindex="-1">Screens</button>
             <button role="tab" aria-selected="false" aria-controls="kr-code" id="kr-code-tab" tabindex="-1">Code</button>
           </div>
 
@@ -405,13 +401,6 @@ export async function recordBookingEvent({
                 <source src="img/kaeru/preview.mp4" type="video/mp4" />
               </video>
               <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
-            </div>
-          </div>
-
-          <div class="panel" role="tabpanel" id="kr-shots" aria-labelledby="kr-shots-tab" hidden>
-            <div class="kr-gallery" data-gallery>
-              <div class="kr-stage"><figure class="kr-shot"><img src="img/kaeru/home.webp" width="560" height="1217" alt="The Today screen with a daily plan and a 52-day streak" /><figcaption>Today: one plan for the day, with Kaeru cheering you on.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/review.webp" width="560" height="1217" alt="A typed review of 彼は来ないと思います, marked correct" loading="lazy" /><figcaption>Reviews: type the missing grammar into a real sentence.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/grammar.webp" width="560" height="1217" alt="The N4 train line with numbered stops" loading="lazy" /><figcaption>Grammar: 421 points as train lines, N5 to N1.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/lesson.webp" width="560" height="1217" alt="A lesson page for the sentence-ending な" loading="lazy" /><figcaption>Lessons: a short, clear explanation, then examples.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/cards.webp" width="560" height="1217" alt="A flashcard for 星 with Again, Hard, Good and Easy buttons" loading="lazy" /><figcaption>Cards: the built-in Kaeru Starter 600 deck.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/progress.webp" width="560" height="1217" alt="The Progress screen with charts and train-line totals" loading="lazy" /><figcaption>Progress: streaks, reviews and a 30-day forecast.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/kana.webp" width="560" height="1217" alt="The Kana course with hiragana rows ticked off" loading="lazy" /><figcaption>Kana: hiragana and katakana, one row at a time.</figcaption></figure><figure class="kr-shot" hidden><img src="img/kaeru/timer.webp" width="560" height="1217" alt="The Timer counting 12:48 of immersion" loading="lazy" /><figcaption>Timer: immersion and study time against daily goals.</figcaption></figure></div>
-              <div class="kr-nav"><button type="button" data-shot="-1" aria-label="Previous screen">&larr;</button><span class="mono" data-shot-n>1 / 8</span><button type="button" data-shot="1" aria-label="Next screen">&rarr;</button></div>
             </div>
           </div>
 
