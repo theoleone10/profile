@@ -360,20 +360,8 @@ a.ad:hover { background: var(--paper2); }
 .kr-next { width: 100%; margin-top: 10px; padding: 9px; border-radius: 999px; background: #3f51a8; color: #fff; font-weight: 800; font-size: 14px; }
 .kr-next[hidden] { display: none; }
 
-/* ── Kaeru page: hero, version stamp, screens viewer ── */
+/* ── Kaeru page: version stamp, looping preview ── */
 [data-tone="kr"] .flag .stamp::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; background: #5db85b; vertical-align: 1px; }
-.kr-hero { margin: 1.4cqw 0 2cqw; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: #fbf8f1; }
-.kr-hero img { width: 100%; height: 104px; object-fit: cover; object-position: 50% 30%; }
-.kr-gallery { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.kr-stage { flex: 1; min-height: 0; display: flex; justify-content: center; }
-.kr-shot { display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 0; }
-.kr-shot[hidden] { display: none; }
-.kr-shot img { flex: 1; min-height: 0; width: auto; max-width: 100%; border-radius: 22px; background: #fbf8f1; box-shadow: 0 28px 50px rgba(0,0,0,0.35); cursor: pointer; }
-.kr-shot figcaption { max-width: 300px; text-align: center; font-size: 13px; font-style: italic; line-height: 1.35; color: rgba(255,255,255,0.85); text-wrap: balance; }
-.kr-nav { display: flex; align-items: center; gap: 14px; color: rgba(255,255,255,0.8); }
-.kr-nav button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 16px; transition: background 0.15s; }
-.kr-nav button:hover { background: rgba(255,255,255,0.15); }
-.kr-nav .mono { min-width: 44px; text-align: center; font-size: 14px; }
 .is-auto .play { display: none; }
 
 /* ── Waypass app ── */

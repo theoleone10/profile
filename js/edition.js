@@ -121,23 +121,6 @@
   document.addEventListener('spread', syncLoops);
   loops.forEach((wrap) => wrap.closest('[data-tabs]').addEventListener('tabchange', syncLoops));
 
-  // ── Screens viewer: one store screenshot at a time ──
-  $$('[data-gallery]').forEach((g) => {
-    const shots = $$('.kr-shot', g);
-    const count = $('[data-shot-n]', g);
-    let i = 0;
-    const show = (k) => {
-      i = (k + shots.length) % shots.length;
-      shots.forEach((s, n) => { s.hidden = n !== i; });
-      count.textContent = `${i + 1} / ${shots.length}`;
-    };
-    g.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-shot]');
-      if (b) show(i + Number(b.dataset.shot));
-      else if (e.target.closest('.kr-shot img')) show(i + 1);
-    });
-  });
-
   // ── Contents menu (phones) ──
   const menuBtn = $('#menu-btn');
   const contents = $('#contents');
