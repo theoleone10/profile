@@ -315,21 +315,21 @@ a.ad:hover { background: var(--paper2); }
 .pb-label { margin-top: 10px; padding-top: 8px; border-top: 1px solid #e4e4e7; font-size: 11px; letter-spacing: 0.06em; color: #6e6e73; }
 .pb-transcript { margin-top: 4px; font-size: 13.5px; line-height: 1.38; letter-spacing: -0.01em; color: #0a0a0b; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 
-/* ── Kaeru app ── */
-.kr-app { background: #f3f4f8; color: #1b1d2b; font-family: 'Nunito', 'M PLUS Rounded 1c', system-ui, sans-serif; padding: 0 14px 16px; }
-.kr-app [lang="ja"] { font-family: 'M PLUS Rounded 1c', 'Nunito', sans-serif; }
+/* ── Kaeru app (1.1.0 look: M PLUS Rounded, softer and rounder) ── */
+.kr-app { background: #f4f6fa; color: #1b1d2b; font-family: 'M PLUS Rounded 1c', system-ui, sans-serif; padding: 0 14px 16px; }
+.kr-app [lang="ja"] { font-family: 'M PLUS Rounded 1c', sans-serif; }
 .kr-bar { display: flex; justify-content: space-between; align-items: center; padding: 4px 2px 0; }
 .kr-pill { background: #dcf1eb; color: #1d6b58; border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 800; }
 .kr-streak { color: #ef7a22; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
 .kr-date-jp { margin-top: 8px; font-size: 12px; font-weight: 700; color: #646a80; }
 .kr-date { font-size: 21px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
 .kr-mascot { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
-.kr-mascot img { width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; }
+.kr-mascot img { width: 56px; height: 56px; flex-shrink: 0; }
 .kr-bubble { background: #fff; border-radius: 16px; padding: 7px 12px; position: relative; }
 .kr-bubble::before { content: ''; position: absolute; left: -6px; top: 50%; margin-top: -6px; border: 6px solid transparent; border-left: 0; border-right-color: #fff; }
 .kr-bubble b { display: block; font-size: 14px; }
 .kr-bubble small { color: #646a80; font-size: 11px; font-weight: 700; }
-.kr-card { background: #fff; border-radius: 18px; padding: 13px; }
+.kr-card { background: #fff; border-radius: 22px; padding: 14px; }
 .kr-card-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #646a80; }
 .kr-card-top #kr-title { color: #3f51a8; }
 .kr-en { margin-top: 6px; font-size: 14.5px; font-weight: 700; }
@@ -338,11 +338,11 @@ a.ad:hover { background: var(--paper2); }
 .kr-jp .blank.filled { color: #3f51a8; }
 .kr-hint { font-size: 12px; color: #646a80; font-weight: 700; }
 .kr-form { display: flex; gap: 8px; margin-top: 10px; }
-.kr-form input { flex: 1; min-width: 0; width: 0; border: 2px solid #e0e3ef; border-radius: 12px; padding: 8px 11px; background: #fbfbfe; font: 700 16px 'M PLUS Rounded 1c', 'Nunito', sans-serif; color: #1b1d2b; outline: none; }
+.kr-form input { flex: 1; min-width: 0; width: 0; border: 2px solid #e0e3ef; border-radius: 12px; padding: 8px 11px; background: #fbfbfe; font: 700 16px 'M PLUS Rounded 1c', sans-serif; color: #1b1d2b; outline: none; }
 .kr-form input:focus { border-color: #3f51a8; background: #fff; }
-.kr-form input::placeholder { font: 600 13px 'Nunito', sans-serif; color: #a2a7ba; }
-.kr-form button { border: 2px solid #3aa655; color: #2e8b42; background: #fff; border-radius: 999px; padding: 0 15px; font-weight: 800; font-size: 14px; }
-.kr-form button:hover { background: #3aa655; color: #fff; }
+.kr-form input::placeholder { font: 500 13px 'M PLUS Rounded 1c', sans-serif; color: #a2a7ba; }
+.kr-form button { border: 2px solid #3a9a45; color: #2c7d36; background: #fff; border-radius: 999px; padding: 0 15px; font-weight: 800; font-size: 14px; }
+.kr-form button:hover { background: #3a9a45; color: #fff; }
 .kr-feedback { font-size: 12.5px; font-weight: 700; line-height: 1.38; border-radius: 12px; }
 .kr-feedback:not(:empty) { margin-top: 8px; padding: 8px 10px; }
 .kr-feedback.ok { background: #e6f6ea; color: #1f7a35; }
@@ -359,6 +359,22 @@ a.ad:hover { background: var(--paper2); }
 .kr-loading[hidden] { display: none; }
 .kr-next { width: 100%; margin-top: 10px; padding: 9px; border-radius: 999px; background: #3f51a8; color: #fff; font-weight: 800; font-size: 14px; }
 .kr-next[hidden] { display: none; }
+
+/* ── Kaeru page: hero, version stamp, screens viewer ── */
+[data-tone="kr"] .flag .stamp::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; background: #5db85b; vertical-align: 1px; }
+.kr-hero { margin: 1.4cqw 0 2cqw; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: #fbf8f1; }
+.kr-hero img { width: 100%; height: 104px; object-fit: cover; object-position: 50% 30%; }
+.kr-gallery { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.kr-stage { flex: 1; min-height: 0; display: flex; justify-content: center; }
+.kr-shot { display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 0; }
+.kr-shot[hidden] { display: none; }
+.kr-shot img { flex: 1; min-height: 0; width: auto; max-width: 100%; border-radius: 22px; background: #fbf8f1; box-shadow: 0 28px 50px rgba(0,0,0,0.35); cursor: pointer; }
+.kr-shot figcaption { max-width: 300px; text-align: center; font-size: 13px; font-style: italic; line-height: 1.35; color: rgba(255,255,255,0.85); text-wrap: balance; }
+.kr-nav { display: flex; align-items: center; gap: 14px; color: rgba(255,255,255,0.8); }
+.kr-nav button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 16px; transition: background 0.15s; }
+.kr-nav button:hover { background: rgba(255,255,255,0.15); }
+.kr-nav .mono { min-width: 44px; text-align: center; font-size: 14px; }
+.is-auto .play { display: none; }
 
 /* ── Waypass app ── */
 .browser { width: 100%; height: 100%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #fff; color: #0f172a; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 28px 50px rgba(0,0,0,0.4); }
