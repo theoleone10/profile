@@ -91,13 +91,16 @@
   $$('.editor').forEach((ed) => { if (!ed.querySelector('#fl-source')) editorTabs(ed); });
 
   // ── Click-to-play videos; one at a time, paused when the page turns ──
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const videos = $$('[data-video] video');
   $$('[data-video]').forEach((wrap) => {
     const v = $('video', wrap);
-    $('.play', wrap).addEventListener('click', () => v.play());
+    const auto = wrap.hasAttribute('data-autoplay');
+    if (auto && !reducedMotion) wrap.classList.add('is-auto');
+    $('.play', wrap).addEventListener('click', () => { v.play(); if (auto) v.controls = true; });
     v.addEventListener('play', () => {
       wrap.classList.add('is-playing');
-      v.controls = true;
+      if (!auto) v.controls = true;
       videos.forEach((o) => { if (o !== v) o.pause(); });
       document.querySelectorAll('audio').forEach((a) => a.pause());
     });
@@ -106,6 +109,33 @@
     // an embed that is the open tab loads once its page is in view
     e.detail.pages.forEach((p) => $$('.panel:not([hidden]) iframe[data-src]', p).forEach((f) => { f.src = f.dataset.src; f.removeAttribute('data-src'); }));
     videos.forEach((v) => { if (!e.detail.pages.some((p) => p.contains(v))) v.pause(); });
+  });
+
+  // ── Looping clips (Kaeru) play while their tab and page are in view, and stay still under reduced motion ──
+  const loops = $$('[data-video][data-autoplay]');
+  const syncLoops = () => loops.forEach((wrap) => {
+    const v = $('video', wrap);
+    const shown = !reducedMotion && !wrap.closest('.panel').hidden && !wrap.closest('.page').inert;
+    if (shown) v.play().catch(() => {}); else v.pause();
+  });
+  document.addEventListener('spread', syncLoops);
+  loops.forEach((wrap) => wrap.closest('[data-tabs]').addEventListener('tabchange', syncLoops));
+
+  // ── Screens viewer: one store screenshot at a time ──
+  $$('[data-gallery]').forEach((g) => {
+    const shots = $$('.kr-shot', g);
+    const count = $('[data-shot-n]', g);
+    let i = 0;
+    const show = (k) => {
+      i = (k + shots.length) % shots.length;
+      shots.forEach((s, n) => { s.hidden = n !== i; });
+      count.textContent = `${i + 1} / ${shots.length}`;
+    };
+    g.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-shot]');
+      if (b) show(i + Number(b.dataset.shot));
+      else if (e.target.closest('.kr-shot img')) show(i + 1);
+    });
   });
 
   // ── Contents menu (phones) ──
