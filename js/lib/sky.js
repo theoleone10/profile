@@ -6,6 +6,7 @@ import { initSunRail } from './sun-rail.js';
 const minutes = (h, m = 0) => h * 60 + m;
 const FIRST = minutes(7);
 const DUSK = minutes(18, 30);
+const COUNT_OVER = 220; // pixels of scrolling in which one time turns into the next
 
 // where each time of day sits on the page
 const HOURS = [
@@ -28,6 +29,7 @@ export function initSky() {
   const rail = initSunRail();
 
   let marks = [];
+  let times = [];
   let night = [0, 0];
   let morning = 0;
   let xs = [];
@@ -38,6 +40,13 @@ export function initSky() {
     // the line a section has to reach to count as "now": a third of the way down
     const line = bar.offsetHeight + innerHeight * 0.3;
     marks = HOURS.map(([s, t]) => ({ y: Math.max(0, top(document.querySelector(s)) - line), t }));
+    // the clock holds each section's own time, and only counts on as the next arrives
+    times = marks.flatMap((mark, i) => {
+      const next = marks[i + 1];
+      if (!next) return [mark];
+      const turn = Math.min(COUNT_OVER, (next.y - mark.y) * 0.4);
+      return [mark, { y: next.y - turn, t: mark.t }];
+    });
     morning = top(foot) - innerHeight * 0.6;
     night = [top(sunset) + sunset.offsetHeight * 0.6, top(foot) + 120];
     rail.measure({ dusk: top(sunset) + sunset.offsetHeight * 0.5, morning });
@@ -65,7 +74,7 @@ export function initSky() {
     bar.toggleAttribute('data-night', under > night[0] && under < night[1]);
 
     const tomorrow = y >= morning;
-    const t = tomorrow ? FIRST : along(marks, y, 'y', 't');
+    const t = tomorrow ? FIRST : along(times, y, 'y', 't');
 
     // the current stop: the last section that has reached the line, until the footer
     let current = -1;
