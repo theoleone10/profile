@@ -62,15 +62,38 @@
 .night .pill { background: transparent; border-color: #454B5F; }
 .night a.pill:hover { border-color: var(--research); }
 
-summary { display: flex; align-items: center; gap: 10px; min-height: 44px; width: fit-content; cursor: pointer; font-size: 0.9375rem; font-weight: 600; list-style: none; }
-summary::-webkit-details-marker { display: none; }
-summary::before { content: '+'; width: 1em; font: 400 1.125rem/1 var(--mono); color: var(--accent); }
-details[open] > summary::before { content: '−'; }
-.more { margin-top: 16px; }
-.more p, .more ul { margin-top: 12px; font-size: 0.9375rem; color: var(--muted); }
-.more ul { padding-left: 1.1em; }
-.more li + li { margin-top: 6px; }
-.more .byline { font: 400 0.8125rem/1.8 var(--mono); }
+/* "More about the build": a button that opens a pop-up card */
+.more-open { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 12px; font-size: 0.9375rem; font-weight: 600; }
+.more-open::before { content: '+'; width: 1em; font: 400 1.125rem/1 var(--mono); color: var(--accent); }
+.more-open:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+dialog.more {
+  width: min(560px, 100% - 32px); max-height: min(720px, 100% - 48px); margin: auto; padding: 28px 30px 30px;
+  border: 0; border-radius: 26px; background: #FCFCFD; color: #15171C;
+  box-shadow: 0 30px 80px -20px rgb(15 18 35 / 0.45);
+  --muted: #5E636E; --hair: #E4E2DC;
+}
+dialog.more-wide { width: min(860px, 100% - 32px); }
+dialog.more::backdrop { background: rgb(15 18 35 / 0.38); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.more-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 4px; }
+.more-head h3 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+.more-close { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #EEF0F3; font-size: 1.375rem; line-height: 1; color: #3A3F4A; }
+.more-close:hover { background: #E2E5EA; }
+dialog.more p, dialog.more > ul { margin-top: 14px; font-size: 0.9875rem; color: var(--muted); }
+dialog.more > ul { padding-left: 1.1em; }
+dialog.more li + li { margin-top: 8px; }
+dialog.more .byline { margin-top: 2px; font: 400 0.8125rem/1.8 var(--mono); }
+@media (prefers-reduced-motion: no-preference) {
+  dialog.more[open] { animation: pop-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+  dialog.more[open]::backdrop { animation: fade-in 0.28s; }
+}
+@keyframes pop-in { from { opacity: 0; translate: 0 14px; scale: 0.97; } }
+@keyframes fade-in { from { opacity: 0; } }
+/* without JavaScript the details simply show in place */
+@media (scripting: none) {
+  .more-open, .more-close { display: none; }
+  dialog.more { display: block; position: static; width: auto; margin: 16px 0 0; padding: 0; background: none; box-shadow: none; color: inherit; }
+}
 
 @media (max-width: 940px) {
   .hour-grid, .hour-flip .hour-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'text' 'demo'; gap: 32px; }
@@ -96,8 +119,7 @@ details[open] > summary::before { content: '−'; }
   .also-list a::after { grid-column: 2; grid-row: 1; }
 }
 
-.about { margin-top: 24px; }
-.about-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; padding-top: 24px; }
+.about-in { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; padding-top: 12px; }
 .about-in p { color: var(--muted); }
 .about-in p + p { margin-top: 14px; }
 .about-in dl > div { padding-block: 12px; border-top: 1px solid var(--hair); }

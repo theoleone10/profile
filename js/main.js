@@ -4,6 +4,7 @@ import { initTabs } from './lib/tabs.js';
 import { initMedia } from './lib/media.js';
 import { whenNear } from './lib/lazy.js';
 import { initCopy } from './lib/copy.js';
+import { initMore } from './lib/more.js';
 import { initDay } from './lib/day.js';
 import { initFlow } from './lib/flow.js';
 import { initSplit } from './lib/split.js';
@@ -30,3 +31,4 @@ for (const demo of document.querySelectorAll('[data-demo]')) {
 }
 
 initCopy();
+initMore();

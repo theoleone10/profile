@@ -39,6 +39,8 @@ export function initDay() {
   if (scenes.length < 2) return;
   const bar = document.querySelector('.bar');
   const clock = bar.querySelector('.clock');
+  const dial = bar.querySelector('.bar-clock');
+  const hands = { h: bar.querySelector('.hand-h'), m: bar.querySelector('.hand-m') };
   const navLinks = [...bar.querySelectorAll('.timeline a')];
   const stops = scenes.map((_, i) => i / (scenes.length - 1));
   const gap = stops[1];
@@ -122,6 +124,9 @@ export function initDay() {
     sun.style.translate = `${s.x.toFixed(1)}px ${s.y.toFixed(1)}px`;
     const minutes = Math.round((SUNRISE + p * DAY) / 5) * 5;
     clock.textContent = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+    const exact = SUNRISE + p * DAY;
+    hands.h?.setAttribute('transform', `rotate(${((exact / 60) % 12) * 30} 12 12)`);
+    hands.m?.setAttribute('transform', `rotate(${(exact % 60) * 6} 12 12)`);
   }
 
   // the sun glides to a point of the day
@@ -275,7 +280,7 @@ export function initDay() {
   let wheel = null;
   let wheelEnd = 0;
   addEventListener('wheel', (e) => {
-    if (e.ctrlKey || drag || !geo) return;
+    if (e.ctrlKey || drag || !geo || document.querySelector('dialog[open]')) return;
     const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
     const scale = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1;
     const delta = (horizontal ? e.deltaX : e.deltaY) * scale;
@@ -347,7 +352,7 @@ export function initDay() {
 
   // ── Keys ──
   addEventListener('keydown', (e) => {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || document.querySelector('dialog[open]')) return;
     const t = e.target;
     if (t.closest?.('input, textarea, select, [contenteditable], [role="slider"], [role="tab"], [role="tablist"], video, audio')) return;
     const scene = scenes[index];
@@ -380,6 +385,7 @@ export function initDay() {
   show(first, { instant: true });
   paint(stops[first]);
   clock.hidden = false;
+  if (dial) dial.hidden = false;
   addEventListener('resize', measure);
   reduced.addEventListener('change', () => paint(stops[index]));
 

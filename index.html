@@ -30,16 +30,22 @@
 
 <header class="bar">
   <div class="bar-in">
-    <a class="bar-name" href="#intro">Theo Leone <span class="clock" aria-hidden="true" hidden>06:00</span></a>
+    <a class="bar-name" href="#intro">Theo Leone</a>
     <nav class="timeline" aria-label="A day in the life">
       <ol>
-        <li><a href="#paperboy"><time>08:00</time> Paperboy</a></li>
-        <li><a href="#kaeru"><time>10:00</time> Kaeru</a></li>
-        <li><a href="#waypass"><time>12:00</time> Waypass</a></li>
-        <li><a href="#research"><time>14:00</time> Research</a></li>
+        <li><a href="#paperboy">Paperboy</a></li>
+        <li><a href="#kaeru">Kaeru</a></li>
+        <li><a href="#waypass">Waypass</a></li>
+        <li><a href="#research">Research</a></li>
       </ol>
     </nav>
-    <a class="pill pill-dark bar-cta" href="#contact">Get in touch</a>
+    <div class="bar-end">
+      <span class="bar-clock" aria-hidden="true" hidden>
+        <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10.5"/><line class="hand-h" x1="12" y1="12" x2="12" y2="6.8"/><line class="hand-m" x1="12" y1="12" x2="12" y2="4.2"/><circle class="pin" cx="12" cy="12" r="1.3"/></svg>
+        <span class="clock">06:00</span>
+      </span>
+      <a class="pill pill-dark bar-cta" href="#contact">Get in touch</a>
+    </div>
   </div>
 </header>
 
@@ -115,7 +121,6 @@
     <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>08:00</time> Your brief is ready</p>
         <h2 id="paperboy-title">Paperboy</h2>
         <p class="hour-desc">Your newsletters, turned into one short audio brief every morning. Pick the newsletters, the length and the voice.</p>
         <ol class="points">
@@ -127,15 +132,16 @@
         <ul class="links">
           <li><a class="pill" href="https://github.com/theoleone10/paperboy" target="_blank" rel="noopener">GitHub<span class="vh">: Paperboy</span></a></li>
         </ul>
-        <details class="more">
-          <summary>More about the build</summary>
+        <button type="button" class="more-open" data-open="paperboy-more">More about the build</button>
+        <dialog class="more" id="paperboy-more" aria-labelledby="paperboy-more-title">
+          <div class="more-head"><h3 id="paperboy-more-title">Paperboy</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Solo: app, backend, infra · 2025–26</p>
           <p>You sign in with Google and choose which newsletters you want. At the time you set, Paperboy reads the latest issues and writes one script at the length you picked. It records the script in the voice you chose and sends a notification when your episode is ready. Gmail access is read-only, and only the newsletters you chose are ever read.</p>
           <ul>
             <li>Gmail sync and parsing to find newsletters and pull out the readable text</li>
             <li>A React Native player with chapters, transcript, archive, background audio and a Live Activity</li>
           </ul>
-        </details>
+        </dialog>
       </div>
 
       <div class="hour-demo">
@@ -148,7 +154,6 @@
               <button type="button" id="paperboy-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
             </div>
           </div>
-          <ol class="flow" aria-label="How it works"><li data-stage="gmail">Gmail</li><li data-stage="script">Script</li><li data-stage="voice">Voice</li><li data-stage="chapters">Chapters</li></ol>
           <div class="panels">
             <div class="panel" data-panel="try" id="paperboy-try">
               <div class="panel-in pb">
@@ -163,7 +168,9 @@
                   </button>
                   <button type="button" data-skip="15" aria-label="Forward 15 seconds" disabled><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21.8 9.5A10 10 0 1 0 24 15.5"/><path d="M22 4.5v5h-5" stroke-linejoin="round"/><text x="13.8" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none">15</text></svg></button>
                 </div>
+                <p class="pb-label" aria-hidden="true">What’s inside</p>
                 <ol class="pb-chapters" data-pb="chapters" aria-label="Chapters"></ol>
+                <p class="pb-label pb-label-small" aria-hidden="true">Transcript</p>
                 <div class="pb-script" tabindex="0" role="region" aria-label="Transcript of this chapter"><p data-pb="transcript"></p></div>
                 <audio data-pb="audio" preload="none"></audio>
               </div>
@@ -238,7 +245,6 @@ export async function generateSectionedAudio(sections, voice, measure) {
     <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>10:00</time> Today’s reviews are due</p>
         <h2 id="kaeru-title">Kaeru</h2>
         <p class="hour-desc">Japanese grammar, a little every day: 421 grammar points from N5 to N1, laid out as train lines. Out now on the App Store.</p>
         <ol class="points">
@@ -251,8 +257,9 @@ export async function generateSectionedAudio(sections, voice, measure) {
           <li><a class="pill pill-accent" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">App Store<span class="vh">: Kaeru</span></a></li>
           <li><a class="pill" href="https://github.com/theoleone10/kaeru" target="_blank" rel="noopener">GitHub<span class="vh">: Kaeru</span></a></li>
         </ul>
-        <details class="more">
-          <summary>More about the build</summary>
+        <button type="button" class="more-open" data-open="kaeru-more">More about the build</button>
+        <dialog class="more" id="kaeru-more" aria-labelledby="kaeru-more-title">
+          <div class="more-head"><h3 id="kaeru-more-title">Kaeru</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Solo: design, code, content · 2026</p>
           <p>Each JLPT level is a train line and each grammar point a stop: 421 of them, N5 to N1. Each day you learn a few points, take a quiz, then review earlier ones by typing the missing grammar into real sentences, scheduled with FSRS. Anki decks and a study timer come built in.</p>
           <ul>
@@ -261,7 +268,7 @@ export async function generateSectionedAudio(sections, voice, measure) {
             <li>A placement quiz that finds where you are on the grammar lines</li>
             <li>Drawn profile avatars, today-only new-card limits, a smoother typing screen and iOS 27 support</li>
           </ul>
-        </details>
+        </dialog>
       </div>
 
       <div class="hour-demo">
@@ -274,7 +281,6 @@ export async function generateSectionedAudio(sections, voice, measure) {
               <button type="button" id="kaeru-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
             </div>
           </div>
-          <ol class="flow" aria-label="How it works"><li data-stage="romaji">Romaji</li><li data-stage="kana">Kana</li><li data-stage="check">Check</li><li data-stage="next">Next review</li></ol>
           <div class="panels">
             <div class="panel" data-panel="try" id="kaeru-try">
               <div class="panel-in kr">
@@ -373,7 +379,6 @@ export function createScheduler({
     <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>12:00</time> New booking request</p>
         <h2 id="waypass-title">Waypass</h2>
         <p class="hour-desc">The whole cremation workflow, from intake to completion, on one platform for funeral homes, crematoriums and shipping partners.</p>
         <ol class="points">
@@ -385,8 +390,9 @@ export function createScheduler({
         <ul class="links">
           <li><a class="pill" href="https://github.com/waypass-ca/waypass" target="_blank" rel="noopener">GitHub<span class="vh">: Waypass</span></a></li>
         </ul>
-        <details class="more">
-          <summary>More about the build</summary>
+        <button type="button" class="more-open" data-open="waypass-more">More about the build</button>
+        <dialog class="more" id="waypass-more" aria-labelledby="waypass-more-title">
+          <div class="more-head"><h3 id="waypass-more-title">Waypass</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Multi-tenant SaaS · 2026</p>
           <p>Funeral homes still run cremations with phone calls and paper. Waypass connects them with crematoriums and shipping partners, follows each case from intake to completion, and gives families their own view of a case’s progress.</p>
           <ul>
@@ -394,7 +400,7 @@ export function createScheduler({
             <li>Family portal, financial dashboard, in-app inbox and Resend email</li>
             <li>Workspaces with roles, and a Cmd+K palette that searches everything</li>
           </ul>
-        </details>
+        </dialog>
       </div>
 
       <div class="hour-demo">
@@ -405,7 +411,6 @@ export function createScheduler({
               <button type="button" id="waypass-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
             </div>
           </div>
-          <ol class="flow" aria-label="How it works"><li data-stage="propose">Propose</li><li data-stage="respond">Respond</li><li data-stage="confirm">Confirm</li><li data-stage="log">Audit log</li></ol>
           <div class="panels">
             <div class="panel" data-panel="video" id="waypass-video">
               <div class="panel-in stage">
@@ -471,7 +476,6 @@ export async function recordBookingEvent({
     <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>14:00</time> Five machines start training</p>
         <h2 id="research-title">Federated Learning on DCP</h2>
         <p class="hour-desc">One model, trained across five machines without moving their data. I co-own the logistic regression track.</p>
         <ol class="points steps">
@@ -483,8 +487,9 @@ export async function recordBookingEvent({
         <ul class="links">
           <li><a class="pill" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">GitHub<span class="vh">: Federated Learning on DCP</span></a></li>
         </ul>
-        <details class="more">
-          <summary>More about the work</summary>
+        <button type="button" class="more-open" data-open="research-more">More about the work</button>
+        <dialog class="more" id="research-more" aria-labelledby="research-more-title">
+          <div class="more-head"><h3 id="research-more-title">Federated Learning on DCP</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">QMIND × Distributive · 2026–now</p>
           <p>QMIND and Distributive are building a proof-of-concept, publicly available package for running federated learning on the Distributive Compute Platform. Training data stays on the machines that hold it, and only model information moves through DCP. There are two model tracks: logistic regression and random forest.</p>
           <ul>
@@ -493,7 +498,7 @@ export async function recordBookingEvent({
             <li>The team agrees on specs before any code, and records each decision as it is made</li>
             <li>Contributing to the shared specs, which need a reviewer from the other track</li>
           </ul>
-        </details>
+        </dialog>
       </div>
 
       <div class="hour-demo night">
@@ -687,8 +692,9 @@ if (args.stage === 'newton') {
       </a></li>
     </ul>
 
-    <details class="about">
-      <summary>About me and my toolbox</summary>
+    <button type="button" class="more-open" data-open="about-more">About me and my toolbox</button>
+    <dialog class="more more-wide" id="about-more" aria-labelledby="about-more-title">
+      <div class="more-head"><h3 id="about-more-title">About me</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
       <div class="about-in">
         <div>
           <p>I study Applied Mathematics &amp; Computer Engineering at Queen’s. In class that means algebra, control theory and distributed algorithms. Most of what I know about building software came from making tools I wanted to exist, then carrying them past the demo: auth, sync, tests, privacy policies and App Store review.</p>
@@ -701,7 +707,7 @@ if (args.stage === 'newton') {
           <div><dt>Mostly in</dt><dd>TypeScript, React Native, Node, Postgres</dd></div>
         </dl>
       </div>
-    </details>
+    </dialog>
   </div>
   </div>
   </section>
