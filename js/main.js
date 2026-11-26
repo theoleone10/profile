@@ -4,6 +4,7 @@ import { initTabs } from './lib/tabs.js';
 import { initMedia } from './lib/media.js';
 import { whenNear } from './lib/lazy.js';
 import { initCopy } from './lib/copy.js';
+import { initSky } from './lib/sky.js';
 
 const DEMOS = {
   paperboy: () => import('./demos/paperboy.js'),
@@ -19,3 +20,4 @@ for (const demo of document.querySelectorAll('[data-demo]')) {
 }
 
 initCopy();
+initSky();

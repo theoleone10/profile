@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/page.css">
   <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="css/sky.css">
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
@@ -27,7 +28,7 @@
 
 <header class="bar">
   <div class="bar-in">
-    <a class="bar-name" href="#top">Theo Leone</a>
+    <a class="bar-name" href="#top">Theo Leone <span class="clock" aria-hidden="true" hidden>07:00</span></a>
     <nav class="timeline" aria-label="A day in the life">
       <ol>
         <li><a href="#paperboy"><time>07:00</time> Paperboy</a></li>
@@ -35,6 +36,7 @@
         <li><a href="#waypass"><time>14:00</time> Waypass</a></li>
         <li><a href="#research"><time>21:00</time> Research</a></li>
       </ol>
+      <span class="orb" aria-hidden="true" hidden></span>
     </nav>
     <a class="pill pill-dark bar-cta" href="mailto:theohleone@gmail.com">Get in touch</a>
   </div>
@@ -43,6 +45,7 @@
 <main id="main" tabindex="-1">
   <span id="top"></span>
 
+  <div class="dawn">
   <!-- ═════════ INTRO ═════════ -->
   <section class="wrap intro" aria-labelledby="intro-title">
     <div class="intro-text">
@@ -103,11 +106,13 @@
     </ul>
   </nav>
 
+  </div>
+
   <!-- ═════════ 07:00 · PAPERBOY ═════════ -->
   <section class="hour hour-paperboy" id="paperboy" aria-labelledby="paperboy-title" tabindex="-1">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="hour-time"><time>07:00</time></p>
+        <p class="moment"><img src="img/paperboy-icon-128.webp" width="40" height="40" alt="" loading="lazy"><span><small><time>07:00</time> · Paperboy</small>Your brief is ready</span></p>
         <h2 id="paperboy-title">Paperboy</h2>
         <p class="hour-desc">Your newsletters, turned into one short audio brief every morning. Pick the newsletters, the length and the voice.</p>
         <ol class="points">
@@ -235,7 +240,7 @@ export async function generateSectionedAudio(sections, voice, measure) {
   <section class="hour hour-kaeru hour-flip" id="kaeru" aria-labelledby="kaeru-title" tabindex="-1">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="hour-time"><time>08:30</time></p>
+        <p class="moment"><img src="img/kaeru-icon-192.webp" width="40" height="40" alt="" loading="lazy"><span><small><time>08:30</time> · Kaeru</small>Today’s reviews are due</span></p>
         <h2 id="kaeru-title">Kaeru</h2>
         <p class="hour-desc">Japanese grammar, a little every day: 421 grammar points from N5 to N1, laid out as train lines. Out now on the App Store.</p>
         <ol class="points">
@@ -374,7 +379,7 @@ export function createScheduler({
   <section class="hour hour-waypass" id="waypass" aria-labelledby="waypass-title" tabindex="-1">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="hour-time"><time>14:00</time></p>
+        <p class="moment"><img src="img/waypass-mark-128.webp" width="40" height="40" alt="" loading="lazy"><span><small><time>14:00</time> · Waypass</small>New booking request</span></p>
         <h2 id="waypass-title">Waypass</h2>
         <p class="hour-desc">The whole cremation workflow, from intake to completion, on one platform for funeral homes, crematoriums and shipping partners.</p>
         <ol class="points">
@@ -471,11 +476,17 @@ export async function recordBookingEvent({
     </div>
   </section>
 
+  <!-- ═════════ 18:30 · SUNSET ═════════ -->
+  <div class="sunset" aria-hidden="true">
+    <div class="sunset-sky"><div class="sunset-sun"></div></div>
+    <span class="sunset-time">18:30</span>
+  </div>
+
   <!-- ═════════ 21:00 · RESEARCH ═════════ -->
   <section class="hour hour-research hour-flip night" id="research" aria-labelledby="research-title" tabindex="-1">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="hour-time"><time>21:00</time></p>
+        <p class="moment"><img src="img/research-mark.svg" width="40" height="40" alt="" loading="lazy"><span><small><time>21:00</time> · Research</small>Five machines start training</span></p>
         <h2 id="research-title">Federated Learning on DCP</h2>
         <p class="hour-desc">Training models where the data lives: only model information moves. A QMIND × Distributive project, in progress.</p>
         <ol class="points">
@@ -606,6 +617,7 @@ export async function recordBookingEvent({
   </section>
 
   <!-- ═════════ ALSO BUILT ═════════ -->
+  <div class="late night">
   <section class="wrap also" aria-labelledby="also-title">
     <h2 id="also-title">Also built</h2>
     <ul class="also-list">
@@ -648,10 +660,12 @@ export async function recordBookingEvent({
       </div>
     </details>
   </section>
+  </div>
 </main>
 
 <!-- ═════════ FOOTER ═════════ -->
-<footer class="wrap foot">
+<footer class="foot">
+  <div class="wrap">
   <div class="cta">
     <p class="cta-time">Tomorrow, <time>07:00</time></p>
     <h2>Hiring for an internship or co-op? Let’s talk.</h2>
@@ -664,6 +678,7 @@ export async function recordBookingEvent({
     <p class="vh" role="status" data-copy-status></p>
   </div>
   <p class="colophon">No framework · <a href="https://github.com/theoleone10/profile" target="_blank" rel="noopener">view source on GitHub</a></p>
+  </div>
 </footer>
 </body>
 </html>

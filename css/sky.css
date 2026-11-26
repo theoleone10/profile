@@ -1,0 +1,133 @@
+/* One sky from first light to the next sunrise. Each stretch of the page ends on
+   the colour the next one starts with, so it reads as a single background. */
+
+:root {
+  --sky-firstlight: oklch(0.955 0.018 295);
+  --sky-dawn: oklch(0.953 0.032 55);
+  --sky-morning: oklch(0.962 0.036 92);
+  --sky-noon: oklch(0.95 0.03 215);
+  --sky-afternoon: oklch(0.925 0.047 250);
+  --sky-blush: oklch(0.9 0.045 25);
+  --sky-gold: oklch(0.87 0.095 78);
+  --sky-coral: oklch(0.72 0.14 40);
+  --sky-plum: oklch(0.44 0.11 335);
+  --sky-night: oklch(0.192 0.013 272);
+  --sun: oklch(0.82 0.15 70);
+  --moon: oklch(0.88 0.045 280);
+}
+
+/* every stretch: a plain gradient first, then the same one mixed in OKLCH */
+.dawn, .hour-paperboy, .hour-kaeru, .hour-waypass, .sunset, .foot {
+  background: linear-gradient(var(--from), var(--to));
+  background: linear-gradient(in oklch, var(--from), var(--to));
+}
+.dawn { --from: var(--sky-firstlight); --to: var(--sky-dawn); position: relative; isolation: isolate; overflow: clip; }
+.hour-paperboy { --from: var(--sky-dawn); --to: var(--sky-morning); }
+.hour-kaeru { --from: var(--sky-morning); --to: var(--sky-noon); }
+.hour-waypass { --from: var(--sky-noon); --to: var(--sky-afternoon); }
+
+/* ── First light: the sun comes up once as the page opens ── */
+.dawn::after {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  right: -120px; bottom: -330px; width: 760px; height: 760px; border-radius: 50%;
+  background: radial-gradient(closest-side, oklch(0.9 0.13 70 / 0.85), oklch(0.9 0.1 55 / 0.35) 45%, transparent);
+  -webkit-mask-image: linear-gradient(#000 18%, transparent 56%); mask-image: linear-gradient(#000 18%, transparent 56%); /* fades out before the edge */
+}
+
+/* ── Sunset: nothing to read, so the page can turn from day to night ── */
+.sunset { position: relative; height: clamp(440px, 85svh, 760px); overflow: clip; }
+.sunset {
+  background: linear-gradient(var(--sky-afternoon), var(--sky-blush) 16%, var(--sky-gold) 32%, var(--sky-coral) 52%, var(--sky-plum) 74%, var(--sky-night));
+  /* mixed in OKLab: in OKLCH, blue to gold would swing through green */
+  background: linear-gradient(in oklab, var(--sky-afternoon), var(--sky-blush) 16%, var(--sky-gold) 32%, var(--sky-coral) 52%, var(--sky-plum) 74%, var(--sky-night));
+}
+.sunset-sky { position: absolute; inset: 0 0 38%; overflow: clip; border-bottom: 1px solid oklch(0.95 0.06 70 / 0.45); }
+.sunset-sun {
+  position: absolute; left: 50%; bottom: 0; width: 180px; height: 180px; margin-left: -90px; border-radius: 50%; translate: 0 34%;
+  background: oklch(0.93 0.11 80);
+  box-shadow: 0 0 60px 20px oklch(0.88 0.13 65 / 0.75), 0 0 180px 80px oklch(0.8 0.14 50 / 0.45);
+}
+.sunset-time { position: absolute; left: 50%; top: 66%; translate: -50%; padding: 4px 14px; border-radius: 999px; background: oklch(0.2 0.03 320 / 0.72); color: #fff; font: 500 0.875rem/1.7 var(--mono); }
+
+/* ── Night: stars ── */
+.hour-research, .late { position: relative; isolation: isolate; background: var(--sky-night); }
+.hour-research::before, .late::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.7;
+  background-image:
+    radial-gradient(1.2px 1.2px at 24px 38px, #fff 60%, transparent),
+    radial-gradient(1px 1px at 132px 214px, #cfd6ff 60%, transparent),
+    radial-gradient(1.4px 1.4px at 268px 96px, #fff 60%, transparent),
+    radial-gradient(0.8px 0.8px at 331px 287px, #fff 60%, transparent),
+    radial-gradient(1px 1px at 402px 31px, #cfd6ff 60%, transparent),
+    radial-gradient(0.8px 0.8px at 77px 301px, #fff 60%, transparent),
+    radial-gradient(1.1px 1.1px at 219px 173px, #fff 60%, transparent);
+  background-size: 443px 347px;
+}
+/* stars stay in the margins and fade away behind the reading */
+.late::before { opacity: 0.45; }
+
+/* ── The next sunrise ── */
+.foot {
+  background: linear-gradient(var(--sky-night), var(--sky-plum) 22%, var(--sky-coral) 40%, var(--sky-gold) 62%, var(--sky-dawn));
+  background: linear-gradient(in oklch, var(--sky-night), var(--sky-plum) 22%, var(--sky-coral) 40%, var(--sky-gold) 62%, var(--sky-dawn));
+  position: relative; isolation: isolate; overflow: clip;
+}
+.foot::before {
+  content: ''; position: absolute; z-index: -1; left: 50%; top: 150px; width: 220px; height: 220px; margin-left: -110px; border-radius: 50%;
+  background: oklch(0.94 0.11 82);
+  box-shadow: 0 0 70px 24px oklch(0.9 0.13 70 / 0.7), 0 0 200px 90px oklch(0.82 0.13 55 / 0.4);
+}
+
+/* ── The top bar follows the sky ── */
+.bar { background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.bar[data-night] { --muted: #A9AFC0; background: color-mix(in oklab, var(--sky-night) 90%, transparent); border-color: #2B2F3D; color: #EEF0F7; }
+.bar[data-night] .timeline a:hover, .bar[data-night] .timeline a[aria-current] { background: rgb(255 255 255 / 0.1); }
+.bar[data-night] .bar-cta { background: #fff; border-color: #fff; color: var(--ink); }
+.bar[data-night] :focus-visible { outline-color: var(--research); }
+.timeline a[aria-current] { background: rgb(21 23 28 / 0.08); }
+
+.bar-name { gap: 12px; }
+.clock { font: 500 0.8125rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.clock[hidden], .orb[hidden] { display: none; }
+
+/* the sun, riding the bar's lower edge like a horizon */
+.timeline { position: relative; }
+.orb {
+  position: absolute; left: 0; bottom: var(--orb-bottom, -16px); width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; pointer-events: none;
+  background: var(--sun); box-shadow: 0 0 0 3px oklch(0.85 0.14 70 / 0.28), 0 0 14px 4px oklch(0.82 0.15 65 / 0.5);
+}
+.orb[data-moon] { background: transparent; box-shadow: inset -4px 2px 0 0 var(--moon); filter: drop-shadow(0 0 5px oklch(0.85 0.06 280 / 0.8)); }
+@media (max-width: 940px) { .orb { --orb-bottom: -6px; } }
+
+/* ── Moments: what each hour brings ── */
+.moment {
+  display: inline-flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; margin-bottom: 20px;
+  border: 1px solid rgb(21 23 28 / 0.07); border-radius: 18px; background: rgb(255 255 255 / 0.82); box-shadow: var(--shadow);
+}
+.moment img { width: 40px; height: 40px; border-radius: 11px; background: #fff; }
+.moment span { line-height: 1.35; font-size: 0.9375rem; font-weight: 600; }
+.moment small { display: block; font: 500 0.75rem/1.6 var(--mono); color: var(--accent); }
+.night .moment { background: rgb(255 255 255 / 0.06); border-color: #333950; box-shadow: none; }
+.night .moment img { background: var(--night-2); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .dawn::after { animation: sunrise 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .moment { transition: opacity 0.45s, translate 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  .moment[data-waiting] { opacity: 0; translate: 0 -18px; }
+  .bar { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .sunset-sun { animation: sunset linear both; animation-timeline: view(); animation-range: cover 10% cover 80%; }
+    .foot::before { animation: next-sunrise linear both; animation-timeline: view(); animation-range: entry 10% entry 90%; }
+    .hour-research::before { animation: stars linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+  }
+}
+@keyframes sunrise { from { translate: 0 220px; opacity: 0; } }
+@keyframes sunset { from { translate: 0 -75%; } to { translate: 0 105%; } }
+@keyframes next-sunrise { from { translate: 0 150px; opacity: 0.2; } }
+@keyframes stars { from { opacity: 0; } }
+
+@media (forced-colors: active) {
+  .orb { background: CanvasText; }
+  .timeline a[aria-current] { outline: 2px solid Highlight; }
+}
