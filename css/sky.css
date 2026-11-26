@@ -93,11 +93,36 @@
 /* the sun, riding the bar's lower edge like a horizon */
 .timeline { position: relative; }
 .orb {
-  position: absolute; left: 0; bottom: var(--orb-bottom, -16px); width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; pointer-events: none;
+  position: absolute; left: 0; bottom: var(--orb-bottom, -20px); width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; pointer-events: none;
   background: var(--sun); box-shadow: 0 0 0 3px oklch(0.85 0.14 70 / 0.28), 0 0 14px 4px oklch(0.82 0.15 65 / 0.5);
 }
-.orb[data-moon] { background: transparent; box-shadow: inset -4px 2px 0 0 var(--moon); filter: drop-shadow(0 0 5px oklch(0.85 0.06 280 / 0.8)); }
-@media (max-width: 940px) { .orb { --orb-bottom: -6px; } }
+.orb[data-moon] { background: transparent; box-shadow: inset -7px 3px 0 0 var(--moon); filter: drop-shadow(0 0 5px oklch(0.85 0.06 280 / 0.8)); }
+@media (max-width: 940px) { .orb { --orb-bottom: -10px; } }
+
+/* ── Wide screens: the sun is the scrollbar ── */
+.sun-rail { display: none; }
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) and (forced-colors: none) and (scripting: enabled) {
+  :root { --gutter: 96px; } /* a lane for the sun to cross */
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; }
+  .orb { display: none; }
+  .sun-rail { display: block; position: fixed; z-index: 15; top: calc(var(--bar-h) + 8px); right: 0; bottom: 10px; width: 0; }
+}
+.sun-rail svg { position: absolute; top: 0; right: 0; max-width: none; height: 100%; overflow: visible; pointer-events: none; }
+.sun-rail path { fill: none; stroke: oklch(0.65 0.09 300 / 0.6); stroke-width: 2; stroke-dasharray: 1 8; stroke-linecap: round; }
+.sun-body { position: absolute; top: 0; right: 0; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; cursor: grab; touch-action: none; user-select: none; }
+.sun-body:active { cursor: grabbing; }
+.sun-disc {
+  --low: 0; /* 1 at the horizon, 0 at its highest */
+  --core: color-mix(in oklab, oklch(0.9 0.14 90), oklch(0.72 0.18 42) calc(var(--low) * 100%));
+  width: 54px; height: 54px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, oklch(0.98 0.06 95), var(--core) 58%, color-mix(in oklab, var(--core), oklch(0.65 0.19 40) 35%));
+  box-shadow: 0 0 0 7px color-mix(in oklab, var(--core) 28%, transparent), 0 0 34px 12px color-mix(in oklab, var(--core) 55%, transparent);
+}
+.sun-body[data-moon] .sun-disc {
+  background: transparent; box-shadow: inset -19px 9px 0 0 var(--moon);
+  filter: drop-shadow(0 0 12px oklch(0.84 0.07 285 / 0.75));
+}
 
 /* ── Moments: what each hour brings ── */
 .moment {

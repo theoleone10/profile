@@ -1,6 +1,8 @@
 // The page as a day: a clock and a sun that follow the scroll, the current stop
 // on the timeline, a top bar that turns dark at night, and each hour's moment
 // dropping in. Under reduced motion the clock and sun are left out.
+import { initSunRail } from './sun-rail.js';
+
 const minutes = (h, m = 0) => h * 60 + m;
 const FIRST = minutes(7);
 const DUSK = minutes(18, 30);
@@ -23,6 +25,7 @@ export function initSky() {
   const sunset = document.querySelector('.sunset');
   const foot = document.querySelector('.foot');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const rail = initSunRail();
 
   let marks = [];
   let night = [0, 0];
@@ -37,6 +40,7 @@ export function initSky() {
     marks = HOURS.map(([s, t]) => ({ y: Math.max(0, top(document.querySelector(s)) - line), t }));
     morning = top(foot) - innerHeight * 0.6;
     night = [top(sunset) + sunset.offsetHeight * 0.6, top(foot) + 120];
+    rail.measure({ dusk: top(sunset) + sunset.offsetHeight * 0.5, morning });
     const base = bar.querySelector('.timeline').getBoundingClientRect().left;
     xs = links.map((a) => {
       const r = a.getBoundingClientRect();
@@ -72,11 +76,12 @@ export function initSky() {
     const still = reduced.matches;
     clock.hidden = orb.hidden = still;
     if (still) return;
+    rail.update(y);
     const shown = Math.floor(t / 5) * 5;
     clock.textContent = `${String(Math.floor(shown / 60)).padStart(2, '0')}:${String(shown % 60).padStart(2, '0')}`;
     const x = along(xs, t, 't', 'x');
     const span = xs.at(-1).x - xs[0].x || 1;
-    const arc = Math.sin(Math.PI * Math.min(1, Math.max(0, (x - xs[0].x) / span))) * 5;
+    const arc = Math.sin(Math.PI * Math.min(1, Math.max(0, (x - xs[0].x) / span))) * 9;
     orb.style.translate = `${x}px ${-arc}px`;
     orb.toggleAttribute('data-moon', !tomorrow && t >= DUSK);
   }
