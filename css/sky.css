@@ -1,155 +1,187 @@
-/* One sky from first light to the next sunrise. Each stretch of the page ends on
-   the colour the next one starts with, so it reads as a single background. */
+/* One day, sunrise to sunset. With JavaScript (html.paged) every section is its
+   own page over a fixed sky, and the sun crosses that sky from the bottom-left
+   corner to the bottom-right, behind the text. Without JavaScript
+   the sections stack on a still sky. */
 
 :root {
-  --sky-firstlight: oklch(0.955 0.018 295);
-  --sky-dawn: oklch(0.953 0.032 55);
-  --sky-morning: oklch(0.962 0.036 92);
-  --sky-noon: oklch(0.95 0.03 215);
-  --sky-afternoon: oklch(0.925 0.047 250);
-  --sky-blush: oklch(0.9 0.045 25);
-  --sky-gold: oklch(0.87 0.095 78);
-  --sky-coral: oklch(0.72 0.14 40);
-  --sky-plum: oklch(0.44 0.11 335);
-  --sky-night: oklch(0.192 0.013 272);
-  --sun: oklch(0.82 0.15 70);
-  --moon: oklch(0.88 0.045 280);
+  --sky: #D3DCEA;
+  --sun-x: 0px;
+  --sun-y: 100vh;
+  --low: 1; /* 1 with the sun on the horizon, 0 at noon */
+  --sx: 0px; /* shadows fall away from the sun */
+  --sy: 4px;
 }
 
-/* every stretch: a plain gradient first, then the same one mixed in OKLCH */
-.dawn, .hour-paperboy, .hour-kaeru, .hour-waypass, .sunset, .foot {
-  background: linear-gradient(var(--from), var(--to));
-  background: linear-gradient(in oklch, var(--from), var(--to));
-}
-.dawn { --from: var(--sky-firstlight); --to: var(--sky-dawn); position: relative; isolation: isolate; overflow: clip; }
-.hour-paperboy { --from: var(--sky-dawn); --to: var(--sky-morning); }
-.hour-kaeru { --from: var(--sky-morning); --to: var(--sky-noon); }
-.hour-waypass { --from: var(--sky-noon); --to: var(--sky-afternoon); }
-
-/* ── First light: the sun comes up once as the page opens ── */
-.dawn::after {
-  content: ''; position: absolute; z-index: -1; pointer-events: none;
-  right: -120px; bottom: -330px; width: 760px; height: 760px; border-radius: 50%;
-  background: radial-gradient(closest-side, oklch(0.9 0.13 70 / 0.85), oklch(0.9 0.1 55 / 0.35) 45%, transparent);
-  -webkit-mask-image: linear-gradient(#000 18%, transparent 56%); mask-image: linear-gradient(#000 18%, transparent 56%); /* fades out before the edge */
-}
-
-/* ── Sunset: nothing to read, so the page can turn from day to night ── */
-.sunset { position: relative; height: clamp(440px, 85svh, 760px); overflow: clip; }
-.sunset {
-  background: linear-gradient(var(--sky-afternoon), var(--sky-blush) 16%, var(--sky-gold) 32%, var(--sky-coral) 52%, var(--sky-plum) 74%, var(--sky-night));
-  /* mixed in OKLab: in OKLCH, blue to gold would swing through green */
-  background: linear-gradient(in oklab, var(--sky-afternoon), var(--sky-blush) 16%, var(--sky-gold) 32%, var(--sky-coral) 52%, var(--sky-plum) 74%, var(--sky-night));
-}
-.sunset-sky { position: absolute; inset: 0 0 38%; overflow: clip; border-bottom: 1px solid oklch(0.95 0.06 70 / 0.45); }
-.sunset-sun {
-  position: absolute; left: 50%; bottom: 0; width: 180px; height: 180px; margin-left: -90px; border-radius: 50%; translate: 0 34%;
-  background: oklch(0.93 0.11 80);
-  box-shadow: 0 0 60px 20px oklch(0.88 0.13 65 / 0.75), 0 0 180px 80px oklch(0.8 0.14 50 / 0.45);
-}
-.sunset-time { position: absolute; left: 50%; top: 66%; translate: -50%; padding: 4px 14px; border-radius: 999px; background: oklch(0.2 0.03 320 / 0.72); color: #fff; font: 500 0.875rem/1.7 var(--mono); }
-
-/* ── Night: stars ── */
-.hour-research, .late { position: relative; isolation: isolate; background: var(--sky-night); }
-.hour-research::before, .late::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.7;
-  background-image:
-    radial-gradient(1.2px 1.2px at 24px 38px, #fff 60%, transparent),
-    radial-gradient(1px 1px at 132px 214px, #cfd6ff 60%, transparent),
-    radial-gradient(1.4px 1.4px at 268px 96px, #fff 60%, transparent),
-    radial-gradient(0.8px 0.8px at 331px 287px, #fff 60%, transparent),
-    radial-gradient(1px 1px at 402px 31px, #cfd6ff 60%, transparent),
-    radial-gradient(0.8px 0.8px at 77px 301px, #fff 60%, transparent),
-    radial-gradient(1.1px 1.1px at 219px 173px, #fff 60%, transparent);
-  background-size: 443px 347px;
-}
-/* stars stay in the margins and fade away behind the reading */
-.hour-research::before, .late::before { opacity: 0.35; }
-
-/* ── The next sunrise ── */
-.foot {
-  background: linear-gradient(var(--sky-night), var(--sky-plum) 14%, var(--sky-coral) 30%, var(--sky-gold) 48%, var(--sky-dawn));
-  background: linear-gradient(in oklch, var(--sky-night), var(--sky-plum) 14%, var(--sky-coral) 30%, var(--sky-gold) 48%, var(--sky-dawn));
-  position: relative; isolation: isolate; overflow: clip;
-}
-.foot::before {
-  content: ''; position: absolute; z-index: -1; left: 50%; top: 150px; width: 220px; height: 220px; margin-left: -110px; border-radius: 50%;
-  background: oklch(0.94 0.11 82);
-  box-shadow: 0 0 70px 24px oklch(0.9 0.13 70 / 0.7), 0 0 200px 90px oklch(0.82 0.13 55 / 0.4);
-}
-
-/* ── The top bar follows the sky ── */
-.bar { background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-.bar[data-night] { --muted: #A9AFC0; background: color-mix(in oklab, var(--sky-night) 90%, transparent); border-color: #2B2F3D; color: #EEF0F7; }
-.bar[data-night] .timeline a:hover, .bar[data-night] .timeline a[aria-current] { background: rgb(255 255 255 / 0.1); }
-.bar[data-night] .bar-cta { background: #fff; border-color: #fff; color: var(--ink); }
-.bar[data-night] :focus-visible { outline-color: var(--research); }
-.timeline a[aria-current] { background: rgb(21 23 28 / 0.08); }
-
-.bar-name { gap: 12px; }
-.clock { font: 500 0.8125rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
-.clock[hidden], .orb[hidden] { display: none; }
-
-/* the sun, riding the bar's lower edge like a horizon */
-.timeline { position: relative; }
-.orb {
-  position: absolute; left: 0; bottom: var(--orb-bottom, -20px); width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; pointer-events: none;
-  background: var(--sun); box-shadow: 0 0 0 3px oklch(0.85 0.14 70 / 0.28), 0 0 14px 4px oklch(0.82 0.15 65 / 0.5);
-}
-.orb[data-moon] { background: transparent; box-shadow: inset -7px 3px 0 0 var(--moon); filter: drop-shadow(0 0 5px oklch(0.85 0.06 280 / 0.8)); }
-@media (max-width: 940px) { .orb { --orb-bottom: -12px; width: 16px; height: 16px; margin-left: -8px; } .orb[data-moon] { box-shadow: inset -6px 3px 0 0 var(--moon); } }
-
-/* ── Wide screens: the sun is the scrollbar ── */
-.sun-rail { display: none; }
-@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) and (forced-colors: none) and (scripting: enabled) {
-  :root { --gutter: 96px; } /* a lane for the sun to cross */
-  html { scrollbar-width: none; }
-  html::-webkit-scrollbar { display: none; }
-  .orb { display: none; }
-  .sun-rail { display: block; position: fixed; z-index: 15; top: calc(var(--bar-h) + 8px); right: 0; bottom: 10px; width: 0; }
-}
-.sun-rail svg { position: absolute; top: 0; right: 0; max-width: none; height: 100%; overflow: visible; pointer-events: none; }
-.sun-rail path { fill: none; stroke: oklch(0.65 0.09 300 / 0.6); stroke-width: 2; stroke-dasharray: 1 8; stroke-linecap: round; }
-.sun-body { position: absolute; top: 0; right: 0; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; cursor: grab; touch-action: none; user-select: none; }
-.sun-body:active { cursor: grabbing; }
-.sun-disc {
-  --low: 0; /* 1 at the horizon, 0 at its highest */
-  --core: color-mix(in oklab, oklch(0.9 0.14 90), oklch(0.72 0.18 42) calc(var(--low) * 100%));
-  width: 54px; height: 54px; border-radius: 50%;
-  background: radial-gradient(circle at 38% 36%, oklch(0.98 0.06 95), var(--core) 58%, color-mix(in oklab, var(--core), oklch(0.65 0.19 40) 35%));
-  box-shadow: 0 0 0 7px color-mix(in oklab, var(--core) 28%, transparent), 0 0 34px 12px color-mix(in oklab, var(--core) 55%, transparent);
-}
-.sun-body[data-moon] .sun-disc {
-  background: transparent; box-shadow: inset -19px 9px 0 0 var(--moon);
-  filter: drop-shadow(0 0 12px oklch(0.84 0.07 285 / 0.75));
-}
+body { background: var(--sky); }
 
 /* ── Moments: what each hour brings ── */
 .moment { font: 500 0.875rem/1.6 var(--mono); color: var(--accent); }
 .moment time { margin-right: 10px; font-weight: 700; }
+.hint { display: none; margin-top: 28px; font: 500 0.8125rem/1.6 var(--mono); color: var(--muted); }
+.hint-touch { display: none; }
+@media (pointer: coarse) { .hint-fine { display: none; } .hint-touch { display: inline; } }
 
+.clock { font: 500 0.8125rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.clock[hidden] { display: none; }
+.bar-name { gap: 12px; }
+.timeline a[aria-current] { background: rgb(21 23 28 / 0.07); }
+.bar { background: color-mix(in oklab, var(--sky) 85%, transparent); border-color: rgb(21 23 28 / 0.07); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+
+/* ══════════ Paged: one scene at a time ══════════ */
+.paged, .paged body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+.paged body { background: var(--sky); }
+.paged .hint { display: block; }
+.paged .bar { position: fixed; inset: 0 0 auto; }
+
+.paged .day { position: fixed; inset: 0; z-index: 1; }
+.paged .scene {
+  position: absolute; inset: var(--bar-h) 0 76px; overflow: hidden; container-type: size;
+}
+.paged .scene[hidden], .paged .scene[data-leaving] { pointer-events: none; }
+.paged .scene[data-leaving] { z-index: -1; }
+.paged .scene-in {
+  height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgb(21 23 28 / 0.2) transparent;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.paged .scene-in > .wrap { width: min(100% - 2 * var(--gutter), 1200px); }
+
+/* the project pages fit the screen: each column centred, scrolling on its own if it has to */
+@media (min-width: 941px) {
+  .paged .hour-grid { height: 100%; align-items: center; }
+  .paged .hour-text { max-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding-block: 12px; scrollbar-width: thin; scrollbar-color: rgb(21 23 28 / 0.2) transparent; }
+  .paged .hour-demo { position: static; margin-block: 0; }
+  .paged .demo { --panel-h: clamp(300px, calc(100cqh - 92px), 560px); }
+  .paged .demo:has(.flow) { --panel-h: clamp(280px, calc(100cqh - 134px), 540px); }
+  .paged .hour-demo.night .demo { --panel-h: clamp(280px, calc(100cqh - 92px), 540px); }
+  .paged .hour.split .hour-grid { height: auto; }
+}
+
+/* ── The sky ── */
+.sky { display: none; }
+.paged .sky { display: block; position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--sky); }
+.sun { --r: 36px; position: absolute; left: 0; top: 0; width: calc(var(--r) * 2); height: calc(var(--r) * 2); margin: calc(var(--r) * -1) 0 0 calc(var(--r) * -1); will-change: translate; }
+/* the only gradient on the page: the sun's own light, warmer near the horizon */
+.sun { --core: color-mix(in oklab, oklch(0.94 0.12 92), oklch(0.78 0.16 50) calc(var(--low) * 100%)); }
+.sun-glow {
+  position: absolute; left: 50%; top: 50%; width: calc(var(--r) * 14); height: calc(var(--r) * 14); translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(closest-side,
+    color-mix(in oklab, var(--core) 70%, transparent),
+    color-mix(in oklab, var(--core) 32%, transparent) 22%,
+    color-mix(in oklab, var(--core) 12%, transparent) 48%,
+    transparent);
+}
+.sun-disc {
+  position: relative; width: 100%; height: 100%; border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, oklch(0.995 0.03 95), var(--core) 70%);
+  box-shadow: 0 0 calc(var(--r) * 0.5) calc(var(--r) * 0.15) color-mix(in oklab, var(--core) 80%, transparent);
+}
+.paged[data-over-sun], .paged[data-over-sun] * { cursor: grab; }
+.paged[data-dragging], .paged[data-dragging] * { cursor: grabbing !important; user-select: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .paged:not([data-dragging]) .sun-disc { transition: scale 0.25s; }
+  .paged[data-over-sun] .sun-disc, .paged[data-dragging] .sun-disc { scale: 1.08; }
+}
+
+.mountains { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+
+/* ── Under a dark sky (sunrise and sunset), the words turn light ── */
+[data-dark] {
+  --ink: #EEF0F7; --muted: #AEB4C6; --hair: rgb(255 255 255 / 0.16); --surface: rgb(255 255 255 / 0.08);
+  color-scheme: dark;
+}
+[data-dark] body { color: var(--ink); }
+[data-dark] .pill { border-color: rgb(255 255 255 / 0.24); color: var(--ink); }
+[data-dark] a.pill:hover, [data-dark] button.pill:hover { border-color: rgb(255 255 255 / 0.6); }
+[data-dark] .pill-dark { background: #F4F2EE; border-color: #F4F2EE; color: #15171C; }
+[data-dark] a.pill-dark:hover { background: #fff; border-color: #fff; }
+[data-dark] .pill-open { background: rgb(120 200 150 / 0.16); color: #A6E0BA; }
+[data-dark] .dot { background: #7FD09B; }
+[data-dark] .live-status { color: #8FD6A6; }
+[data-dark] .glance a { border-color: rgb(255 255 255 / 0.18); }
+[data-dark] .cta .pill-ghost { border-color: rgb(255 255 255 / 0.35); }
+[data-dark] .cta a.pill:hover, [data-dark] .cta button.pill:hover { border-color: #fff; }
+[data-dark] .timeline a:hover, [data-dark] .timeline a[aria-current] { background: rgb(255 255 255 / 0.1); }
+[data-dark] .bar, [data-dark] .pager-step { border-color: rgb(255 255 255 / 0.12); }
+[data-dark] .pager-step { background: color-mix(in oklab, var(--sky) 88%, white); }
+[data-dark] .pager-step:hover { background: color-mix(in oklab, var(--sky) 76%, white); }
+[data-dark] :focus-visible { outline-color: var(--research); }
+@media (prefers-reduced-motion: no-preference) {
+  body, .bar, .pager-step, .pill, .glance a { transition: color 0.4s, background-color 0.4s, border-color 0.4s, box-shadow 0.3s; }
+}
+
+/* ── Shadows fall away from the sun ── */
+.paged .pill, .paged .live-body img, .paged .glance-top img { box-shadow: var(--sx) var(--sy) 16px -8px rgb(60 40 20 / 0.22); }
+.paged .pill-open { box-shadow: var(--sx) var(--sy) 16px -8px rgb(30 90 50 / 0.25); }
+.paged .hour-demo.night .demo { box-shadow: var(--sx) var(--sy) 40px -14px rgb(30 25 40 / 0.4); }
+.paged .phone, .paged .loom { box-shadow: var(--sx) var(--sy) 30px -14px rgb(60 40 20 / 0.28); }
+@media (prefers-reduced-motion: no-preference) {
+  .paged .pill, .paged .demo, .paged .phone, .paged .loom { transition: box-shadow 0.3s, border-color 0.2s, background-color 0.2s; }
+}
+
+/* ── The pager: back to the page before on the left, on to the next on the right ── */
+.pager { display: none; }
+.paged .pager { display: contents; }
+.pager-step {
+  position: fixed; z-index: 20; bottom: calc(16px + env(safe-area-inset-bottom));
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px;
+  border: 1px solid rgb(21 23 28 / 0.08); border-radius: 999px;
+  background: color-mix(in oklab, var(--sky) 55%, rgb(255 255 255 / 0.75)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--sx) var(--sy) 16px -8px rgb(60 40 20 / 0.22);
+  font-size: 0.9375rem; font-weight: 600; white-space: nowrap;
+}
+.pager-step[hidden] { display: none; }
+.pager-prev { left: max(16px, (100vw - 1200px) / 2); }
+.pager-next { right: max(16px, (100vw - 1200px) / 2); }
+.pager-step:hover { background: color-mix(in oklab, var(--sky) 30%, white); }
+.pager-step > span[aria-hidden] { font-size: 1.0625rem; }
+
+/* ── Cards: the demos, and the links on the first page ── */
+.paged .demo, .paged .live, .paged .glance a {
+  border: 1px solid rgb(255 255 255 / 0.55); border-radius: 22px;
+  background: rgb(255 255 255 / 0.62); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--sx) var(--sy) 34px -16px rgb(40 35 60 / 0.3);
+}
+.paged .demo { padding: 0 20px 16px; }
+.paged .live { padding: 22px; }
+.paged .live-body img { width: 64px; height: 64px; border-radius: 15px; }
+.paged .glance a { padding: 16px 18px; border-radius: 18px; }
+.paged .glance ul { gap: 16px; }
+.paged a.live:hover, .paged .glance a:hover { background: rgb(255 255 255 / 0.8); }
+[data-dark] .live, [data-dark] .glance a { border-color: rgb(255 255 255 / 0.1); background: rgb(255 255 255 / 0.06); box-shadow: var(--sx) var(--sy) 34px -16px rgb(0 0 0 / 0.5); }
+[data-dark] a.live:hover, [data-dark] .glance a:hover { background: rgb(255 255 255 / 0.11); }
+@media (prefers-reduced-motion: no-preference) {
+  .paged .live, .paged .glance a { transition: background-color 0.2s, border-color 0.4s, box-shadow 0.3s; }
+}
+
+/* ── Scenes that aren't projects ── */
+.scene-intro .intro { padding-block: 16px; }
+.scene-intro .glance { padding-bottom: 16px; }
+.also .moment { margin-bottom: 8px; }
+.scene-also { --accent: var(--paperboy); }
+
+/* the research demo keeps its night-time diagram, on a dark screen of its own */
+.hour-demo.night .demo { padding: 0 20px 16px; border-radius: 22px; background: var(--night); color: #EEF0F7; box-shadow: var(--shadow); }
+.paged .hour-demo.night .demo { border-color: transparent; background: var(--night); box-shadow: var(--sx) var(--sy) 40px -14px rgb(30 25 40 / 0.45); }
+.hour-demo.night .demo-head { border-color: var(--hair); }
+
+/* ── Narrow: pages are taller than the screen, so they scroll ── */
 @media (max-width: 940px) {
-  .foot::before { top: 90px; width: 150px; height: 150px; margin-left: -75px; }
+  .paged .scene { bottom: 0; container-type: normal; }
+  .paged .scene-in { height: auto; min-height: 100%; overflow: visible; padding-bottom: 96px; }
+  .paged .scene { overflow-y: auto; overscroll-behavior: contain; }
+}
+@media (max-height: 480px) {
+  .paged { --bar-h: 56px; }
+  .paged .bar-in { height: 56px; grid-template-areas: 'name cta'; grid-template-columns: 1fr auto; }
+  .paged .timeline { display: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .dawn::after { animation: sunrise 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-  .moment { transition: opacity 0.45s, translate 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
-  .moment[data-waiting] { opacity: 0; translate: 0 -18px; }
-  .bar { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
-
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    .sunset-sun { animation: sunset linear both; animation-timeline: view(); animation-range: cover 10% cover 80%; }
-    .foot::before { animation: next-sunrise linear both; animation-timeline: view(); animation-range: entry 10% entry 90%; }
-    .hour-research::before { animation: stars linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
-  }
+  .moment { transition: opacity 0.5s 0.15s, translate 0.5s 0.15s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  .moment[data-waiting] { opacity: 0; translate: 0 -14px; transition: none; }
 }
-@keyframes sunrise { from { translate: 0 220px; opacity: 0; } }
-@keyframes sunset { from { translate: 0 -75%; } to { translate: 0 105%; } }
-@keyframes next-sunrise { from { translate: 0 150px; opacity: 0.2; } }
-@keyframes stars { from { opacity: 0; } }
 
 @media (forced-colors: active) {
-  .orb { background: CanvasText; }
+  .sun-disc { background: CanvasText; }
   .timeline a[aria-current] { outline: 2px solid Highlight; }
 }

@@ -4,10 +4,12 @@ import { initTabs } from './lib/tabs.js';
 import { initMedia } from './lib/media.js';
 import { whenNear } from './lib/lazy.js';
 import { initCopy } from './lib/copy.js';
-import { initSky } from './lib/sky.js';
+import { initDay } from './lib/day.js';
 import { initFlow } from './lib/flow.js';
 import { initSplit } from './lib/split.js';
 import { highlight, followHighlights } from './lib/highlight.js';
+
+initDay(); // first, so pages that aren't showing don't load their demos
 
 const DEMOS = {
   paperboy: () => import('./demos/paperboy.js'),
@@ -28,4 +30,3 @@ for (const demo of document.querySelectorAll('[data-demo]')) {
 }
 
 initCopy();
-initSky();

@@ -30,26 +30,25 @@
 
 <header class="bar">
   <div class="bar-in">
-    <a class="bar-name" href="#top">Theo Leone <span class="clock" aria-hidden="true" hidden>07:00</span></a>
+    <a class="bar-name" href="#intro">Theo Leone <span class="clock" aria-hidden="true" hidden>06:00</span></a>
     <nav class="timeline" aria-label="A day in the life">
       <ol>
-        <li><a href="#paperboy"><time>07:00</time> Paperboy</a></li>
-        <li><a href="#kaeru"><time>08:30</time> Kaeru</a></li>
-        <li><a href="#waypass"><time>14:00</time> Waypass</a></li>
-        <li><a href="#research"><time>21:00</time> Research</a></li>
+        <li><a href="#paperboy"><time>08:00</time> Paperboy</a></li>
+        <li><a href="#kaeru"><time>10:00</time> Kaeru</a></li>
+        <li><a href="#waypass"><time>12:00</time> Waypass</a></li>
+        <li><a href="#research"><time>14:00</time> Research</a></li>
       </ol>
-      <span class="orb" aria-hidden="true" hidden></span>
     </nav>
-    <a class="pill pill-dark bar-cta" href="mailto:theohleone@gmail.com">Get in touch</a>
+    <a class="pill pill-dark bar-cta" href="#contact">Get in touch</a>
   </div>
 </header>
 
-<main id="main" tabindex="-1">
-  <span id="top"></span>
+<main id="main" class="day" tabindex="-1">
 
-  <div class="dawn">
-  <!-- ═════════ INTRO ═════════ -->
-  <section class="wrap intro" aria-labelledby="intro-title">
+  <!-- ═════════ 06:00 · SUNRISE ═════════ -->
+  <section class="scene scene-intro" id="intro" data-time="06:00" data-name="Sunrise" aria-labelledby="intro-title" tabindex="-1">
+  <div class="scene-in">
+  <div class="wrap intro">
     <div class="intro-text">
       <div class="who">
         <img src="img/theo-avatar.webp" width="56" height="56" alt="Portrait of Theo Leone">
@@ -62,6 +61,7 @@
         <li><a class="pill" href="https://github.com/theoleone10" target="_blank" rel="noopener">GitHub</a></li>
         <li><a class="pill" href="https://www.linkedin.com/in/theo-leone-a60567314" target="_blank" rel="noopener">LinkedIn</a></li>
       </ul>
+      <p class="hint" data-js-only><span class="hint-fine">Scroll, or drag the sun,</span><span class="hint-touch">Swipe, or drag the sun,</span> to move through the day <span aria-hidden="true">→</span></p>
     </div>
 
     <a class="live" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">
@@ -72,49 +72,50 @@
       </span>
       <span class="live-go" aria-hidden="true">View on the App Store <span>↗</span></span>
     </a>
-  </section>
+  </div>
 
   <!-- ═════════ AT A GLANCE ═════════ -->
   <nav class="wrap glance" aria-label="At a glance">
     <ul>
       <li>
         <a href="#paperboy" data-glance="paperboy">
-          <span class="glance-top"><img data-icon="paperboy" src="img/paperboy-icon-128.webp" width="36" height="36" alt=""><time>07:00</time></span>
+          <span class="glance-top"><img data-icon="paperboy" src="img/paperboy-icon-128.webp" width="36" height="36" alt=""><time>08:00</time></span>
           <strong>Paperboy</strong>
           <span>Your newsletters, read aloud</span>
         </a>
       </li>
       <li>
         <a href="#kaeru" data-glance="kaeru">
-          <span class="glance-top"><img data-icon="kaeru" src="img/kaeru-icon-192.webp" width="36" height="36" alt=""><time>08:30</time></span>
+          <span class="glance-top"><img data-icon="kaeru" src="img/kaeru-icon-192.webp" width="36" height="36" alt=""><time>10:00</time></span>
           <strong>Kaeru</strong>
           <span>Japanese grammar, N5 to N1</span>
         </a>
       </li>
       <li>
         <a href="#waypass" data-glance="waypass">
-          <span class="glance-top"><img data-icon="waypass" src="img/waypass-mark-128.webp" width="36" height="36" alt=""><time>14:00</time></span>
+          <span class="glance-top"><img data-icon="waypass" src="img/waypass-mark-128.webp" width="36" height="36" alt=""><time>12:00</time></span>
           <strong>Waypass</strong>
           <span>Cremations without the paper</span>
         </a>
       </li>
       <li>
         <a href="#research" data-glance="research">
-          <span class="glance-top"><img data-icon="research" src="img/research-mark.svg" width="36" height="36" alt=""><time>21:00</time></span>
+          <span class="glance-top"><img data-icon="research" src="img/research-mark.svg" width="36" height="36" alt=""><time>14:00</time></span>
           <strong>Research</strong>
           <span>Models that train where data lives</span>
         </a>
       </li>
     </ul>
   </nav>
-
   </div>
+  </section>
 
-  <!-- ═════════ 07:00 · PAPERBOY ═════════ -->
-  <section class="hour hour-paperboy" id="paperboy" aria-labelledby="paperboy-title" tabindex="-1">
+  <!-- ═════════ 08:00 · PAPERBOY ═════════ -->
+  <section class="scene hour hour-paperboy" id="paperboy" data-time="08:00" data-name="Paperboy" aria-labelledby="paperboy-title" tabindex="-1">
+    <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>07:00</time> Your brief is ready</p>
+        <p class="moment"><time>08:00</time> Your brief is ready</p>
         <h2 id="paperboy-title">Paperboy</h2>
         <p class="hour-desc">Your newsletters, turned into one short audio brief every morning. Pick the newsletters, the length and the voice.</p>
         <ol class="points">
@@ -229,13 +230,15 @@ export async function generateSectionedAudio(sections, voice, measure) {
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ═════════ 08:30 · KAERU ═════════ -->
-  <section class="hour hour-kaeru hour-flip" id="kaeru" aria-labelledby="kaeru-title" tabindex="-1">
+  <!-- ═════════ 10:00 · KAERU ═════════ -->
+  <section class="scene hour hour-kaeru hour-flip" id="kaeru" data-time="10:00" data-name="Kaeru" aria-labelledby="kaeru-title" tabindex="-1">
+    <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>08:30</time> Today’s reviews are due</p>
+        <p class="moment"><time>10:00</time> Today’s reviews are due</p>
         <h2 id="kaeru-title">Kaeru</h2>
         <p class="hour-desc">Japanese grammar, a little every day: 421 grammar points from N5 to N1, laid out as train lines. Out now on the App Store.</p>
         <ol class="points">
@@ -362,13 +365,15 @@ export function createScheduler({
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ═════════ 14:00 · WAYPASS ═════════ -->
-  <section class="hour hour-waypass" id="waypass" aria-labelledby="waypass-title" tabindex="-1">
+  <!-- ═════════ 12:00 · WAYPASS ═════════ -->
+  <section class="scene hour hour-waypass" id="waypass" data-time="12:00" data-name="Waypass" aria-labelledby="waypass-title" tabindex="-1">
+    <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>14:00</time> New booking request</p>
+        <p class="moment"><time>12:00</time> New booking request</p>
         <h2 id="waypass-title">Waypass</h2>
         <p class="hour-desc">The whole cremation workflow, from intake to completion, on one platform for funeral homes, crematoriums and shipping partners.</p>
         <ol class="points">
@@ -458,19 +463,15 @@ export async function recordBookingEvent({
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ═════════ 18:30 · SUNSET ═════════ -->
-  <div class="sunset" aria-hidden="true">
-    <div class="sunset-sky"><div class="sunset-sun"></div></div>
-    <span class="sunset-time">18:30</span>
-  </div>
-
-  <!-- ═════════ 21:00 · RESEARCH ═════════ -->
-  <section class="hour hour-research hour-flip night" id="research" aria-labelledby="research-title" tabindex="-1">
+  <!-- ═════════ 14:00 · RESEARCH ═════════ -->
+  <section class="scene hour hour-research hour-flip" id="research" data-time="14:00" data-name="Research" aria-labelledby="research-title" tabindex="-1">
+    <div class="scene-in">
     <div class="wrap hour-grid">
       <div class="hour-text">
-        <p class="moment"><time>21:00</time> Five machines start training</p>
+        <p class="moment"><time>14:00</time> Five machines start training</p>
         <h2 id="research-title">Federated Learning on DCP</h2>
         <p class="hour-desc">One model, trained across five machines without moving their data. I co-own the logistic regression track.</p>
         <ol class="points steps">
@@ -495,7 +496,7 @@ export async function recordBookingEvent({
         </details>
       </div>
 
-      <div class="hour-demo">
+      <div class="hour-demo night">
         <div class="demo" data-demo="fl">
           <div class="demo-head">
             <div class="tabs" aria-label="Federated learning demo">
@@ -654,11 +655,14 @@ if (args.stage === 'newton') {
         </div>
       </div>
     </div>
+    </div>
   </section>
 
-  <!-- ═════════ ALSO BUILT ═════════ -->
-  <div class="late night">
-  <section class="wrap also" aria-labelledby="also-title">
+  <!-- ═════════ 16:00 · ALSO BUILT ═════════ -->
+  <section class="scene scene-also" id="also" data-time="16:00" data-name="Also built" aria-labelledby="also-title" tabindex="-1">
+  <div class="scene-in">
+  <div class="wrap also">
+    <p class="moment"><time>16:00</time> Golden hour, smaller things</p>
     <h2 id="also-title">Also built</h2>
     <ul class="also-list">
       <li><a href="https://github.com/jack-fergusson/EngSoc-User-Center" target="_blank" rel="noopener">
@@ -698,16 +702,17 @@ if (args.stage === 'newton') {
         </dl>
       </div>
     </details>
-  </section>
   </div>
-</main>
+  </div>
+  </section>
 
-<!-- ═════════ FOOTER ═════════ -->
-<footer class="foot">
-  <div class="wrap">
+  <!-- ═════════ 18:00 · SUNSET ═════════ -->
+  <section class="scene scene-contact" id="contact" data-time="18:00" data-name="Sunset" aria-labelledby="contact-title" tabindex="-1">
+  <div class="scene-in">
+  <div class="wrap foot">
   <div class="cta">
-    <p class="cta-time">Tomorrow, <time>07:00</time></p>
-    <h2>Hiring for an internship or co-op? Let’s talk.</h2>
+    <p class="moment"><time>18:00</time> Sunset, and the day’s done</p>
+    <h2 id="contact-title">Hiring for an internship or co-op? Let’s talk.</h2>
     <ul class="links">
       <li><a class="pill pill-dark" href="mailto:theohleone@gmail.com">theohleone@gmail.com</a></li>
       <li data-js-only><button type="button" class="pill pill-ghost" data-copy="theohleone@gmail.com">Copy email</button></li>
@@ -718,6 +723,8 @@ if (args.stage === 'newton') {
   </div>
   <p class="colophon">No framework · <a href="https://github.com/theoleone10/profile" target="_blank" rel="noopener">view source on GitHub</a></p>
   </div>
-</footer>
+  </div>
+  </section>
+</main>
 </body>
 </html>
