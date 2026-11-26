@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/page.css">
   <link rel="stylesheet" href="css/demo.css">
   <link rel="stylesheet" href="css/sky.css">
+  <link rel="stylesheet" href="css/fl.css">
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
@@ -483,132 +484,221 @@ export async function recordBookingEvent({
   </div>
 
   <!-- ═════════ 21:00 · RESEARCH ═════════ -->
-  <section class="hour hour-research hour-flip night" id="research" aria-labelledby="research-title" tabindex="-1">
-    <div class="wrap hour-grid">
-      <div class="hour-text">
-        <p class="moment"><img src="img/research-mark.svg" width="40" height="40" alt="" loading="lazy"><span><small><time>21:00</time> · Research</small>Five machines start training</span></p>
-        <h2 id="research-title">Federated Learning on DCP</h2>
-        <p class="hour-desc">Training models where the data lives: only model information moves. A QMIND × Distributive project, in progress.</p>
-        <ol class="points">
-          <li>Co-owning the logistic regression track: Newton-style training and FedAvg</li>
-          <li>Writing the track’s summary, implementation plan and test plan</li>
-          <li>The team agrees on specs before any code, and records each decision as it is made</li>
-        </ol>
-        <p class="stack">Phase: writing specs, before any code</p>
-        <ul class="links">
-          <li><a class="pill" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">Code<span class="vh"> for Federated Learning on DCP on GitHub</span></a></li>
-        </ul>
-        <details class="more">
-          <summary>More about the work</summary>
-          <p class="byline">QMIND × Distributive · 2026–now</p>
-          <p>QMIND and Distributive are building a proof-of-concept, publicly available package for running federated learning on the Distributive Compute Platform. Training data stays on the machines that hold it, and only model information moves through DCP. There are two model tracks: logistic regression and random forest.</p>
-          <ul>
-            <li>Contributing to the shared specs, which need a reviewer from the other track</li>
-          </ul>
-        </details>
+  <section class="hour hour-research night" id="research" aria-labelledby="research-title" tabindex="-1">
+    <div class="wrap research">
+      <div class="research-top">
+        <div>
+          <p class="moment"><img src="img/research-mark.svg" width="40" height="40" alt="" loading="lazy"><span><small><time>21:00</time> · Research</small>Five machines start training</span></p>
+          <h2 id="research-title">Federated Learning on DCP</h2>
+          <p class="hour-desc">Five machines train one arthritis-risk model on the Distributive Compute Platform. Their rows stay put; only model numbers move.</p>
+          <div class="research-meta">
+            <ul class="links">
+              <li><a class="pill" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">Code<span class="vh"> for Federated Learning on DCP on GitHub</span></a></li>
+            </ul>
+            <p class="stack">Specs in progress · showcase demo working</p>
+          </div>
+        </div>
+        <div>
+          <ol class="points">
+            <li>Co-owning the logistic regression track: Newton-style training and FedAvg</li>
+            <li>Writing the track’s summary, implementation plan and test plan</li>
+            <li>The team agrees on specs before any code, and records each decision as it is made</li>
+          </ol>
+          <details class="more">
+            <summary>More about the work</summary>
+            <p class="byline">QMIND × Distributive · 2026–now</p>
+            <p>QMIND and Distributive are building a proof-of-concept, publicly available package for running federated learning on the Distributive Compute Platform. Training data stays on the machines that hold it, and only model information moves through DCP. There are two model tracks: logistic regression and random forest.</p>
+            <ul>
+              <li>Contributing to the shared specs, which need a reviewer from the other track</li>
+            </ul>
+          </details>
+        </div>
       </div>
 
-      <div class="hour-demo">
-        <div class="demo" data-demo="fl">
-          <div class="demo-head">
-            <img data-icon-target="research" src="img/research-mark.svg" width="32" height="32" alt="" loading="lazy">
-            <p class="demo-name">Federated learning</p>
-            <div class="tabs" aria-label="Federated learning demo">
-              <button type="button" id="fl-tab-try" data-tab="try" aria-selected="true">Try it</button>
-              <button type="button" id="fl-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
-            </div>
+      <div class="demo" data-demo="fl">
+        <div class="demo-head">
+          <img data-icon-target="research" src="img/research-mark.svg" width="32" height="32" alt="" loading="lazy">
+          <p class="demo-name">Federated training</p>
+          <div class="tabs" aria-label="Federated learning demo">
+            <button type="button" id="fl-tab-try" data-tab="try" aria-selected="true">Try it</button>
+            <button type="button" id="fl-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
           </div>
-          <div class="panels">
-            <div class="panel" data-panel="try" id="fl-try">
-              <div class="panel-in fl">
-                <div class="fl-controls">
-                  <button type="button" class="fl-btn fl-primary" data-fl="run" disabled>Run</button>
-                  <button type="button" class="fl-btn" data-fl="step" disabled>Step</button>
-                  <button type="button" class="fl-btn" data-fl="reset" disabled>Reset</button>
-                  <div class="seg" role="group" aria-label="Method">
-                    <button type="button" aria-pressed="true" data-method="fedavg" disabled>FedAvg</button>
-                    <button type="button" aria-pressed="false" data-method="newton" disabled>Newton</button>
-                  </div>
-                  <div class="seg" role="group" aria-label="Data split">
-                    <button type="button" aria-pressed="true" data-split="iid" disabled>IID</button>
-                    <button type="button" aria-pressed="false" data-split="skew" disabled>Skewed</button>
-                  </div>
+        </div>
+        <div class="panels">
+          <div class="panel" data-panel="try" id="fl-try">
+            <div class="panel-in fl">
+              <div class="fl-head">
+                <span class="fl-chip" data-fl="chip">Loading</span>
+                <ol class="fl-steps" data-fl="steps" aria-label="Steps in a round">
+                  <li data-phase="send">Send weights</li>
+                  <li data-phase="read">Read own rows</li>
+                  <li data-phase="return">Return sums</li>
+                  <li data-phase="update">Update model</li>
+                </ol>
+              </div>
+              <p class="fl-say" data-fl="say" aria-live="polite">Loading the sample data…</p>
+              <div class="fl-body">
+                <div class="fl-stage" data-fl="stage">
+                  <svg aria-hidden="true"></svg>
+                  <p class="fl-node fl-coord" data-fl="coord"><b>Coordinator</b><span>holds the shared model</span></p>
+                  <p class="fl-node fl-sched" data-fl="sched"><b>DCP scheduler</b><span data-fl="jobs">0 jobs</span></p>
+                  <p class="fl-boundary">rows stay below this line</p>
+                  <ul class="fl-machines" data-fl="machines" aria-label="Machines. Press one to train with or without it."></ul>
+                  <p class="fl-legend">One dot is 10 people: <span class="yes">arthritis</span> <span>no arthritis</span></p>
                 </div>
-                <canvas data-fl="canvas" role="img" aria-label="Five clients train a logistic regression model; only weights travel to the server."></canvas>
+                <div class="fl-side">
+                  <h3>Shared model <span>10 weights</span></h3>
+                  <ul class="fl-weights" data-fl="weights"></ul>
+                  <h3>Alone vs together <span>test AUC</span></h3>
+                  <ul class="fl-auc" data-fl="auc"></ul>
+                  <p class="fl-axis" aria-hidden="true"><span>0.68</span><span>0.80</span></p>
+                  <p class="fl-match" data-fl="match"></p>
+                </div>
+              </div>
+              <div class="fl-foot">
+                <button type="button" class="fl-btn fl-primary" data-fl="run" disabled>Run</button>
+                <button type="button" class="fl-btn" data-fl="step" disabled>Step</button>
+                <button type="button" class="fl-btn" data-fl="reset" disabled>Reset</button>
                 <dl class="fl-stats">
-                  <div><dt>Round</dt><dd data-fl="round">0 / 30</dd></div>
-                  <div><dt>Accuracy</dt><dd data-fl="acc">–</dd></div>
-                  <div><dt>Numbers sent</dt><dd data-fl="sent">0</dd></div>
-                  <div><dt>Raw points sent</dt><dd class="fl-zero">0</dd></div>
-                  <div class="fl-spark"><dt>Accuracy by round</dt><dd><svg data-fl="spark" viewBox="0 0 120 28" preserveAspectRatio="none" aria-hidden="true"></svg></dd></div>
+                  <div><dt>Numbers sent out</dt><dd data-fl="out">0</dd></div>
+                  <div><dt>Numbers returned</dt><dd data-fl="back">0</dd></div>
+                  <div><dt>Raw data points sent</dt><dd class="fl-zero">0</dd></div>
                 </dl>
               </div>
-              <p class="cap">An illustration of the idea, not project results. Filled and hollow dots are the two classes; dashed lines are each client’s local model. Accuracy uses pooled data a real deployment never sees.</p>
             </div>
+            <p class="cap">The project’s training code, running in your browser on a CDC BRFSS 2024 sample. The DCP scheduler is illustrated: no jobs are sent. Press a machine to leave it out.</p>
+          </div>
 
-            <div class="panel" data-panel="code" id="fl-code">
-              <div class="panel-in code" tabindex="0" role="region" aria-label="Federated learning code excerpts">
-                <p class="static-label">Code</p>
-                <figure data-excerpt="fl.fedAvgRound">
-                  <figcaption>js/demos/fl.js · fedAvgRound()</figcaption>
-<pre><code>function fedAvgRound(global, clients) {
-  const updates = clients.map((c) =&gt; ({
-    w: localTrain(global, c.data),
-    n: c.data.length,
-  }));
-  const total = updates.reduce((s, u) =&gt; s + u.n, 0);
-  const w = [0, 1, 2].map(
-    (i) =&gt; updates.reduce((s, u) =&gt; s + u.w[i] * u.n, 0) / total
-  );
-  <span class="c">// each client sends 3 weights and a count</span>
-  return { w, locals: updates.map((u) =&gt; u.w), sentPerClient: 3 + 1 };
+          <div class="panel" data-panel="code" id="fl-code">
+            <div class="panel-in code" tabindex="0" role="region" aria-label="Federated learning code excerpts">
+              <p class="static-label">Code</p>
+                <figure data-excerpt="fl.workFunction">
+                  <figcaption>src/lr/workFunction.js · what each machine runs</figcaption>
+<pre><code>if (args.stage === 'stats') {
+  var sum = new Array(p).fill(0);
+  var sumSq = new Array(p).fill(0);
+  var classCounts = [0, 0];
+  for (var i = 0; i &lt; n; i++) {
+    var row = X[i];
+    for (var j = 0; j &lt; p; j++) {
+      sum[j] += row[j];
+      sumSq[j] += row[j] * row[j];
+    }
+    classCounts[y[i] === 1 ? 1 : 0] += 1;
+  }
+  reportProgress(1);
+  return {
+    stage: 'stats', n: n, sum: sum, sumSq: sumSq, classCounts: classCounts, featureNames: sliceData.featureNames,
+    site: site, device: device, sourceBytes: typeof sliceData.sourceBytes === 'number' ? sliceData.sourceBytes : null,
+  };
+}
+
+if (args.stage === 'newton') {
+  var beta = args.beta;
+  var mean = args.mean;
+  var std = args.std;
+  var cw = args.classWeights;
+  var off = args.fitIntercept ? 1 : 0;
+  var d = p + off;
+
+  var gradient = new Array(d).fill(0);
+  var hessian = new Array((d * (d + 1)) / 2).fill(0); // upper triangle, row-major
+  var loss = 0;
+  var x = new Array(d);
+
+  for (var r = 0; r &lt; n; r++) {
+    if (off) x[0] = 1;
+    for (var k = 0; k &lt; p; k++) x[k + off] = (X[r][k] - mean[k]) / std[k];
+
+    var z = 0;
+    for (var a = 0; a &lt; d; a++) z += beta[a] * x[a];
+
+    var label = y[r] === 1 ? 1 : 0;
+    var c = cw[label];
+    <span class="c">// Stable sigmoid and log loss: loss = log(1 + e^z) - y z</span>
+    var prob, softplus;
+    if (z &gt;= 0) {
+      var e = Math.exp(-z);
+      prob = 1 / (1 + e);
+      softplus = z + Math.log1p(e);
+    } else {
+      var e2 = Math.exp(z);
+      prob = e2 / (1 + e2);
+      softplus = Math.log1p(e2);
+    }
+    loss += c * (softplus - label * z);
+
+    var resid = c * (prob - label);
+    var w = c * prob * (1 - prob);
+    var idx = 0;
+    for (var a2 = 0; a2 &lt; d; a2++) {
+      gradient[a2] += resid * x[a2];
+      var wx = w * x[a2];
+      for (var b = a2; b &lt; d; b++) hessian[idx++] += wx * x[b];
+    }
+    if (r % 500 === 0) reportProgress(r / n);
+  }
+  reportProgress(1);
+  return { stage: 'newton', n: n, gradient: gradient, hessian: hessian, loss: loss, site: site, device: device };
 }</code></pre>
                 </figure>
-                <figure data-excerpt="fl.newtonRound">
-                  <figcaption>js/demos/fl.js · newtonRound()</figcaption>
-<pre><code>function newtonRound(global, clients, ridge = 1e-3) {
-  const parts = clients.map((c) =&gt; gradHess(global, c.data));
-  const sum = (f) =&gt; parts.reduce((s, p) =&gt; s + f(p), 0);
-  const g = [0, 1, 2].map((i) =&gt; sum((p) =&gt; p.g[i]));
-  const H = [0, 1, 2].map((i) =&gt; [0, 1, 2].map(
-    (j) =&gt; sum((p) =&gt; p.H[i][j]) + (i === j ? ridge : 0)
-  ));
-  const step = solve3(H, g);
-  const w = global.map((wi, i) =&gt; wi - step[i]);
-  <span class="c">// a gradient (3) and a symmetric Hessian (6)</span>
-  return { w, locals: [], sentPerClient: 3 + 6 };
-}</code></pre>
-                </figure>
-                <figure data-excerpt="fl.gradHess">
-                  <figcaption>js/demos/fl.js · gradHess()</figcaption>
-<pre><code>function gradHess(w, data) {
-  const g = [0, 0, 0];
-  const H = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-  for (const { x, y } of data) {
-    const xt = [x[0], x[1], 1];
-    const p = sigmoid(w[0] * xt[0] + w[1] * xt[1] + w[2]);
-    for (let i = 0; i &lt; 3; i++) {
-      g[i] += (p - y) * xt[i];
-      for (let j = 0; j &lt; 3; j++) {
-        H[i][j] += p * (1 - p) * xt[i] * xt[j];
-      }
+                <figure data-excerpt="fl.newtonUpdate">
+                  <figcaption>src/lr/coordinator.js · one Newton step</figcaption>
+<pre><code>function newtonUpdate(state, results, h) {
+  const d = state.beta.length;
+  const D = penaltyMask(d, h.fitIntercept);
+  const beta = state.beta;
+
+  let loss = 0;
+  for (const r of results) loss += r.loss;
+  for (let j = 0; j &lt; d; j++) loss += 0.5 * h.l2 * D[j] * beta[j] * beta[j];
+
+  const prev = state.prev;
+  if (prev &amp;&amp; loss &gt; prev.loss * (1 + 1e-12)) {
+    <span class="c">// Reject: go back to the previous beta with more damping.</span>
+    const damping = Math.max(state.damping * 10, 1e-4);
+    const step = choleskySolve(addDiag(prev.H, damping), prev.g);
+    const next = prev.beta.map((b, j) =&gt; b - step[j]);
+    return {
+      state: { beta: next, damping, prev },
+      loss,
+      converged: false,
+      rejected: true,
+      maxStep: Math.max(...step.map(Math.abs)),
+    };
+  }
+
+  if (prev) {
+    const rel = Math.abs(loss - prev.loss) / Math.max(1, Math.abs(loss));
+    if (rel &lt; h.tolerance) {
+      return { state: { ...state, prev: { ...prev, loss } }, loss, converged: true, rejected: false, maxStep: 0 };
     }
   }
-  return { g, H };
-}</code></pre>
-                </figure>
-                <figure data-excerpt="fl.localTrain">
-                  <figcaption>js/demos/fl.js · localTrain()</figcaption>
-<pre><code>function localTrain(w, data, epochs = 5, lr = 0.5) {
-  let local = [...w];
-  for (let e = 0; e &lt; epochs; e++) {
-    const { g } = gradHess(local, data);
-    local = local.map((wi, i) =&gt; wi - (lr * g[i]) / data.length);
+
+  const g = new Array(d).fill(0);
+  const Hp = new Array((d * (d + 1)) / 2).fill(0);
+  for (const r of results) {
+    for (let j = 0; j &lt; d; j++) g[j] += r.gradient[j];
+    for (let j = 0; j &lt; Hp.length; j++) Hp[j] += r.hessian[j];
   }
-  return local;
+  for (let j = 0; j &lt; d; j++) g[j] += h.l2 * D[j] * beta[j];
+  const H = unpackUpper(Hp, d);
+  for (let j = 0; j &lt; d; j++) H[j][j] += h.l2 * D[j];
+
+  const damping = state.damping / 10 &lt; 1e-12 ? 0 : state.damping / 10;
+  const step = choleskySolve(damping &gt; 0 ? addDiag(H, damping) : H, g);
+  const next = beta.map((b, j) =&gt; b - step[j]);
+  const maxStep = Math.max(...step.map(Math.abs));
+
+  return {
+    state: { beta: next, damping, prev: { beta, loss, g, H } },
+    loss,
+    converged: maxStep &lt; h.tolerance,
+    rejected: false,
+    maxStep,
+  };
 }</code></pre>
                 </figure>
-              </div>
             </div>
           </div>
         </div>

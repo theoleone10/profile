@@ -9,7 +9,7 @@ import { initSky } from './lib/sky.js';
 const DEMOS = {
   paperboy: () => import('./demos/paperboy.js'),
   kaeru: () => import('./demos/kaeru.js'),
-  fl: () => import('./demos/fl.js'),
+  fl: () => import('./demos/fl/index.js'),
 };
 
 for (const demo of document.querySelectorAll('[data-demo]')) {
