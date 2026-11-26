@@ -1,0 +1,67 @@
+/* The systems on show: pipelines, code that lights up, and code beside a demo. */
+
+/* ── Pipeline ── */
+.flow { display: flex; align-items: center; min-height: 44px; list-style: none; font: 500 0.75rem/1.4 var(--mono); color: var(--muted); }
+.flow li { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+.flow li:not(:last-child) { flex: 1; }
+.flow li::before { content: ''; width: 9px; height: 9px; flex: none; border: 1.5px solid #B7B8B4; border-radius: 50%; }
+.flow li:not(:last-child)::after { content: ''; flex: 1; min-width: 8px; height: 1.5px; margin-right: 7px; background: var(--hair); }
+.flow li[data-lit] { color: var(--ink); }
+.flow li[data-lit]::before { border-color: var(--accent); background: var(--accent); }
+.flow li[data-lit]:has(+ li[data-lit])::after { background: var(--accent); }
+.flow li[data-now]::before { box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 28%, transparent); }
+@container (max-width: 440px) {
+  .flow { font-size: 0.6875rem; }
+  .flow li { gap: 4px; }
+  .flow li::before { width: 7px; height: 7px; }
+  .flow li:not(:last-child)::after { margin-right: 4px; min-width: 4px; }
+}
+@container (max-width: 340px) {
+  .flow li:not(:last-child)::after { display: none; }
+}
+@media (min-width: 941px) {
+  .demo:has(.flow) { --panel-h: clamp(430px, calc(100svh - var(--bar-h) - 150px), 550px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flow li::before { transition: background-color 0.3s, border-color 0.3s; }
+  .flow li[data-now]::before { animation: flow-pulse 0.7s ease-out; }
+}
+@keyframes flow-pulse { from { box-shadow: 0 0 0 10px color-mix(in oklab, var(--accent) 45%, transparent); } }
+
+.points li[data-current]::before { font-weight: 700; text-decoration: underline; text-underline-offset: 5px; }
+
+/* ── Code that just ran ── */
+.code .line { display: block; }
+.code .line.ran { background: color-mix(in oklab, var(--accent) 17%, transparent); }
+.code figcaption { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
+.ran-mark { color: var(--ink); font-weight: 700; }
+.night .ran-mark { color: #fff; }
+.tabs button[data-fresh]::after { content: ''; display: inline-block; width: 7px; height: 7px; margin-left: 6px; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+@media (prefers-reduced-motion: no-preference) {
+  .code .line { transition: background-color 0.25s; }
+}
+@media (forced-colors: active) {
+  .code .line.ran { outline: 1px solid Highlight; }
+  .flow li[data-lit]::before { background: Highlight; }
+}
+
+/* ── Code beside the demo ── */
+.split-toggle { display: none; order: 2; align-items: center; min-height: 44px; margin-left: auto; font-size: 0.875rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.split-toggle:hover, .split-toggle[aria-pressed="true"] { color: var(--ink); }
+.split-toggle[aria-pressed="true"] { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (min-width: 1200px) {
+  .split-toggle:not([hidden]) { display: inline-flex; }
+
+  .hour.split .hour-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'demo' 'text'; gap: 0; }
+  .hour.split .hour-demo { position: static; margin-bottom: 0; }
+  .hour.split .hour-text { padding-top: 40px; max-width: 640px; }
+
+  .demo[data-split] .panels { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .demo[data-split] .panel { container-type: inline-size; }
+  .demo[data-split] .panels { column-gap: 32px; }
+  .demo[data-split] .panel[data-panel="code"] { grid-column: 2; }
+  .demo[data-split] [data-tab="code"] { display: none; }
+}
+@media (scripting: none) {
+  .flow, .split-toggle { display: none; }
+}

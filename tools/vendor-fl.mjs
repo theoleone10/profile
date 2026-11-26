@@ -17,7 +17,7 @@ const read = (path) => git('show', `${ref}:${path}`).replace(/\r\n/g, '\n');
 
 const out = resolve(site, 'js/demos/fl/lr');
 await mkdir(out, { recursive: true });
-const FILES = ['src/lr/math.js', 'src/lr/workFunction.js', 'src/lr/coordinator.js', 'src/lr/hyperparameters.js', 'src/lr/model.js', 'demo/metrics.js'];
+const FILES = ['src/lr/math.js', 'src/lr/workFunction.js', 'src/lr/coordinator.js', 'src/lr/hyperparameters.js'];
 for (const path of FILES) {
   const source = read(path)
     .replace(/^'use strict';\n\n/, '')
@@ -30,17 +30,13 @@ for (const path of FILES) {
   await writeFile(resolve(out, path.split('/').pop()), header + source);
 }
 
-// the five sample states, the held-out test rows and the pooled scikit-learn reference
+// the five sample states
 const names = ['alaska', 'florida', 'minnesota', 'new-york', 'washington'];
 const sites = names.map((name) => JSON.parse(read(`demo/data/sites/${name}.json`)));
-const test = JSON.parse(read('demo/data/sites/test.json'));
-const reference = JSON.parse(read('test/fixtures/brfss-reference.json'));
 await mkdir(resolve(site, 'data'), { recursive: true });
 await writeFile(resolve(site, 'data/brfss.json'), JSON.stringify({
   source: `CDC BRFSS 2024 sample from federated-learning-dcp-package @ ${commit}`,
   featureNames: sites[0].featureNames,
   sites: sites.map((s, i) => ({ site: names[i], X: s.X, y: s.y })),
-  test: { X: test.X, y: test.y },
-  reference: { intercept: reference.pooled.intercept, coefficients: reference.pooled.coefficients, rows: reference.rows },
 }));
 console.log(`Vendored ${FILES.length} files and ${sites.length} sites from ${commit}`);

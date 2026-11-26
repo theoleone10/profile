@@ -64,12 +64,12 @@
   background-size: 443px 347px;
 }
 /* stars stay in the margins and fade away behind the reading */
-.late::before { opacity: 0.45; }
+.hour-research::before, .late::before { opacity: 0.35; }
 
 /* ── The next sunrise ── */
 .foot {
-  background: linear-gradient(var(--sky-night), var(--sky-plum) 22%, var(--sky-coral) 40%, var(--sky-gold) 62%, var(--sky-dawn));
-  background: linear-gradient(in oklch, var(--sky-night), var(--sky-plum) 22%, var(--sky-coral) 40%, var(--sky-gold) 62%, var(--sky-dawn));
+  background: linear-gradient(var(--sky-night), var(--sky-plum) 14%, var(--sky-coral) 30%, var(--sky-gold) 48%, var(--sky-dawn));
+  background: linear-gradient(in oklch, var(--sky-night), var(--sky-plum) 14%, var(--sky-coral) 30%, var(--sky-gold) 48%, var(--sky-dawn));
   position: relative; isolation: isolate; overflow: clip;
 }
 .foot::before {
@@ -97,7 +97,7 @@
   background: var(--sun); box-shadow: 0 0 0 3px oklch(0.85 0.14 70 / 0.28), 0 0 14px 4px oklch(0.82 0.15 65 / 0.5);
 }
 .orb[data-moon] { background: transparent; box-shadow: inset -7px 3px 0 0 var(--moon); filter: drop-shadow(0 0 5px oklch(0.85 0.06 280 / 0.8)); }
-@media (max-width: 940px) { .orb { --orb-bottom: -10px; } }
+@media (max-width: 940px) { .orb { --orb-bottom: -12px; width: 16px; height: 16px; margin-left: -8px; } .orb[data-moon] { box-shadow: inset -6px 3px 0 0 var(--moon); } }
 
 /* ── Wide screens: the sun is the scrollbar ── */
 .sun-rail { display: none; }
@@ -125,15 +125,12 @@
 }
 
 /* ── Moments: what each hour brings ── */
-.moment {
-  display: inline-flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; margin-bottom: 20px;
-  border: 1px solid rgb(21 23 28 / 0.07); border-radius: 18px; background: rgb(255 255 255 / 0.82); box-shadow: var(--shadow);
+.moment { font: 500 0.875rem/1.6 var(--mono); color: var(--accent); }
+.moment time { margin-right: 10px; font-weight: 700; }
+
+@media (max-width: 940px) {
+  .foot::before { top: 90px; width: 150px; height: 150px; margin-left: -75px; }
 }
-.moment img { width: 40px; height: 40px; border-radius: 11px; background: #fff; }
-.moment span { line-height: 1.35; font-size: 0.9375rem; font-weight: 600; }
-.moment small { display: block; font: 500 0.75rem/1.6 var(--mono); color: var(--accent); }
-.night .moment { background: rgb(255 255 255 / 0.06); border-color: #333950; box-shadow: none; }
-.night .moment img { background: var(--night-2); }
 
 @media (prefers-reduced-motion: no-preference) {
   .dawn::after { animation: sunrise 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }

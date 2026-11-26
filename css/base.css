@@ -50,7 +50,8 @@ h1, h2 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
 time, code, pre { font-family: var(--mono); font-variant-ligatures: none; } /* code shows as typed */
 :focus-visible { outline: 2px solid var(--waypass); outline-offset: 2px; }
-.night :focus-visible, .foot .cta :focus-visible { outline-color: var(--research); }
+.night :focus-visible { outline-color: var(--research); }
+.foot :focus-visible { outline-color: var(--ink); }
 main:focus, section[tabindex="-1"]:focus { outline: none; }
 
 .wrap { width: min(100% - 2 * var(--gutter), 1200px); margin-inline: auto; }

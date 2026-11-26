@@ -7,14 +7,14 @@ const AUDIO = new URL('../../audio/edition.mp3', import.meta.url).href;
 const CHAPTERS = new URL('../../audio/chapters.json', import.meta.url).href;
 const RATES = [1, 1.25, 1.5, 2];
 
-// how each section shows up in the chapter list
-const ROWS = {
-  front: { title: 'Welcome & Preview', sub: 'Intro', letter: 'TL' },
-  paperboy: { title: 'The App Reading This', sub: 'Paperboy', img: 'img/paperboy-icon-128.webp' },
-  waypass: { title: 'Cremations Without Paper', sub: 'Waypass', img: 'img/waypass-mark-128.webp' },
-  kaeru: { title: 'Grammar, N5 to N1', sub: 'Kaeru', img: 'img/kaeru-icon-192.webp' },
-  fl: { title: 'Training Where Data Lives', sub: 'QMIND × Distributive', img: 'img/research-mark.svg' },
-  back: { title: 'One Thing To Remember', sub: 'To wrap up', letter: '1' },
+// chapter names in the list
+const TITLES = {
+  front: 'Welcome & Preview',
+  paperboy: 'The App Reading This',
+  waypass: 'Cremations Without Paper',
+  kaeru: 'Grammar, N5 to N1',
+  fl: 'Training Where Data Lives',
+  back: 'One Thing To Remember',
 };
 
 const fmt = (sec) => {
@@ -27,7 +27,7 @@ const el = (tag, props = {}, ...children) => {
   return node;
 };
 
-export async function mount(demo) {
+export async function mount(demo, system) {
   const $ = (name) => demo.querySelector(`[data-pb="${name}"]`);
   const audio = $('audio');
   const play = $('play');
@@ -46,23 +46,28 @@ export async function mount(demo) {
     return;
   }
 
-  const chapters = data.chapters.map((c) => ({ ...c, ...ROWS[c.id] }));
+  const chapters = data.chapters.map((c) => ({ ...c, title: TITLES[c.id] ?? c.title }));
   let duration = data.durationSeconds;
   let current = -1;
   let rate = 1;
 
   const buttons = chapters.map((c) => {
-    const mark = c.img
-      ? el('img', { className: 'mark', src: c.img, alt: '', width: 28, height: 28, loading: 'lazy' })
-      : el('span', { className: 'mark', textContent: c.letter, ariaHidden: 'true' });
-    const button = el('button', { type: 'button' }, mark,
-      el('span', { className: 'txt' }, el('b', { textContent: c.title }), el('small', { textContent: c.sub })),
+    const button = el('button', { type: 'button' },
+      el('b', { textContent: c.title }),
       el('span', { className: 't', textContent: fmt(c.start) }));
-    button.addEventListener('click', () => seek(c.start, true));
+    button.addEventListener('click', () => {
+      seek(c.start, true);
+      startedChapter();
+    });
     return button;
   });
   $('chapters').replaceChildren(...buttons.map((b) => el('li', {}, b)));
-  $('meta').textContent = `${fmt(duration)} · ${data.voice ?? 'Ashley'}`;
+
+  // what the pipeline did to make this moment possible
+  const startedChapter = () => {
+    system.ran('paperboy.generateSectionedAudio', 'chapter-start', { label: 'set this chapter’s start time' });
+    system.step('chapters');
+  };
 
   function show(t) {
     let i = 0;
@@ -74,6 +79,7 @@ export async function mount(demo) {
     $('pos').textContent = fmt(t);
     $('left').textContent = `-${fmt(duration - t)}`;
     if (i === current) return;
+    if (current >= 0 && !audio.paused) startedChapter();
     current = i;
     transcript.textContent = chapters[i].text;
     transcript.parentElement.scrollTop = 0;
@@ -90,7 +96,12 @@ export async function mount(demo) {
   audio.src = AUDIO;
   for (const control of [play, speed, ...skips]) control.disabled = false;
 
-  play.addEventListener('click', () => (audio.paused ? audio.play() : audio.pause()));
+  play.addEventListener('click', () => {
+    if (!audio.paused) return audio.pause();
+    audio.play();
+    system.ran('paperboy.generateSectionedAudio', 'voice-sections', { label: 'voiced this audio' });
+    system.step('voice');
+  });
   const playing = () => {
     play.toggleAttribute('data-playing', !audio.paused);
     play.setAttribute('aria-label', audio.paused ? 'Play' : 'Pause');
@@ -136,7 +147,7 @@ export async function mount(demo) {
   });
 
   // opening another tab pauses the episode
-  demo.addEventListener('demo:tab', (e) => { if (e.detail !== 'try') audio.pause(); });
+  demo.addEventListener('demo:tab', (e) => { if (e.detail !== 'try' && !(e.detail === 'code' && demo.hasAttribute('data-split'))) audio.pause(); });
 
   show(0);
 }

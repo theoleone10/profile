@@ -72,7 +72,7 @@ const human = (ms) => {
 };
 const ja = (t) => Object.assign(document.createElement('span'), { lang: 'ja', textContent: t });
 
-export async function mount(demo) {
+export async function mount(demo, system) {
   const $ = (name) => demo.querySelector(`[data-kr="${name}"]`);
   const input = $('input');
   const feedback = $('feedback');
@@ -108,9 +108,9 @@ export async function mount(demo) {
   function showCard() {
     const c = CARDS[i];
     done = false;
-    $('level').textContent = `${c.level} · Review`;
+    $('level').textContent = c.level;
     $('title').textContent = c.title;
-    $('count').textContent = `Card ${i + 1} of ${CARDS.length}`;
+    $('count').textContent = `${i + 1} of ${CARDS.length}`;
     $('en').textContent = c.english;
     const [before, after] = c.japanese.split(c.cloze);
     const blank = Object.assign(document.createElement('span'), { className: 'blank', textContent: '？' });
@@ -129,7 +129,6 @@ export async function mount(demo) {
     feedback.dataset.tone = tone;
     feedback.replaceChildren(b, ' ', ...rest);
   }
-  const bubble = (jp, en) => { $('bubble-jp').textContent = jp; $('bubble-en').textContent = en; };
 
   // Grade one review and show what FSRS schedules next
   function grade(rating) {
@@ -156,6 +155,9 @@ export async function mount(demo) {
     });
     sched.replaceChildren(label, row);
     sched.hidden = false;
+    // checkAnswer ran first: keep the pane on it
+    system.ran('kaeru.createScheduler', rating === Rating.Good ? 'good' : 'again', { scroll: false });
+    system.step('next');
   }
 
   function finish(rating, answerShown) {
@@ -173,6 +175,7 @@ export async function mount(demo) {
   input.addEventListener('input', () => {
     const pos = input.value.length;
     const converted = convertRomajiInput(input.value);
+    if (input.value) system.step(converted !== input.value ? 'kana' : 'romaji');
     if (converted !== input.value) {
       input.value = converted;
       if (pos) input.setSelectionRange(converted.length, converted.length);
@@ -186,10 +189,11 @@ export async function mount(demo) {
     const value = finalizeInput(input.value);
     input.value = value;
     const r = checkAnswer(value, c);
+    system.ran('kaeru.checkAnswer', r.kind);
+    system.step('check');
     switch (r.kind) {
       case 'empty': return;
       case 'correct':
-        bubble('すごい！', 'Nice one!');
         say('ok', 'Correct!', ja(c.cloze));
         return finish(Rating.Good, c.cloze);
       case 'alternative':
@@ -199,7 +203,6 @@ export async function mount(demo) {
       case 'unconverted':
         return say('close', 'Hmm.', 'Some romaji didn’t turn into kana. Check the spelling.');
       default:
-        bubble('だいじょうぶ。', 'It’ll come back around.');
         say('miss', 'Not quite.', 'The answer is ', ja(c.cloze), '.');
         return finish(Rating.Again, c.cloze);
     }
@@ -207,7 +210,6 @@ export async function mount(demo) {
 
   next.addEventListener('click', () => {
     i = (i + 1) % CARDS.length;
-    bubble('一歩ずつね。', 'One step at a time.');
     showCard();
     input.focus({ preventScroll: true });
   });
