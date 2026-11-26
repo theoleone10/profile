@@ -1,204 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Theo Leone</title>
-  <meta name="description" content="Theo Leone — Applied Mathematics & Computer Engineering at Queen's. A newspaper you can flip through: Paperboy, Waypass, Kaeru, and federated learning on DCP with QMIND." />
-  <meta name="theme-color" content="#221d17" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=UnifrakturMaguntia&family=IBM+Plex+Mono:wght@400&family=Inter:wght@400;500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Theo Leone · A day in the life</title>
+  <meta name="description" content="Theo Leone, Applied Math &amp; Computer Engineering at Queen’s. A day in the life: Paperboy, Kaeru, Waypass and federated learning research, with demos and real code.">
+  <meta name="theme-color" content="#F8F7F4">
+  <link rel="canonical" href="https://theoleone10.github.io/profile/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theoleone10.github.io/profile/">
+  <meta property="og:title" content="Theo Leone · A day in the life">
+  <meta property="og:description" content="I build apps for small daily routines, and the systems that keep them running.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&amp;display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/page.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <script type="module" src="js/main.js"></script>
 </head>
-<body data-tone="front">
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="chrome-top">
-  <a class="chrome-name" href="#cover" data-go="0">Theo Leone <span>&middot; The Morning Edition</span></a>
-  <span class="chrome-right">
-    <a class="chrome-link" href="#back" data-go="6" data-page="13">Contact</a>
-    <button class="menu-btn" id="menu-btn" aria-label="Contents" aria-expanded="false" aria-controls="contents">
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 1h18M1 7h18M1 13h18"/></svg>
-    </button>
-  </span>
+<header class="bar">
+  <div class="bar-in">
+    <a class="bar-name" href="#top">Theo Leone</a>
+    <nav class="timeline" aria-label="A day in the life">
+      <ol>
+        <li><a href="#paperboy"><time>07:00</time> Paperboy</a></li>
+        <li><a href="#kaeru"><time>08:30</time> Kaeru</a></li>
+        <li><a href="#waypass"><time>14:00</time> Waypass</a></li>
+        <li><a href="#research"><time>21:00</time> Research</a></li>
+      </ol>
+    </nav>
+    <a class="pill pill-dark bar-cta" href="mailto:theohleone@gmail.com">Get in touch</a>
+  </div>
 </header>
 
-<!-- Contents (phones), opened from the menu button, like a book's table of contents -->
-<div class="contents" id="contents" hidden>
-  <div class="contents-sheet" role="dialog" aria-label="Contents">
-    <p class="contents-head"><span>Contents</span><span class="mono" id="contents-at"></span></p>
-    <ol>
-      <li><button data-go="0"><b>Front page</b><i>The Morning Edition</i><span class="mono">1</span></button></li>
-      <li><button data-go="1"><b>Inside</b><i>Today&rsquo;s edition &amp; about the author</i><span class="mono">2</span></button></li>
-      <li><button data-go="2"><b>Paperboy</b><i>Your newsletters, read aloud</i><span class="mono">4</span></button></li>
-      <li><button data-go="3"><b>Waypass</b><i>Cremations without the paper</i><span class="mono">6</span></button></li>
-      <li><button data-go="4"><b>Kaeru</b><i>Japanese grammar, N5 to N1</i><span class="mono">8</span></button></li>
-      <li><button data-go="5"><b>FL on DCP</b><i>Models that train where data lives</i><span class="mono">10</span></button></li>
-      <li><button data-go="6"><b>Classifieds &amp; letters</b><i>Other work, and how to reach me</i><span class="mono">12</span></button></li>
-    </ol>
-  </div>
-</div>
+<main id="main" tabindex="-1">
+  <span id="top"></span>
 
-<main class="desk">
-  <div class="book" id="book" aria-live="polite">
-
-    <!-- ═════════ COVER (page 1, shown alone while the paper is closed) ═════════ -->
-    <section class="page cover" data-spread="0" data-side="R" data-tone="front" aria-label="Front page">
-      <div class="page-in">
-        <div class="rail mono">
-          <span id="edition-no">Vol. II</span>
-          <span id="edition-date">&nbsp;</span>
-          <span class="price">Kingston &amp; Toronto</span>
-        </div>
-        <h1 class="nameplate">Theo Leone</h1>
-        <div class="nameplate-sub"><span>The Morning Edition</span></div>
-        <p class="dispatch mono" id="dispatch"><span class="muted">Latest dispatch</span> &mdash; <a href="https://github.com/theoleone10" target="_blank" rel="noopener">github.com/theoleone10</a></p>
-        <h2 class="headline">I build apps for small daily routines, <em>and the systems that keep them running.</em></h2>
-        <div class="cover-body">
-          <figure class="portrait">
-            <div class="halftone"><img src="img/theo.jpg" fetchpriority="high" alt="Portrait of Theo Leone" width="675" height="900" /></div>
-            <figcaption class="mono muted">The author, Toronto.</figcaption>
-          </figure>
-          <div class="cover-text">
-            <p class="cover-lede dropcap"><span>Applied math and computer engineering at Queen&rsquo;s. Two iOS apps shipped solo, a platform for funeral homes, and federated learning research with QMIND.</span></p>
-            <div class="listen-row">
-              <button class="btn btn-listen" data-listen-cover hidden>
-                <svg width="11" height="12" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M0 0l20 11L0 22z"/></svg>
-                Listen <span data-listen-dur></span>
-              </button>
-            </div>
-            <p class="open-hint">Open the paper <span>&rarr;</span></p>
-          </div>
-        </div>
-        <footer class="folio mono"><span>Open to internships &amp; co-ops</span><span>1</span></footer>
+  <!-- ═════════ INTRO ═════════ -->
+  <section class="wrap intro" aria-labelledby="intro-title">
+    <div class="intro-text">
+      <div class="who">
+        <img src="img/theo-avatar.webp" width="56" height="56" alt="Portrait of Theo Leone">
+        <p>Applied Math &amp; Computer Engineering, Queen’s ’28 <span>Toronto · Kingston</span></p>
       </div>
-    </section>
+      <h1 id="intro-title">I build apps for small daily routines, <span>and the systems that keep them running.</span></h1>
+      <p class="lede">Two iOS apps shipped solo, a platform for funeral homes, and federated learning research with QMIND.</p>
+      <ul class="intro-pills">
+        <li><span class="pill pill-open"><i class="dot" aria-hidden="true"></i>Open to internships &amp; co-ops</span></li>
+        <li><a class="pill" href="https://github.com/theoleone10" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a class="pill" href="https://www.linkedin.com/in/theo-leone-a60567314" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
 
-    <!-- ═════════ SPREAD 1 · INSIDE + OPINION ═════════ -->
-    <section class="page" data-spread="1" data-side="L" data-tone="front" aria-label="Inside">
-      <div class="page-in">
-        <div class="flag"><span>Inside</span><span>Today&rsquo;s edition</span></div>
-        <h2 class="title op">Every story in this edition has something you can <em>try.</em></h2>
-        <div class="cols dropcap">
-          <p>Build a morning brief, book a cremation from both sides, answer a Japanese grammar card, or train a model whose data never leaves its owners. Each project&rsquo;s right-hand page is the thing itself, with the video and the real code a tab away.</p>
-          <p class="on-wide">Turn pages with the arrows beside the paper, the section names up top, or your keyboard.</p>
-          <p class="on-phone">Swipe, or tap the edge of the page, to turn it. The &#9776; menu has the contents.</p>
-        </div>
-        <div class="box">
-          <p class="box-head mono">In this edition</p>
-          <ol class="inside">
-            <li><button data-go="2"><b>Paperboy</b><span>Your newsletters, read aloud</span><span class="mono">p.&nbsp;4</span></button></li>
-            <li><button data-go="3"><b>Waypass</b><span>Cremations without the paper</span><span class="mono">p.&nbsp;6</span></button></li>
-            <li><button data-go="4"><b>Kaeru</b><span>Japanese grammar, N5 to N1</span><span class="mono">p.&nbsp;8</span></button></li>
-            <li><button data-go="5"><b>FL on DCP</b><span>Models that train where data lives</span><span class="mono">p.&nbsp;10</span></button></li>
-            <li><button data-go="6"><b>Classifieds &amp; letters</b><span>Other work, and how to reach me</span><span class="mono">p.&nbsp;12</span></button></li>
-          </ol>
-        </div>
-        <dl class="facts">
-          <div><dt class="mono">Studying</dt><dd>Applied Math &amp; Computer Eng., Queen&rsquo;s &rsquo;28</dd></div>
-          <div><dt class="mono">Mostly in</dt><dd>TypeScript, React Native, Node, Postgres</dd></div>
-          <div><dt class="mono">Shipping</dt><dd>Kaeru &amp; Paperboy, two iOS apps</dd></div>
-          <div><dt class="mono">Status</dt><dd>Open to internships &amp; co-ops</dd></div>
-        </dl>
-        <footer class="folio mono"><span>2</span><span>Inside</span></footer>
-      </div>
-    </section>
+    <a class="live" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">
+      <span class="live-status"><i class="dot" aria-hidden="true"></i>Live on the App Store · v1.1.0</span>
+      <span class="live-body">
+        <img src="img/kaeru-icon-192.webp" width="80" height="80" alt="">
+        <span><strong>Kaeru</strong> — Japanese grammar, a little every day. 421 grammar points, N5 to N1.</span>
+      </span>
+      <span class="live-go" aria-hidden="true">View on the App Store <span>↗</span></span>
+    </a>
+  </section>
 
-    <section class="page" data-spread="1" data-side="R" data-tone="front" aria-label="Opinion">
-      <div class="page-in">
-        <div class="flag"><span>Opinion</span><span>About the author</span></div>
-        <h2 class="title op">Theory in class, and on my own time, <em>shipping things people actually open every day.</em></h2>
-        <p class="byline mono">By Theo Leone &middot; Toronto &middot; Kingston</p>
-        <div class="cols dropcap">
-          <p>I study Applied Mathematics &amp; Computer Engineering at Queen&rsquo;s. In class that means algebra, control theory and distributed algorithms. Most of what I know about building software came from making tools I wanted to exist, then carrying them past the demo: auth, sync, tests, privacy policies and App Store review.</p>
-          <p>I care about code you can reason about when something breaks, and about products that feel calm to use. I&rsquo;m looking for internship and co-op roles where I can work on hard problems with people who take the craft seriously.</p>
-        </div>
-        <div class="toolbox">
-          <div><h4 class="mono">Languages</h4><p>TypeScript, JavaScript, Python, Java, C, SQL, MATLAB</p></div>
-          <div><h4 class="mono">App &amp; web</h4><p>React Native, Expo, React, Node, Express, Tailwind</p></div>
-          <div><h4 class="mono">Data &amp; infra</h4><p>Postgres, Supabase, PostGIS, SQLite, MongoDB, Docker</p></div>
-        </div>
-        <footer class="folio mono"><span>Opinion</span><span>3</span></footer>
-      </div>
-    </section>
+  <!-- ═════════ AT A GLANCE ═════════ -->
+  <nav class="wrap glance" aria-label="At a glance">
+    <ul>
+      <li>
+        <a href="#paperboy" data-glance="paperboy">
+          <span class="glance-top"><img data-icon="paperboy" src="img/paperboy-icon-128.webp" width="36" height="36" alt=""><time>07:00</time></span>
+          <strong>Paperboy</strong>
+          <span>Your newsletters, read aloud</span>
+        </a>
+      </li>
+      <li>
+        <a href="#kaeru" data-glance="kaeru">
+          <span class="glance-top"><img data-icon="kaeru" src="img/kaeru-icon-192.webp" width="36" height="36" alt=""><time>08:30</time></span>
+          <strong>Kaeru</strong>
+          <span>Japanese grammar, N5 to N1</span>
+        </a>
+      </li>
+      <li>
+        <a href="#waypass" data-glance="waypass">
+          <span class="glance-top"><img data-icon="waypass" src="img/waypass-mark-128.webp" width="36" height="36" alt=""><time>14:00</time></span>
+          <strong>Waypass</strong>
+          <span>Cremations without the paper</span>
+        </a>
+      </li>
+      <li>
+        <a href="#research" data-glance="research" class="glance-night">
+          <span class="glance-top"><img data-icon="research" src="img/research-mark.svg" width="36" height="36" alt=""><time>21:00</time></span>
+          <strong>Research</strong>
+          <span>Models that train where data lives</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-    <!-- ═════════ SPREAD 1 · PAPERBOY ═════════ -->
-    <section class="page" data-spread="2" data-side="L" data-tone="pb" id="paperboy" aria-label="Paperboy">
-      <div class="page-in">
-        <div class="flag"><span>Technology</span><span>Consumer apps</span></div>
-        <h2 class="title">Paperboy</h2>
-        <p class="deck">Your newsletters, turned into one short audio brief every morning.</p>
-        <p class="byline mono">By Theo Leone &middot; Solo: app, backend, infra &middot; 2025&ndash;26</p>
-        <div class="cols dropcap">
+  <!-- ═════════ 07:00 · PAPERBOY ═════════ -->
+  <section class="hour hour-paperboy" id="paperboy" aria-labelledby="paperboy-title" tabindex="-1">
+    <div class="wrap hour-grid">
+      <div class="hour-text">
+        <p class="hour-time"><time>07:00</time></p>
+        <h2 id="paperboy-title">Paperboy</h2>
+        <p class="hour-desc">Your newsletters, turned into one short audio brief every morning. Pick the newsletters, the length and the voice.</p>
+        <ol class="points">
+          <li>A script pipeline on GPT-5 mini with per-segment word budgets, so episodes land on the length you picked</li>
+          <li>Inworld text-to-speech voiced section by section, so every chapter’s start time is exact</li>
+          <li>Security for App Store review: keychain JWT sessions, ownership checks, signed OAuth state, rate limits, in-app account deletion</li>
+        </ol>
+        <p class="stack">Expo · TypeScript · Express · Supabase · Gmail API · OpenAI · Inworld</p>
+        <ul class="links">
+          <li><a class="pill" href="https://github.com/theoleone10/paperboy" target="_blank" rel="noopener">Code<span class="vh"> for Paperboy on GitHub</span></a></li>
+        </ul>
+        <details class="more">
+          <summary>More about the build</summary>
+          <p class="byline">Solo: app, backend, infra · 2025–26</p>
           <p>You sign in with Google and choose which newsletters you want. At the time you set, Paperboy reads the latest issues and writes one script at the length you picked. It records the script in the voice you chose and sends a notification when your episode is ready. Gmail access is read-only, and only the newsletters you chose are ever read.</p>
-          <h4 class="mono">What I built</h4>
-          <ul class="built">
+          <ul>
             <li>Gmail sync and parsing to find newsletters and pull out the readable text</li>
-            <li>A script pipeline on GPT-5 mini with per-segment word budgets, so episodes land on the length you picked</li>
-            <li>Inworld text-to-speech voiced section by section, so every chapter&rsquo;s start time is exact</li>
-            <li>Security for App Store review: keychain JWT sessions, ownership checks, signed OAuth state, rate limits, in-app account deletion</li>
             <li>A React Native player with chapters, transcript, archive, background audio and a Live Activity</li>
           </ul>
-        </div>
-        <div class="facts-inline mono"><span>Stack</span> Expo &middot; TypeScript &middot; Express &middot; Supabase &middot; Gmail API &middot; OpenAI &middot; Inworld</div>
-        <div class="links">
-          <a class="btn" href="https://github.com/theoleone10/paperboy" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <footer class="folio mono"><span>4</span><span>Technology</span></footer>
+        </details>
       </div>
-    </section>
 
-    <section class="page page-demo" data-spread="2" data-side="R" data-tone="pb" aria-label="Paperboy demo">
-      <div class="page-in">
-        <div class="demo demo-pb" data-tabs>
-          <div class="pills" role="tablist" aria-label="Paperboy">
-            <button role="tab" aria-selected="true" aria-controls="pb-try" id="pb-try-tab">Try it</button>
-            <button role="tab" aria-selected="false" aria-controls="pb-video" id="pb-video-tab" tabindex="-1">Video</button>
-            <button role="tab" aria-selected="false" aria-controls="pb-code" id="pb-code-tab" tabindex="-1">Code</button>
+      <div class="hour-demo">
+        <div class="demo" data-demo="paperboy">
+          <div class="demo-head">
+            <img data-icon-target="paperboy" src="img/paperboy-icon-128.webp" width="32" height="32" alt="" loading="lazy">
+            <p class="demo-name">Paperboy</p>
+            <div class="tabs" aria-label="Paperboy demo">
+              <button type="button" id="paperboy-tab-try" data-tab="try" aria-selected="true">Try it</button>
+              <button type="button" id="paperboy-tab-video" data-tab="video" aria-selected="false" tabindex="-1">Video</button>
+              <button type="button" id="paperboy-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
+            </div>
           </div>
-
-          <div class="panel" role="tabpanel" id="pb-try" aria-labelledby="pb-try-tab">
-            <div class="device"><span class="island"></span>
-              <div class="screen pb-app" id="pb-player">
-                <div class="ios-status"><span>7:02</span><span class="ios-icons" aria-hidden="true">&#9679;&#9679;&#9679; &#9646;</span></div>
-                <span class="pb-chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l4 4 4-4"/></svg></span>
-                <div class="pb-heading">
-                  <img src="img/paperboy-icon.png" alt="" />
-                  <div><b id="pb-title">This morning&rsquo;s brief</b><small id="pb-meta">Ashley</small></div>
+          <div class="panels">
+            <div class="panel" data-panel="try" id="paperboy-try">
+              <div class="panel-in pb">
+                <div class="pb-now">
+                  <div>
+                    <p class="pb-title">This morning’s brief</p>
+                    <p class="pb-meta" data-pb="meta">Ashley</p>
+                  </div>
+                  <button type="button" class="pb-speed" data-pb="speed" aria-label="Playback speed, 1×" disabled>1×</button>
                 </div>
-                <div class="pb-scrub" id="pb-scrub" role="slider" tabindex="0" aria-label="Playback position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="pb-track"><i id="pb-fill"></i></div></div>
-                <div class="pb-times"><span id="pb-pos">0:00</span><span id="pb-left">-0:00</span></div>
+                <div class="pb-scrub" data-pb="scrub" role="slider" tabindex="0" aria-label="Playback position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0:00"><div class="pb-track"><i data-pb="fill"></i></div></div>
+                <div class="pb-times"><span data-pb="pos">0:00</span><span data-pb="left">-0:00</span></div>
                 <div class="pb-controls">
-                  <button type="button" class="pb-speed" id="pb-speed" aria-label="Playback speed">1&times;</button>
-                  <button type="button" class="pb-skip" data-skip="-15" aria-label="Back 15 seconds"><svg viewBox="0 0 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6.2 9.5A10 10 0 1 1 4 15.5"/><path d="M6 4.5v5h5" stroke-linejoin="round"/><text x="14.2" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none" font-family="-apple-system, Helvetica, sans-serif">15</text></svg></button>
-                  <button type="button" class="pb-playbtn" id="pb-play" aria-label="Play" disabled>
-                    <svg class="i-play" width="22" height="24" viewBox="0 0 20 22" fill="currentColor"><path d="M2 1.2c0-.8.9-1.3 1.6-.9l15.2 9.1c.7.4.7 1.4 0 1.8L3.6 21.7c-.7.4-1.6-.1-1.6-.9z"/></svg>
-                    <svg class="i-pause" width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><rect x="3" y="1" width="5" height="20" rx="1.4"/><rect x="12" y="1" width="5" height="20" rx="1.4"/></svg>
+                  <button type="button" data-skip="-15" aria-label="Back 15 seconds" disabled><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6.2 9.5A10 10 0 1 1 4 15.5"/><path d="M6 4.5v5h5" stroke-linejoin="round"/><text x="14.2" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none">15</text></svg></button>
+                  <button type="button" class="pb-play" data-pb="play" aria-label="Play" disabled>
+                    <svg class="i-play" width="20" height="22" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M2 1.2c0-.8.9-1.3 1.6-.9l15.2 9.1c.7.4.7 1.4 0 1.8L3.6 21.7c-.7.4-1.6-.1-1.6-.9z"/></svg>
+                    <svg class="i-pause" width="18" height="20" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><rect x="3" y="1" width="5" height="20" rx="1.4"/><rect x="12" y="1" width="5" height="20" rx="1.4"/></svg>
                   </button>
-                  <button type="button" class="pb-skip" data-skip="15" aria-label="Forward 15 seconds"><svg viewBox="0 0 28 28" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M21.8 9.5A10 10 0 1 0 24 15.5"/><path d="M22 4.5v5h-5" stroke-linejoin="round"/><text x="13.8" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none" font-family="-apple-system, Helvetica, sans-serif">15</text></svg></button>
-                  <button type="button" class="pb-save" id="pb-save" aria-label="Save to your archive" aria-pressed="false"><svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M2 2.5C2 1.7 2.7 1 3.5 1h9c.8 0 1.5.7 1.5 1.5V19l-6-4.2L2 19z"/></svg></button>
+                  <button type="button" data-skip="15" aria-label="Forward 15 seconds" disabled><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21.8 9.5A10 10 0 1 0 24 15.5"/><path d="M22 4.5v5h-5" stroke-linejoin="round"/><text x="13.8" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none">15</text></svg></button>
                 </div>
-                <p class="pb-sec">What&rsquo;s inside</p>
-                <ol class="pb-inside" id="pb-chapters"></ol>
-                <p class="pb-label">Transcript</p>
-                <p class="pb-transcript" id="pb-transcript"></p>
-                <audio id="pb-audio" preload="none"></audio>
+                <ol class="pb-chapters" data-pb="chapters" aria-label="Chapters"></ol>
+                <div class="pb-script" tabindex="0" role="region" aria-label="Transcript of this chapter"><p data-pb="transcript"></p></div>
+                <audio data-pb="audio" preload="none"></audio>
+              </div>
+              <p class="cap">A real episode, voiced by Paperboy’s pipeline. Tap a chapter to jump.</p>
+            </div>
+
+            <div class="panel" data-panel="video" id="paperboy-video">
+              <div class="panel-in stage">
+                <p class="static-label">Video</p>
+                <div class="phone">
+                  <video poster="img/paperboy-poster.jpg" width="441" height="960" preload="none" loading="lazy" playsinline controls aria-label="Paperboy demo video">
+                    <source src="img/paperboy-demo.mp4" type="video/mp4">
+                  </video>
+                  <button type="button" class="bigplay" aria-label="Play the Paperboy demo" hidden><svg width="18" height="20" viewBox="0 0 20 22" fill="currentColor" aria-hidden="true"><path d="M0 0l20 11L0 22z"/></svg></button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="panel" role="tabpanel" id="pb-video" aria-labelledby="pb-video-tab" hidden>
-            <div class="device" data-video><span class="island"></span>
-              <video src="img/paperboy-demo.mp4" poster="img/paperboy-poster.jpg" preload="none" playsinline></video>
-              <button class="play" aria-label="Play Paperboy demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
-            </div>
-          </div>
-
-          <div class="panel" role="tabpanel" id="pb-code" aria-labelledby="pb-code-tab" hidden>
-            <div class="editor">
-              <div class="editor-tab mono">services/summarize/chatgptDigest.ts</div>
+            <div class="panel" data-panel="code" id="paperboy-code">
+              <div class="panel-in code" tabindex="0" role="region" aria-label="Paperboy code excerpts">
+                <p class="static-label">Code</p>
+                <figure data-excerpt="paperboy.wordBudget">
+                  <figcaption>services/summarize/chatgptDigest.ts</figcaption>
 <pre><code><span class="c">//word budget for the requested length, split per segment: models
 //can't count a whole script, but stay close on a few hundred words</span>
 const minutes = payload.durationMinutes ?? 5;
@@ -214,7 +200,9 @@ if (parsed) {
   <span class="c">//models misjudge length: measure it, ask for one revision if off</span>
   const words = countWords(parsed);
   if (words &gt;= minWords &amp;&amp; words &lt;= maxWords) return parsed;</code></pre>
-              <div class="editor-tab mono">services/tts/generateAudio.ts</div>
+                </figure>
+                <figure data-excerpt="paperboy.generateSectionedAudio">
+                  <figcaption>services/tts/generateAudio.ts</figcaption>
 <pre><code><span class="c">//voices each section separately and joins the MP3s back to back,
 //so the start time of every section is known exactly</span>
 export async function generateSectionedAudio(sections, voice, measure) {
@@ -234,179 +222,101 @@ export async function generateSectionedAudio(sections, voice, measure) {
     startSeconds.push(Math.round(elapsed * 10) / 10);
     elapsed += section.seconds;
   }</code></pre>
+                </figure>
+              </div>
             </div>
           </div>
-          <p class="cap mono">A real episode, written and voiced by Paperboy&rsquo;s pipeline about this paper. Tap a chapter to jump.</p>
         </div>
-        <footer class="folio mono"><span>Technology</span><span>5</span></footer>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═════════ SPREAD 2 · WAYPASS ═════════ -->
-    <section class="page" data-spread="3" data-side="L" data-tone="wp" id="waypass" aria-label="Waypass">
-      <div class="page-in">
-        <div class="flag"><span>Business</span><span>Software</span></div>
-        <h2 class="title">Waypass</h2>
-        <p class="deck">The whole cremation workflow, from intake to completion, on one platform.</p>
-        <p class="byline mono">By Theo Leone &middot; Multi-tenant SaaS &middot; 2026</p>
-        <div class="cols dropcap">
-          <p>Funeral homes still run cremations with phone calls and paper. Waypass connects them with crematoriums and shipping partners, follows each case from intake to completion, and gives families their own view of a case&rsquo;s progress.</p>
-          <h4 class="mono">What&rsquo;s in it</h4>
-          <ul class="built">
-            <li>Case pipeline covering intake, custody, documents and completion</li>
-            <li>Booking flow: the funeral home proposes times, the crematorium answers from a private emailed link, the home confirms</li>
-            <li>Every booking step written to an audit log of booking events</li>
-            <li>PostGIS search for nearby partners, shown on Google Maps</li>
-            <li>Family portal, financial dashboard, in-app inbox and Resend email</li>
-            <li>Workspaces with roles, and a Cmd+K palette that searches everything</li>
-          </ul>
-        </div>
-        <div class="facts-inline mono"><span>Stack</span> React 19 &middot; Node &middot; Express &middot; Supabase &middot; PostGIS &middot; Tailwind</div>
-        <div class="links">
-          <a class="btn" href="https://github.com/waypass-ca/waypass" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <footer class="folio mono"><span>6</span><span>Business</span></footer>
-      </div>
-    </section>
-
-    <section class="page page-demo" data-spread="3" data-side="R" data-tone="wp" aria-label="Waypass demo">
-      <div class="page-in">
-        <div class="demo demo-wp" data-tabs>
-          <div class="pills" role="tablist" aria-label="Waypass">
-            <button role="tab" aria-selected="true" aria-controls="wp-video" id="wp-video-tab">Video</button>
-            <button role="tab" aria-selected="false" aria-controls="wp-code" id="wp-code-tab" tabindex="-1">Code</button>
-          </div>
-
-          <div class="panel" role="tabpanel" id="wp-video" aria-labelledby="wp-video-tab">
-            <div class="browser">
-              <div class="browser-bar"><i></i><i></i><i></i><span>Walkthrough</span></div>
-              <div class="loom"><iframe data-src="https://www.loom.com/embed/ac7c3802d7064607b15e56bb90d14e40?hide_owner=true&hide_share=true&hideEmbedTopBar=true" title="Waypass walkthrough" allowfullscreen></iframe></div>
-            </div>
-          </div>
-
-          <div class="panel" role="tabpanel" id="wp-code" aria-labelledby="wp-code-tab" hidden>
-            <div class="editor">
-              <div class="editor-tab mono">migrations/20260520_crematoriums_postgis.sql</div>
-<pre><code>create index if not exists crematoriums_db_location_idx
-  on crematoriums_db using gist(location);
-
-<span class="c">-- RPC: nearby_crematoriums (PostGIS distance search)</span>
-create or replace function nearby_crematoriums(
-  user_lat float, user_lng float, radius_m float
-)
-returns table (id uuid, name text, ..., distance_miles float)
-language sql stable as $$
-  select id, name, ...,
-    round((st_distance(location,
-      st_point(user_lng, user_lat)::geography) / 1609.34)::numeric, 2)
-      ::float as distance_miles
-  from crematoriums_db
-  where needs_review = false
-    and st_dwithin(location,
-      st_point(user_lng, user_lat)::geography, radius_m)
-  order by distance_miles;
-$$;</code></pre>
-              <div class="editor-tab mono">lib/bookingEvents.js</div>
-<pre><code>const VALID_EVENT_TYPES = new Set([
-  'booking_created', 'crematorium_invited', 'crematorium_responded',
-  'shipping_invited', 'shipping_responded', 'booking_confirmed',
-  'booking_rescheduled', 'booking_cancelled',
-])
-
-export async function recordBookingEvent({
-  bookingId, caseId, funeralHomeId, eventType, actorType, ...
-}) {
-  if (!VALID_EVENT_TYPES.has(eventType)) {
-    throw new Error(`recordBookingEvent: invalid eventType "${eventType}"`)
-  }</code></pre>
-            </div>
-          </div>
-          <p class="cap mono">A walkthrough of a case, from intake to a confirmed cremation.</p>
-        </div>
-        <footer class="folio mono"><span>Business</span><span>7</span></footer>
-      </div>
-    </section>
-
-    <!-- ═════════ SPREAD 3 · KAERU ═════════ -->
-    <section class="page" data-spread="4" data-side="L" data-tone="kr" id="kaeru" aria-label="Kaeru">
-      <div class="page-in">
-        <div class="flag"><span>Education</span><span>On the App Store &middot; <b class="stamp">v1.1.0</b></span></div>
-        <h2 class="title">Kaeru</h2>
-        <p class="deck">Japanese grammar, a little every day.</p>
-        <p class="byline mono">By Theo Leone &middot; Solo: design, code, content &middot; 2026</p>
-        <div class="cols dropcap">
+  <!-- ═════════ 08:30 · KAERU ═════════ -->
+  <section class="hour hour-kaeru hour-flip" id="kaeru" aria-labelledby="kaeru-title" tabindex="-1">
+    <div class="wrap hour-grid">
+      <div class="hour-text">
+        <p class="hour-time"><time>08:30</time></p>
+        <h2 id="kaeru-title">Kaeru</h2>
+        <p class="hour-desc">Japanese grammar, a little every day: 421 grammar points from N5 to N1, laid out as train lines. Out now on the App Store.</p>
+        <ol class="points">
+          <li>Type the missing grammar into real sentences; romaji turns into kana as you go, and FSRS schedules the next review</li>
+          <li>Works fully offline on SQLite, and syncs when you sign in</li>
+          <li>New in 1.1.0: a full redesign, a kana course, a placement quiz and a built-in deck of the 600 most useful words</li>
+        </ol>
+        <p class="stack">Expo 57 · React Native · TypeScript · SQLite · FSRS · Supabase</p>
+        <ul class="links">
+          <li><a class="pill pill-accent" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">App Store<span class="vh">: Kaeru</span></a></li>
+          <li><a class="pill" href="https://github.com/theoleone10/kaeru" target="_blank" rel="noopener">Code<span class="vh"> for Kaeru on GitHub</span></a></li>
+        </ul>
+        <details class="more">
+          <summary>More about the build</summary>
+          <p class="byline">Solo: design, code, content · 2026</p>
           <p>Each JLPT level is a train line and each grammar point a stop: 421 of them, N5 to N1. Each day you learn a few points, take a quiz, then review earlier ones by typing the missing grammar into real sentences, scheduled with FSRS. Anki decks and a study timer come built in.</p>
-          <h4 class="mono">New in 1.1.0</h4>
-          <ul class="built">
+          <p class="more-head">New in 1.1.0</p>
+          <ul>
             <li>A full redesign: softer and rounder, with a new typeface, custom icons and a redrawn Kaeru</li>
             <li>A kana course, and Kaeru Starter 600, a built-in deck of the 600 most useful words</li>
             <li>A placement quiz that finds where you are on the grammar lines</li>
             <li>Drawn profile avatars, today-only new-card limits, a smoother typing screen and iOS 27 support</li>
           </ul>
-        </div>
-        <div class="facts-inline mono"><span>Stack</span> Expo 57 &middot; React Native &middot; TypeScript &middot; SQLite &middot; FSRS &middot; Supabase</div>
-        <div class="links">
-          <a class="btn" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">App Store</a>
-          <a class="btn" href="https://github.com/theoleone10/kaeru" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <footer class="folio mono"><span>8</span><span>Education</span></footer>
+        </details>
       </div>
-    </section>
 
-    <section class="page page-demo" data-spread="4" data-side="R" data-tone="kr" aria-label="Kaeru demo">
-      <div class="page-in">
-        <div class="demo demo-kr" data-tabs>
-          <div class="pills" role="tablist" aria-label="Kaeru">
-            <button role="tab" aria-selected="true" aria-controls="kr-try" id="kr-try-tab">Try it</button>
-            <button role="tab" aria-selected="false" aria-controls="kr-video" id="kr-video-tab" tabindex="-1">Video</button>
-            <button role="tab" aria-selected="false" aria-controls="kr-code" id="kr-code-tab" tabindex="-1">Code</button>
+      <div class="hour-demo">
+        <div class="demo" data-demo="kaeru">
+          <div class="demo-head">
+            <img data-icon-target="kaeru" src="img/kaeru-icon-192.webp" width="32" height="32" alt="" loading="lazy">
+            <p class="demo-name">Kaeru</p>
+            <div class="tabs" aria-label="Kaeru demo">
+              <button type="button" id="kaeru-tab-try" data-tab="try" aria-selected="true">Try it</button>
+              <button type="button" id="kaeru-tab-video" data-tab="video" aria-selected="false" tabindex="-1">Video</button>
+              <button type="button" id="kaeru-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
+            </div>
           </div>
-
-          <div class="panel" role="tabpanel" id="kr-try" aria-labelledby="kr-try-tab">
-            <div class="device"><span class="island"></span>
-              <div class="screen kr-app">
-                <div class="ios-status"><span>9:41</span><span class="ios-icons" aria-hidden="true">&#9679;&#9679;&#9679; &#9646;</span></div>
-                <div class="kr-bar">
-                  <span class="kr-pill" id="kr-level">N5 &middot; Review</span>
-                  <span class="kr-streak"><svg width="11" height="13" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M6 0c1 3 5 4.5 5 8.5A5 5 0 0 1 1 8.5C1 6 3 5 3 3c1.5 1 2 2.2 2 3.2C6 5 6.5 3 6 0z"/></svg> 48</span>
-                </div>
-                <p class="kr-date-jp" id="kr-date-jp" lang="ja"></p>
-                <p class="kr-date" id="kr-date"></p>
+          <div class="panels">
+            <div class="panel" data-panel="try" id="kaeru-try">
+              <div class="panel-in kr">
                 <div class="kr-mascot">
-                  <img src="img/kaeru/frog.webp" width="68" height="68" alt="" />
-                  <div class="kr-bubble"><b lang="ja" id="kr-bubble-jp">一歩ずつね。</b><small id="kr-bubble-en">One step at a time.</small></div>
+                  <img src="img/kaeru/frog.webp" width="56" height="56" alt="" loading="lazy">
+                  <p class="kr-bubble"><b lang="ja" data-kr="bubble-jp">一歩ずつね。</b> <span data-kr="bubble-en">One step at a time.</span></p>
                 </div>
-                <div class="kr-card" id="kr-demo">
-                  <div class="kr-card-top"><span id="kr-title" lang="ja"></span><span id="kr-count"></span></div>
-                  <p class="kr-en" id="kr-en"></p>
-                  <p class="kr-jp" id="kr-jp" lang="ja"></p>
-                  <p class="kr-hint" id="kr-hint"></p>
-                  <form class="kr-form" id="kr-form" autocomplete="off">
-                    <input id="kr-input" lang="ja" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type romaji, e.g. wa" aria-label="Your answer" />
-                    <button type="submit">Check</button>
+                <div class="kr-card">
+                  <p class="kr-top"><span data-kr="level">N5 · Review</span><span data-kr="count">Card 1 of 3</span></p>
+                  <p class="kr-title" data-kr="title" lang="ja">は (topic)</p>
+                  <p class="kr-en" data-kr="en">I’m a student.</p>
+                  <p class="kr-jp" data-kr="jp" lang="ja">私<span class="blank">？</span>学生です。</p>
+                  <p class="kr-hint" data-kr="hint">Try typing it as it sounds: wa</p>
+                  <form class="kr-form" data-kr="form" autocomplete="off">
+                    <input data-kr="input" lang="ja" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type romaji, e.g. wa" aria-label="Your answer" disabled>
+                    <button type="submit" data-kr="check" disabled>Check</button>
                   </form>
-                  <div class="kr-feedback" id="kr-feedback" aria-live="polite"></div>
-                  <div class="kr-sched" id="kr-sched" hidden></div>
-                  <p class="kr-loading" id="kr-loading">Loading wanakana + ts-fsrs, the libraries the app uses&hellip;</p>
-                  <button class="kr-next" id="kr-next" hidden>Next card</button>
+                  <div class="kr-feedback" data-kr="feedback" aria-live="polite"></div>
+                  <div class="kr-sched" data-kr="sched" hidden></div>
+                  <button type="button" class="kr-next" data-kr="next" hidden>Next card</button>
+                  <p class="kr-loading" data-kr="loading">Loading wanakana + ts-fsrs, the libraries the app uses…</p>
                 </div>
               </div>
+              <p class="cap">Three real cards from the app. Type in romaji.</p>
             </div>
-          </div>
 
-          <div class="panel" role="tabpanel" id="kr-video" aria-labelledby="kr-video-tab" hidden>
-            <div class="device" data-video data-autoplay><span class="island"></span>
-              <video poster="img/kaeru/poster.webp" width="440" height="960" muted loop playsinline preload="none" aria-label="A 27-second recording of one day in Kaeru">
-                <source src="img/kaeru/preview.webm" type="video/webm" />
-                <source src="img/kaeru/preview.mp4" type="video/mp4" />
-              </video>
-              <button class="play" aria-label="Play Kaeru demo"><svg width="20" height="22" viewBox="0 0 20 22" fill="currentColor"><path d="M0 0l20 11L0 22z"/></svg></button>
+            <div class="panel" data-panel="video" id="kaeru-video">
+              <div class="panel-in stage">
+                <p class="static-label">Video</p>
+                <div class="phone">
+                  <video poster="img/kaeru/poster.webp" width="440" height="960" muted loop playsinline preload="none" loading="lazy" controls data-loop aria-label="A 27-second recording of one day in Kaeru">
+                    <source src="img/kaeru/preview.webm" type="video/webm">
+                    <source src="img/kaeru/preview.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <button type="button" class="pill loop-toggle" hidden>Play</button>
+              </div>
             </div>
-          </div>
 
-          <div class="panel" role="tabpanel" id="kr-code" aria-labelledby="kr-code-tab" hidden>
-            <div class="editor">
-              <div class="editor-tab mono">src/review/answerCheck.ts</div>
+            <div class="panel" data-panel="code" id="kaeru-code">
+              <div class="panel-in code" tabindex="0" role="region" aria-label="Kaeru code excerpts">
+                <p class="static-label">Code</p>
+                <figure data-excerpt="kaeru.checkAnswer">
+                  <figcaption>src/review/answerCheck.ts</figcaption>
 <pre><code><span class="c">// Typing the particle as it is pronounced gives the wrong kana.</span>
 const TRAPS: Record&lt;string, string&gt; = { わ: 'は', え: 'へ', お: 'を' };
 
@@ -431,7 +341,9 @@ export function checkAnswer(input: string, example): CheckResult {
   }
   return { kind: 'wrong' };
 }</code></pre>
-              <div class="editor-tab mono">src/srs/scheduler.ts</div>
+                </figure>
+                <figure data-excerpt="kaeru.createScheduler">
+                  <figcaption>src/srs/scheduler.ts</figcaption>
 <pre><code><span class="c">/**
  * Typed answers are pass/fail, so we only use Again and Good.
  * One 10-minute (re)learning step: a correct first answer graduates
@@ -449,161 +361,309 @@ export function createScheduler({
     maximum_interval: 36500,
   }));
 }</code></pre>
+                </figure>
+              </div>
             </div>
           </div>
-          <p class="cap mono">Three real cards from the app. Type in romaji.</p>
         </div>
-        <footer class="folio mono"><span>Education</span><span>9</span></footer>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═════════ SPREAD 4 · FL ON DCP ═════════ -->
-    <section class="page" data-spread="5" data-side="L" data-tone="fl" id="fl" aria-label="Federated learning on DCP">
-      <div class="page-in">
-        <div class="flag"><span>Science</span><span class="stamp">In progress</span></div>
-        <h2 class="title title-long">Federated Learning on DCP</h2>
-        <p class="deck">Training models where the data lives. Only model information moves.</p>
-        <p class="byline mono">By Theo Leone &middot; QMIND &times; Distributive &middot; 2026&ndash;now</p>
-        <div class="cols dropcap">
-          <p>QMIND and Distributive are building a proof-of-concept, publicly available package for running federated learning on the Distributive Compute Platform. Training data stays on the machines that hold it, and only model information moves through DCP. There are two model tracks: logistic regression and random forest.</p>
-          <h4 class="mono">My part</h4>
-          <ul class="built">
-            <li>Co-owning the logistic regression track: Newton-style training and FedAvg</li>
-            <li>Writing the track&rsquo;s summary, implementation plan and test plan</li>
-            <li>Contributing to the shared specs, which need a reviewer from the other track</li>
-            <li>The team agrees on specs before any code, and records each decision as it is made</li>
+  <!-- ═════════ 14:00 · WAYPASS ═════════ -->
+  <section class="hour hour-waypass" id="waypass" aria-labelledby="waypass-title" tabindex="-1">
+    <div class="wrap hour-grid">
+      <div class="hour-text">
+        <p class="hour-time"><time>14:00</time></p>
+        <h2 id="waypass-title">Waypass</h2>
+        <p class="hour-desc">The whole cremation workflow, from intake to completion, on one platform for funeral homes, crematoriums and shipping partners.</p>
+        <ol class="points">
+          <li>Booking flow: the funeral home proposes times, the crematorium answers from a private emailed link, the home confirms</li>
+          <li>Every booking step written to an audit log of booking events</li>
+          <li>PostGIS search for nearby partners, shown on Google Maps</li>
+        </ol>
+        <p class="stack">React 19 · Node · Express · Supabase · PostGIS · Tailwind</p>
+        <ul class="links">
+          <li><a class="pill" href="https://github.com/waypass-ca/waypass" target="_blank" rel="noopener">Code<span class="vh"> for Waypass on GitHub</span></a></li>
+        </ul>
+        <details class="more">
+          <summary>More about the build</summary>
+          <p class="byline">Multi-tenant SaaS · 2026</p>
+          <p>Funeral homes still run cremations with phone calls and paper. Waypass connects them with crematoriums and shipping partners, follows each case from intake to completion, and gives families their own view of a case’s progress.</p>
+          <ul>
+            <li>Case pipeline covering intake, custody, documents and completion</li>
+            <li>Family portal, financial dashboard, in-app inbox and Resend email</li>
+            <li>Workspaces with roles, and a Cmd+K palette that searches everything</li>
           </ul>
-        </div>
-        <div class="facts-inline mono"><span>Phase</span> Writing specs, before any code</div>
-        <div class="links">
-          <a class="btn" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <footer class="folio mono"><span>10</span><span>Science</span></footer>
+        </details>
       </div>
-    </section>
 
-    <section class="page page-demo" data-spread="5" data-side="R" data-tone="fl" aria-label="Federated learning demo">
-      <div class="page-in">
-        <div class="demo demo-fl" data-tabs>
-          <div class="pills" role="tablist" aria-label="Federated learning">
-            <button role="tab" aria-selected="true" aria-controls="fl-try" id="fl-try-tab">Try it</button>
-            <button role="tab" aria-selected="false" aria-controls="fl-code" id="fl-code-tab" tabindex="-1">Code</button>
+      <div class="hour-demo">
+        <div class="demo" data-demo="waypass">
+          <div class="demo-head">
+            <img data-icon-target="waypass" src="img/waypass-mark-128.webp" width="32" height="32" alt="" loading="lazy">
+            <p class="demo-name">Waypass</p>
+            <div class="tabs" aria-label="Waypass demo">
+              <button type="button" id="waypass-tab-video" data-tab="video" aria-selected="true">Video</button>
+              <button type="button" id="waypass-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
+            </div>
           </div>
-
-          <div class="panel" role="tabpanel" id="fl-try" aria-labelledby="fl-try-tab">
-            <div class="console">
-              <div class="console-bar mono"><span>fl &middot; logistic regression &middot; 5 clients</span><span id="fl-round">round 0 / 30</span></div>
-              <div class="console-controls">
-                <button class="cbtn primary" id="fl-run">&#9654; Run</button>
-                <button class="cbtn" id="fl-step">Step</button>
-                <button class="cbtn" id="fl-reset">Reset</button>
-                <div class="cseg" role="group" aria-label="Method">
-                  <button aria-pressed="true" data-method="fedavg">FedAvg</button>
-                  <button aria-pressed="false" data-method="newton">Newton</button>
-                </div>
-                <div class="cseg" role="group" aria-label="Data split">
-                  <button aria-pressed="true" data-split="iid">IID</button>
-                  <button aria-pressed="false" data-split="skew">Skewed</button>
+          <div class="panels">
+            <div class="panel" data-panel="video" id="waypass-video">
+              <div class="panel-in stage">
+                <p class="static-label">Video</p>
+                <div class="browser">
+                  <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>Walkthrough</span></div>
+                  <div class="loom">
+                    <iframe data-src="https://www.loom.com/embed/ac7c3802d7064607b15e56bb90d14e40?hide_owner=true&amp;hide_share=true&amp;hideEmbedTopBar=true" title="Waypass walkthrough" loading="lazy" allowfullscreen></iframe>
+                    <noscript><a class="loom-link" href="https://www.loom.com/share/ac7c3802d7064607b15e56bb90d14e40" target="_blank" rel="noopener">Watch the Waypass walkthrough on Loom ↗</a></noscript>
+                  </div>
                 </div>
               </div>
-              <canvas id="fl-canvas" aria-label="Five clients train a logistic regression model; only weights travel to the server."></canvas>
-              <dl class="console-stats mono">
-                <div><dt>Accuracy</dt><dd id="fl-acc">&ndash;</dd></div>
-                <div><dt>Numbers sent</dt><dd id="fl-sent">0</dd></div>
-                <div><dt>Raw points sent</dt><dd class="zero">0</dd></div>
-                <div class="spark"><dt>By round</dt><dd><svg id="fl-spark" viewBox="0 0 120 28" preserveAspectRatio="none" aria-hidden="true"></svg></dd></div>
-              </dl>
+              <p class="cap">A walkthrough of a case, from intake to a confirmed cremation.</p>
+            </div>
+
+            <div class="panel" data-panel="code" id="waypass-code">
+              <div class="panel-in code" tabindex="0" role="region" aria-label="Waypass code excerpts">
+                <p class="static-label">Code</p>
+                <figure data-excerpt="waypass.nearbyCrematoriums">
+                  <figcaption>migrations/20260520_crematoriums_postgis.sql</figcaption>
+<pre><code>create index if not exists crematoriums_db_location_idx
+  on crematoriums_db using gist(location);
+
+<span class="c">-- RPC: nearby_crematoriums (PostGIS distance search)</span>
+create or replace function nearby_crematoriums(
+  user_lat float, user_lng float, radius_m float
+)
+returns table (id uuid, name text, ..., distance_miles float)
+language sql stable as $$
+  select id, name, ...,
+    round((st_distance(location,
+      st_point(user_lng, user_lat)::geography) / 1609.34)::numeric, 2)
+      ::float as distance_miles
+  from crematoriums_db
+  where needs_review = false
+    and st_dwithin(location,
+      st_point(user_lng, user_lat)::geography, radius_m)
+  order by distance_miles;
+$$;</code></pre>
+                </figure>
+                <figure data-excerpt="waypass.recordBookingEvent">
+                  <figcaption>lib/bookingEvents.js</figcaption>
+<pre><code>const VALID_EVENT_TYPES = new Set([
+  'booking_created', 'crematorium_invited', 'crematorium_responded',
+  'shipping_invited', 'shipping_responded', 'booking_confirmed',
+  'booking_rescheduled', 'booking_cancelled',
+])
+
+export async function recordBookingEvent({
+  bookingId, caseId, funeralHomeId, eventType, actorType, ...
+}) {
+  if (!VALID_EVENT_TYPES.has(eventType)) {
+    throw new Error(`recordBookingEvent: invalid eventType "${eventType}"`)
+  }</code></pre>
+                </figure>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="panel" role="tabpanel" id="fl-code" aria-labelledby="fl-code-tab" hidden>
-            <div class="editor">
-              <div class="editor-tab mono">js/fl.js &middot; read live from this page</div>
-<pre><code id="fl-source"></code></pre>
+  <!-- ═════════ 21:00 · RESEARCH ═════════ -->
+  <section class="hour hour-research hour-flip night" id="research" aria-labelledby="research-title" tabindex="-1">
+    <div class="wrap hour-grid">
+      <div class="hour-text">
+        <p class="hour-time"><time>21:00</time></p>
+        <h2 id="research-title">Federated Learning on DCP</h2>
+        <p class="hour-desc">Training models where the data lives: only model information moves. A QMIND × Distributive project, in progress.</p>
+        <ol class="points">
+          <li>Co-owning the logistic regression track: Newton-style training and FedAvg</li>
+          <li>Writing the track’s summary, implementation plan and test plan</li>
+          <li>The team agrees on specs before any code, and records each decision as it is made</li>
+        </ol>
+        <p class="stack">Phase: writing specs, before any code</p>
+        <ul class="links">
+          <li><a class="pill" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">Code<span class="vh"> for Federated Learning on DCP on GitHub</span></a></li>
+        </ul>
+        <details class="more">
+          <summary>More about the work</summary>
+          <p class="byline">QMIND × Distributive · 2026–now</p>
+          <p>QMIND and Distributive are building a proof-of-concept, publicly available package for running federated learning on the Distributive Compute Platform. Training data stays on the machines that hold it, and only model information moves through DCP. There are two model tracks: logistic regression and random forest.</p>
+          <ul>
+            <li>Contributing to the shared specs, which need a reviewer from the other track</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="hour-demo">
+        <div class="demo" data-demo="fl">
+          <div class="demo-head">
+            <img data-icon-target="research" src="img/research-mark.svg" width="32" height="32" alt="" loading="lazy">
+            <p class="demo-name">Federated learning</p>
+            <div class="tabs" aria-label="Federated learning demo">
+              <button type="button" id="fl-tab-try" data-tab="try" aria-selected="true">Try it</button>
+              <button type="button" id="fl-tab-code" data-tab="code" aria-selected="false" tabindex="-1">Code</button>
             </div>
           </div>
-          <p class="cap mono">An illustration of the idea, not project results. Filled and hollow dots are the two classes; dashed lines are each client&rsquo;s local model. Accuracy uses pooled data a real deployment never sees.</p>
-        </div>
-        <footer class="folio mono"><span>Science</span><span>11</span></footer>
-      </div>
-    </section>
+          <div class="panels">
+            <div class="panel" data-panel="try" id="fl-try">
+              <div class="panel-in fl">
+                <div class="fl-controls">
+                  <button type="button" class="fl-btn fl-primary" data-fl="run" disabled>Run</button>
+                  <button type="button" class="fl-btn" data-fl="step" disabled>Step</button>
+                  <button type="button" class="fl-btn" data-fl="reset" disabled>Reset</button>
+                  <div class="seg" role="group" aria-label="Method">
+                    <button type="button" aria-pressed="true" data-method="fedavg" disabled>FedAvg</button>
+                    <button type="button" aria-pressed="false" data-method="newton" disabled>Newton</button>
+                  </div>
+                  <div class="seg" role="group" aria-label="Data split">
+                    <button type="button" aria-pressed="true" data-split="iid" disabled>IID</button>
+                    <button type="button" aria-pressed="false" data-split="skew" disabled>Skewed</button>
+                  </div>
+                </div>
+                <canvas data-fl="canvas" role="img" aria-label="Five clients train a logistic regression model; only weights travel to the server."></canvas>
+                <dl class="fl-stats">
+                  <div><dt>Round</dt><dd data-fl="round">0 / 30</dd></div>
+                  <div><dt>Accuracy</dt><dd data-fl="acc">–</dd></div>
+                  <div><dt>Numbers sent</dt><dd data-fl="sent">0</dd></div>
+                  <div><dt>Raw points sent</dt><dd class="fl-zero">0</dd></div>
+                  <div class="fl-spark"><dt>Accuracy by round</dt><dd><svg data-fl="spark" viewBox="0 0 120 28" preserveAspectRatio="none" aria-hidden="true"></svg></dd></div>
+                </dl>
+              </div>
+              <p class="cap">An illustration of the idea, not project results. Filled and hollow dots are the two classes; dashed lines are each client’s local model. Accuracy uses pooled data a real deployment never sees.</p>
+            </div>
 
-    <!-- ═════════ SPREAD 6 · CLASSIFIEDS + LETTERS ═════════ -->
-    <section class="page" data-spread="6" data-side="L" data-tone="back" aria-label="Classifieds">
-      <div class="page-in">
-        <div class="flag"><span>Classifieds</span><span>Other work</span></div>
-        <div class="ads">
-          <a class="ad" href="https://github.com/jack-fergusson/EngSoc-User-Center" target="_blank" rel="noopener">
-            <p class="ad-head">EngSoc User Centre</p>
-            <p>Events platform for Queen&rsquo;s Engineering Society. Built the calendar and groups and moved them onto MongoDB. 26 of 90 commits on a team of four.</p>
-            <span class="mono">React &middot; Node</span>
-          </a>
-          <a class="ad" href="https://github.com/theoleone10/lost_hiker_consensus" target="_blank" rel="noopener">
-            <p class="ad-head">Lost Hiker Consensus</p>
-            <p>A drone swarm searching for a lost hiker, using Laplacian consensus with flocking and leader modes.</p>
-            <span class="mono">MATLAB</span>
-          </a>
-          <a class="ad" href="https://github.com/theoleone10/eccomerce-app" target="_blank" rel="noopener">
-            <p class="ad-head">E-commerce App</p>
-            <p>Store, admin dashboard and Express API, with MongoDB and Cloudinary.</p>
-            <span class="mono">React</span>
-          </a>
-          <a class="ad" href="https://github.com/theoleone10/pacman-game" target="_blank" rel="noopener">
-            <p class="ad-head">Pac-Man in C</p>
-            <p>Terminal game with map files, ghost line-of-sight and doctest unit tests.</p>
-            <span class="mono">C</span>
-          </a>
-        </div>
-        <footer class="folio mono"><span>12</span><span>Classifieds</span></footer>
-      </div>
-    </section>
-
-    <section class="page" data-spread="6" data-side="R" data-tone="back" id="back" aria-label="Letters">
-      <div class="page-in">
-        <div class="flag"><span>Letters</span><span>To the editor</span></div>
-        <h2 class="title op">Hiring for an internship or co-op? <em>Write in.</em></h2>
-        <div class="letters">
-          <a class="mail" href="mailto:theohleone@gmail.com">theohleone@gmail.com</a>
-          <div class="links">
-            <button class="btn" id="copy-mail" data-mail="theohleone@gmail.com">Copy email</button>
-            <a class="btn" href="https://www.linkedin.com/in/theo-leone-a60567314" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="btn" href="https://github.com/theoleone10" target="_blank" rel="noopener">GitHub</a>
+            <div class="panel" data-panel="code" id="fl-code">
+              <div class="panel-in code" tabindex="0" role="region" aria-label="Federated learning code excerpts">
+                <p class="static-label">Code</p>
+                <figure data-excerpt="fl.fedAvgRound">
+                  <figcaption>js/demos/fl.js · fedAvgRound()</figcaption>
+<pre><code>function fedAvgRound(global, clients) {
+  const updates = clients.map((c) =&gt; ({
+    w: localTrain(global, c.data),
+    n: c.data.length,
+  }));
+  const total = updates.reduce((s, u) =&gt; s + u.n, 0);
+  const w = [0, 1, 2].map(
+    (i) =&gt; updates.reduce((s, u) =&gt; s + u.w[i] * u.n, 0) / total
+  );
+  <span class="c">// each client sends 3 weights and a count</span>
+  return { w, locals: updates.map((u) =&gt; u.w), sentPerClient: 3 + 1 };
+}</code></pre>
+                </figure>
+                <figure data-excerpt="fl.newtonRound">
+                  <figcaption>js/demos/fl.js · newtonRound()</figcaption>
+<pre><code>function newtonRound(global, clients, ridge = 1e-3) {
+  const parts = clients.map((c) =&gt; gradHess(global, c.data));
+  const sum = (f) =&gt; parts.reduce((s, p) =&gt; s + f(p), 0);
+  const g = [0, 1, 2].map((i) =&gt; sum((p) =&gt; p.g[i]));
+  const H = [0, 1, 2].map((i) =&gt; [0, 1, 2].map(
+    (j) =&gt; sum((p) =&gt; p.H[i][j]) + (i === j ? ridge : 0)
+  ));
+  const step = solve3(H, g);
+  const w = global.map((wi, i) =&gt; wi - step[i]);
+  <span class="c">// a gradient (3) and a symmetric Hessian (6)</span>
+  return { w, locals: [], sentPerClient: 3 + 6 };
+}</code></pre>
+                </figure>
+                <figure data-excerpt="fl.gradHess">
+                  <figcaption>js/demos/fl.js · gradHess()</figcaption>
+<pre><code>function gradHess(w, data) {
+  const g = [0, 0, 0];
+  const H = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  for (const { x, y } of data) {
+    const xt = [x[0], x[1], 1];
+    const p = sigmoid(w[0] * xt[0] + w[1] * xt[1] + w[2]);
+    for (let i = 0; i &lt; 3; i++) {
+      g[i] += (p - y) * xt[i];
+      for (let j = 0; j &lt; 3; j++) {
+        H[i][j] += p * (1 - p) * xt[i] * xt[j];
+      }
+    }
+  }
+  return { g, H };
+}</code></pre>
+                </figure>
+                <figure data-excerpt="fl.localTrain">
+                  <figcaption>js/demos/fl.js · localTrain()</figcaption>
+<pre><code>function localTrain(w, data, epochs = 5, lr = 0.5) {
+  let local = [...w];
+  for (let e = 0; e &lt; epochs; e++) {
+    const { g } = gradHess(local, data);
+    local = local.map((wi, i) =&gt; wi - (lr * g[i]) / data.length);
+  }
+  return local;
+}</code></pre>
+                </figure>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="ad wanted">
-          <p class="ad-kicker">Wanted</p>
-          <p class="ad-head">Internship or co-op</p>
-          <p>Applied math &amp; computer engineering student seeks hard problems and people who take the craft seriously. Ships to production. References on request.</p>
-        </div>
-        <p class="colophon">Set in Newsreader and UnifrakturMaguntia. Printed in plain HTML, CSS and JavaScript. &copy; 2026 Theo Leone.</p>
-        <footer class="folio mono"><span>Letters</span><span>13</span></footer>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </div>
-  <button class="nav-arrow turn turn-prev" data-turn="prev" aria-label="Previous page">&larr;</button>
-  <button class="nav-arrow turn turn-next" data-turn="next" aria-label="Next page">&rarr;</button>
+  <!-- ═════════ ALSO BUILT ═════════ -->
+  <section class="wrap also" aria-labelledby="also-title">
+    <h2 id="also-title">Also built</h2>
+    <ul class="also-list">
+      <li><a href="https://github.com/jack-fergusson/EngSoc-User-Center" target="_blank" rel="noopener">
+        <strong>EngSoc User Centre</strong>
+        <span>Events platform for Queen’s Engineering Society. Built the calendar and groups and moved them onto MongoDB. 26 of 90 commits on a team of four.</span>
+        <code>React · Node</code>
+      </a></li>
+      <li><a href="https://github.com/theoleone10/lost_hiker_consensus" target="_blank" rel="noopener">
+        <strong>Lost Hiker Consensus</strong>
+        <span>A drone swarm searching for a lost hiker, using Laplacian consensus with flocking and leader modes.</span>
+        <code>MATLAB</code>
+      </a></li>
+      <li><a href="https://github.com/theoleone10/eccomerce-app" target="_blank" rel="noopener">
+        <strong>E-commerce App</strong>
+        <span>Store, admin dashboard and Express API, with MongoDB and Cloudinary.</span>
+        <code>React</code>
+      </a></li>
+      <li><a href="https://github.com/theoleone10/pacman-game" target="_blank" rel="noopener">
+        <strong>Pac-Man in C</strong>
+        <span>Terminal game with map files, ghost line-of-sight and doctest unit tests.</span>
+        <code>C</code>
+      </a></li>
+    </ul>
+
+    <details class="about">
+      <summary>About me and my toolbox</summary>
+      <div class="about-in">
+        <div>
+          <p class="about-lead">Theory in class, and on my own time, shipping things people actually open every day.</p>
+          <p>I study Applied Mathematics &amp; Computer Engineering at Queen’s. In class that means algebra, control theory and distributed algorithms. Most of what I know about building software came from making tools I wanted to exist, then carrying them past the demo: auth, sync, tests, privacy policies and App Store review.</p>
+          <p>I care about code you can reason about when something breaks, and about products that feel calm to use. I’m looking for internship and co-op roles where I can work on hard problems with people who take the craft seriously. I ship to production; references on request.</p>
+        </div>
+        <dl>
+          <div><dt>Languages</dt><dd>TypeScript, JavaScript, Python, Java, C, SQL, MATLAB</dd></div>
+          <div><dt>App &amp; web</dt><dd>React Native, Expo, React, Node, Express, Tailwind</dd></div>
+          <div><dt>Data &amp; infra</dt><dd>Postgres, Supabase, PostGIS, SQLite, MongoDB, Docker</dd></div>
+          <div><dt>Mostly in</dt><dd>TypeScript, React Native, Node, Postgres</dd></div>
+        </dl>
+      </div>
+    </details>
+  </section>
 </main>
 
-<nav class="chrome-nav" aria-label="Pages">
-  <button class="nav-arrow" data-turn="prev" aria-label="Previous page">&larr;</button>
-  <div class="nav-tabs">
-    <button data-go="0">Cover</button>
-    <button data-go="1">Inside</button>
-    <button data-go="2">Paperboy</button>
-    <button data-go="3">Waypass</button>
-    <button data-go="4">Kaeru</button>
-    <button data-go="5">FL on DCP</button>
-    <button data-go="6">Letters</button>
+<!-- ═════════ FOOTER ═════════ -->
+<footer class="wrap foot">
+  <div class="cta">
+    <p class="cta-time">Tomorrow, <time>07:00</time></p>
+    <h2>Hiring for an internship or co-op? Let’s talk.</h2>
+    <ul class="links">
+      <li><a class="pill pill-light" href="mailto:theohleone@gmail.com">theohleone@gmail.com</a></li>
+      <li data-js-only><button type="button" class="pill pill-ghost" data-copy="theohleone@gmail.com">Copy email</button></li>
+      <li><a class="pill pill-ghost" href="https://www.linkedin.com/in/theo-leone-a60567314" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a class="pill pill-ghost" href="https://github.com/theoleone10" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="vh" role="status" data-copy-status></p>
   </div>
-  <span class="nav-pages mono" id="nav-pages">p. 1</span>
-  <button class="nav-arrow" data-turn="next" aria-label="Next page">&rarr;</button>
-</nav>
-
-<script src="js/book.js"></script>
-<script src="js/edition.js"></script>
-<script src="js/paperboy.js"></script>
-<script src="js/fl.js"></script>
-<script type="module" src="js/kaeru.js"></script>
+  <p class="colophon">No framework · <a href="https://github.com/theoleone10/profile" target="_blank" rel="noopener">view source on GitHub</a></p>
+</footer>
 </body>
 </html>
