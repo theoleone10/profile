@@ -38,9 +38,9 @@ export function initDay() {
   const scenes = [...day.querySelectorAll('.scene')];
   if (scenes.length < 2) return;
   const bar = document.querySelector('.bar');
-  const clock = bar.querySelector('.clock');
-  const dial = bar.querySelector('.bar-clock');
-  const hands = { h: bar.querySelector('.hand-h'), m: bar.querySelector('.hand-m') };
+  const dial = document.querySelector('.sky-clock');
+  const clock = dial.querySelector('.clock');
+  const hands = { h: dial.querySelector('.hand-h'), m: dial.querySelector('.hand-m') };
   const navLinks = [...bar.querySelectorAll('.timeline a')];
   const stops = scenes.map((_, i) => i / (scenes.length - 1));
   const gap = stops[1];
@@ -384,8 +384,7 @@ export function initDay() {
   measure();
   show(first, { instant: true });
   paint(stops[first]);
-  clock.hidden = false;
-  if (dial) dial.hidden = false;
+  dial.hidden = false;
   addEventListener('resize', measure);
   reduced.addEventListener('change', () => paint(stops[index]));
 

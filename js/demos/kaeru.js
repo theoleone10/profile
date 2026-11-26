@@ -79,6 +79,11 @@ export async function mount(demo, system) {
   const sched = $('sched');
   const next = $('next');
 
+  // today's date, the way the app's home screen shows it
+  const today = new Date();
+  if ($('date-jp')) $('date-jp').textContent = `${today.getMonth() + 1}月${today.getDate()}日（${'日月火水木金土'[today.getDay()]}）`;
+  if ($('date')) $('date').textContent = today.toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric' });
+
   let toKana, createEmptyCard, fsrs, generatorParameters, Rating;
   try {
     [{ toKana }, { createEmptyCard, fsrs, generatorParameters, Rating }] =

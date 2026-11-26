@@ -21,14 +21,17 @@ body { background: var(--sky); }
 .hint-touch { display: none; }
 @media (pointer: coarse) { .hint-fine { display: none; } .hint-touch { display: inline; } }
 
-.clock { font: 500 0.8125rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
-.clock[hidden], .bar-clock[hidden] { display: none; }
-.bar-clock { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
-.bar-clock svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
-.bar-clock .hand-m { stroke-width: 1.3; }
-.bar-clock .pin { fill: currentColor; stroke: none; }
-@media (max-width: 940px) { .bar-clock .clock { display: none; } }
-.bar-name { gap: 12px; }
+.sky-clock { display: none; }
+.paged .sky-clock:not([hidden]) {
+  position: fixed; z-index: 15; top: calc(var(--bar-h) + 14px); right: max(var(--gutter), (100vw - 1200px) / 2);
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 999px;
+  background: color-mix(in oklab, var(--sky) 55%, rgb(255 255 255 / 0.6)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--ink); font: 500 0.8125rem/1 var(--mono); font-variant-numeric: tabular-nums; pointer-events: none;
+}
+.sky-clock svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.sky-clock .hand-m { stroke-width: 1.3; }
+.sky-clock .pin { fill: currentColor; stroke: none; }
+[data-dark] .sky-clock { background: color-mix(in oklab, var(--sky) 85%, white); }
 .timeline a[aria-current] { background: rgb(21 23 28 / 0.07); }
 .bar { background: color-mix(in oklab, var(--sky) 85%, transparent); border-color: rgb(21 23 28 / 0.07); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 
@@ -115,7 +118,7 @@ body { background: var(--sky); }
 }
 
 /* ── Shadows fall away from the sun ── */
-.paged .pill, .paged .live-body img, .paged .glance-top img { box-shadow: var(--sx) var(--sy) 16px -8px rgb(60 40 20 / 0.22); }
+.paged .pill:not(.bar-cta), .paged .live-body img, .paged .glance-top img { box-shadow: var(--sx) var(--sy) 16px -8px rgb(60 40 20 / 0.22); }
 .paged .pill-open { box-shadow: var(--sx) var(--sy) 16px -8px rgb(30 90 50 / 0.25); }
 .paged .hour-demo.night .demo { box-shadow: var(--sx) var(--sy) 40px -14px rgb(30 25 40 / 0.4); }
 .paged .phone, .paged .loom { box-shadow: var(--sx) var(--sy) 30px -14px rgb(60 40 20 / 0.28); }

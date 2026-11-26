@@ -16,13 +16,14 @@
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&amp;family=M+PLUS+Rounded+1c:wght@500;700;800&amp;display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/page.css">
   <link rel="stylesheet" href="css/demo.css">
   <link rel="stylesheet" href="css/sky.css">
   <link rel="stylesheet" href="css/fl.css">
   <link rel="stylesheet" href="css/systems.css">
+  <link rel="stylesheet" href="css/apps.css">
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
@@ -39,15 +40,15 @@
         <li><a href="#research">Research</a></li>
       </ol>
     </nav>
-    <div class="bar-end">
-      <span class="bar-clock" aria-hidden="true" hidden>
-        <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10.5"/><line class="hand-h" x1="12" y1="12" x2="12" y2="6.8"/><line class="hand-m" x1="12" y1="12" x2="12" y2="4.2"/><circle class="pin" cx="12" cy="12" r="1.3"/></svg>
-        <span class="clock">06:00</span>
-      </span>
-      <a class="pill pill-dark bar-cta" href="#contact">Get in touch</a>
-    </div>
+    <a class="pill pill-dark bar-cta" href="#contact">Get in touch</a>
   </div>
 </header>
+
+<!-- the time of day, just under the bar in the top-right corner -->
+<div class="sky-clock" aria-hidden="true" hidden>
+  <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10.5"/><line class="hand-h" x1="12" y1="12" x2="12" y2="6.8"/><line class="hand-m" x1="12" y1="12" x2="12" y2="4.2"/><circle class="pin" cx="12" cy="12" r="1.3"/></svg>
+  <span class="clock">06:00</span>
+</div>
 
 <main id="main" class="day" tabindex="-1">
 
@@ -131,8 +132,8 @@
         <p class="stack">Expo · TypeScript · Express · Supabase · Gmail API · OpenAI · Inworld</p>
         <ul class="links">
           <li><a class="pill" href="https://github.com/theoleone10/paperboy" target="_blank" rel="noopener">GitHub<span class="vh">: Paperboy</span></a></li>
+          <li data-js-only><button type="button" class="pill pill-more" data-open="paperboy-more" aria-haspopup="dialog">More about this project</button></li>
         </ul>
-        <button type="button" class="more-open" data-open="paperboy-more">More about the build</button>
         <dialog class="more" id="paperboy-more" aria-labelledby="paperboy-more-title">
           <div class="more-head"><h3 id="paperboy-more-title">Paperboy</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Solo: app, backend, infra · 2025–26</p>
@@ -156,7 +157,12 @@
           </div>
           <div class="panels">
             <div class="panel" data-panel="try" id="paperboy-try">
-              <div class="panel-in pb">
+              <div class="panel-in device-stage">
+              <div class="device"><span class="island" aria-hidden="true"></span>
+              <div class="screen pb">
+                <div class="ios-status" aria-hidden="true"><span>8:00</span><span class="ios-icons">●●● ▮</span></div>
+                <span class="pb-chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l4 4 4-4"/></svg></span>
+                <div class="pb-heading"><img src="img/paperboy-icon-128.webp" width="40" height="40" alt=""><div><b>This morning’s brief</b><small>Your newsletters · 5 min</small></div></div>
                 <div class="pb-scrub" data-pb="scrub" role="slider" tabindex="0" aria-label="Playback position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0:00"><div class="pb-track"><i data-pb="fill"></i></div></div>
                 <div class="pb-times"><span data-pb="pos">0:00</span><span data-pb="left">-0:00</span></div>
                 <div class="pb-controls">
@@ -168,11 +174,13 @@
                   </button>
                   <button type="button" data-skip="15" aria-label="Forward 15 seconds" disabled><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21.8 9.5A10 10 0 1 0 24 15.5"/><path d="M22 4.5v5h-5" stroke-linejoin="round"/><text x="13.8" y="18.6" text-anchor="middle" font-size="8.6" font-weight="700" fill="currentColor" stroke="none">15</text></svg></button>
                 </div>
-                <p class="pb-label" aria-hidden="true">What’s inside</p>
+                <p class="pb-sec" aria-hidden="true">What’s inside</p>
                 <ol class="pb-chapters" data-pb="chapters" aria-label="Chapters"></ol>
-                <p class="pb-label pb-label-small" aria-hidden="true">Transcript</p>
+                <p class="pb-label" aria-hidden="true">TRANSCRIPT</p>
                 <div class="pb-script" tabindex="0" role="region" aria-label="Transcript of this chapter"><p data-pb="transcript"></p></div>
                 <audio data-pb="audio" preload="none"></audio>
+              </div>
+              </div>
               </div>
             </div>
 
@@ -256,8 +264,8 @@ export async function generateSectionedAudio(sections, voice, measure) {
         <ul class="links">
           <li><a class="pill pill-accent" href="https://apps.apple.com/ca/app/kaeru/id6821724249" target="_blank" rel="noopener">App Store<span class="vh">: Kaeru</span></a></li>
           <li><a class="pill" href="https://github.com/theoleone10/kaeru" target="_blank" rel="noopener">GitHub<span class="vh">: Kaeru</span></a></li>
+          <li data-js-only><button type="button" class="pill pill-more" data-open="kaeru-more" aria-haspopup="dialog">More about this project</button></li>
         </ul>
-        <button type="button" class="more-open" data-open="kaeru-more">More about the build</button>
         <dialog class="more" id="kaeru-more" aria-labelledby="kaeru-more-title">
           <div class="more-head"><h3 id="kaeru-more-title">Kaeru</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Solo: design, code, content · 2026</p>
@@ -283,10 +291,16 @@ export async function generateSectionedAudio(sections, voice, measure) {
           </div>
           <div class="panels">
             <div class="panel" data-panel="try" id="kaeru-try">
-              <div class="panel-in kr">
+              <div class="panel-in device-stage">
+              <div class="device"><span class="island" aria-hidden="true"></span>
+              <div class="screen kr">
+                <div class="ios-status" aria-hidden="true"><span>10:00</span><span class="ios-icons">●●● ▮</span></div>
+                <div class="kr-bar"><span class="kr-pill"><span data-kr="level">N5</span> · Review</span><span class="kr-streak"><svg width="11" height="13" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M6 0c1 3 5 4.5 5 8.5A5 5 0 0 1 1 8.5C1 6 3 5 3 3c1.5 1 2 2.2 2 3.2C6 5 6.5 3 6 0z"/></svg> 48</span></div>
+                <p class="kr-date-jp" data-kr="date-jp" lang="ja"></p>
+                <p class="kr-date" data-kr="date">Today’s reviews</p>
+                <div class="kr-mascot"><img src="img/kaeru/frog.webp" width="56" height="56" alt=""><div class="kr-bubble"><b lang="ja">一歩ずつね。</b><small>One step at a time.</small></div></div>
                 <div class="kr-card">
-                  <p class="kr-top"><span data-kr="level">N5</span><span data-kr="count">1 of 3</span></p>
-                  <p class="kr-title" data-kr="title" lang="ja">は (topic)</p>
+                  <p class="kr-top"><span class="kr-title" data-kr="title" lang="ja">は (topic)</span><span data-kr="count">1 of 3</span></p>
                   <p class="kr-en" data-kr="en">I’m a student.</p>
                   <p class="kr-jp" data-kr="jp" lang="ja">私<span class="blank">？</span>学生です。</p>
                   <p class="kr-hint" data-kr="hint">Try typing it as it sounds: wa</p>
@@ -299,6 +313,8 @@ export async function generateSectionedAudio(sections, voice, measure) {
                   <button type="button" class="kr-next" data-kr="next" hidden>Next card</button>
                   <p class="kr-loading" data-kr="loading">Loading wanakana + ts-fsrs, the libraries the app uses…</p>
                 </div>
+              </div>
+              </div>
               </div>
             </div>
 
@@ -389,8 +405,8 @@ export function createScheduler({
         <p class="stack">React 19 · Node · Express · Supabase · PostGIS · Tailwind</p>
         <ul class="links">
           <li><a class="pill" href="https://github.com/waypass-ca/waypass" target="_blank" rel="noopener">GitHub<span class="vh">: Waypass</span></a></li>
+          <li data-js-only><button type="button" class="pill pill-more" data-open="waypass-more" aria-haspopup="dialog">More about this project</button></li>
         </ul>
-        <button type="button" class="more-open" data-open="waypass-more">More about the build</button>
         <dialog class="more" id="waypass-more" aria-labelledby="waypass-more-title">
           <div class="more-head"><h3 id="waypass-more-title">Waypass</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">Multi-tenant SaaS · 2026</p>
@@ -415,9 +431,12 @@ export function createScheduler({
             <div class="panel" data-panel="video" id="waypass-video">
               <div class="panel-in stage">
                 <p class="static-label">Video</p>
+                  <div class="browser">
+                  <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>app.waypass.ca</span></div>
                   <div class="loom">
                     <iframe data-src="https://www.loom.com/embed/ac7c3802d7064607b15e56bb90d14e40?hide_owner=true&amp;hide_share=true&amp;hideEmbedTopBar=true" title="Waypass walkthrough" loading="lazy" allowfullscreen></iframe>
                     <noscript><a class="loom-link" href="https://www.loom.com/share/ac7c3802d7064607b15e56bb90d14e40" target="_blank" rel="noopener">Watch the Waypass walkthrough on Loom ↗</a></noscript>
+                  </div>
                   </div>
               </div>
             </div>
@@ -486,8 +505,8 @@ export async function recordBookingEvent({
         <p class="stack">DCP · Logistic regression · QMIND × Distributive · In progress</p>
         <ul class="links">
           <li><a class="pill" href="https://github.com/QMINDxDistributive/federated-learning-dcp-package" target="_blank" rel="noopener">GitHub<span class="vh">: Federated Learning on DCP</span></a></li>
+          <li data-js-only><button type="button" class="pill pill-more" data-open="research-more" aria-haspopup="dialog">More about this project</button></li>
         </ul>
-        <button type="button" class="more-open" data-open="research-more">More about the work</button>
         <dialog class="more" id="research-more" aria-labelledby="research-more-title">
           <div class="more-head"><h3 id="research-more-title">Federated Learning on DCP</h3><button type="button" class="more-close" aria-label="Close">×</button></div>
           <p class="byline">QMIND × Distributive · 2026–now</p>
