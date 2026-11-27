@@ -37,6 +37,10 @@ export function initDay() {
   const day = document.querySelector('.day');
   const scenes = [...day.querySelectorAll('.scene')];
   if (scenes.length < 2) return;
+  // phones and narrow windows get a plain page that scrolls: no sun, no paging.
+  // Crossing the line either way reloads into the other layout.
+  wideQuery.addEventListener('change', () => location.reload(), { once: true });
+  if (!wideQuery.matches) return;
   const bar = document.querySelector('.bar');
   const dial = document.querySelector('.sky-clock');
   const clock = dial.querySelector('.clock');

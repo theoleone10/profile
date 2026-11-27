@@ -1,0 +1,94 @@
+/* Phones and narrow windows: no sun and no paging, just one clean page that
+   scrolls. A short hello, then each project as a card: its name, a line about
+   it, the app itself, then how it's built and where to find it. */
+
+@media (max-width: 940px) {
+  body { background: var(--bg); }
+
+  /* ── Bar: name and "Get in touch", then the four projects ── */
+  .bar { background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .timeline a[aria-current] { background: rgb(21 23 28 / 0.07); }
+
+  /* ── Hello: short, so the projects start on the first screen ── */
+  .intro { gap: 0; padding-block: 28px 12px; }
+  .who { gap: 12px; margin-bottom: 18px; }
+  .who img { width: 48px; height: 48px; }
+  .who p { font-size: 0.875rem; }
+  .intro h1 { font-size: clamp(1.75rem, 7.4vw, 2.375rem); }
+  .lede { margin-top: 12px; font-size: 1rem; }
+  .intro-pills { gap: 8px; margin-top: 18px; }
+  .intro-pills .pill { min-height: 40px; padding-inline: 16px; font-size: 0.875rem; }
+  .intro > .live, .glance { display: none; } /* the cards below say it all */
+
+  /* ── Each project: name, a line, the app, then the details ── */
+  .hour { --pad: 0px; padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--hair); }
+  .hour-grid, .hour-flip .hour-grid { display: flex; flex-direction: column; gap: 0; padding: var(--pad); }
+  .hour-text { display: contents; } /* its parts sit around the demo: name and line above, details below */
+  .hour h2 { order: 1; display: flex; align-items: center; gap: 12px; margin: 0; font-size: 1.625rem; line-height: 1.15; }
+  .hour h2::before { content: ''; flex: none; width: 40px; height: 40px; border-radius: 10px; background: center / cover no-repeat; }
+  .hour-paperboy h2::before { background-image: url(../img/paperboy-icon-128.webp); }
+  .hour-kaeru h2::before { background-image: url(../img/kaeru-icon-192.webp); }
+  .hour-waypass h2::before { background-image: url(../img/waypass-mark-128.webp); }
+  .hour-research h2::before { background-image: url(../img/research-mark.svg); }
+  .hour-desc { order: 2; margin-top: 12px; font-size: 1rem; line-height: 1.5; }
+  .hour-demo { order: 3; margin: 18px 0 0; align-self: stretch; }
+  .hour .points { order: 4; margin-top: 18px; }
+  .hour .stack { order: 5; }
+  .hour .links { order: 6; gap: 8px; margin-top: 16px; }
+  .hour .links .pill { min-height: 40px; padding-inline: 16px; font-size: 0.875rem; }
+  .points li { grid-template-columns: 34px 1fr; padding-block: 12px; font-size: 0.9375rem; line-height: 1.5; }
+  .stack { font-size: 0.75rem; }
+  .steps li { padding-block: 0; }
+  .steps li::before { padding-top: 10px; }
+  .steps button { padding-block: 10px; line-height: 1.5; }
+
+  /* the demo: a soft panel inside the card */
+  .demo { padding: 0 12px 12px; border-radius: 20px; background: #F3F3F5; }
+  .demo { --panel-h: 600px; }
+  .demo[data-demo="paperboy"] { --panel-h: 620px; }
+  .demo[data-demo="kaeru"] { --panel-h: 430px; }
+  .demo[data-demo="waypass"] { --panel-h: auto; }
+  .demo[data-demo="fl"] { --panel-h: 480px; }
+  .demo-head { min-height: 46px; border-color: rgb(21 23 28 / 0.08); }
+  .tabs { gap: 22px; }
+  .tabs button { min-height: 46px; font-size: 0.875rem; }
+  .split-toggle { display: none; }
+  .cap { font-size: 0.75rem; }
+  .stage { padding-top: 12px; }
+
+  /* the app itself, edge to edge: no phone drawn inside your phone */
+  .device-stage { display: flex; align-items: stretch; padding-top: 12px; }
+  .device { flex: 1; width: auto; height: auto; padding: 0; border-radius: 16px; background: none; zoom: 1 !important; box-shadow: 0 0 0 1px rgb(21 23 28 / 0.06); }
+  .island, .ios-status { display: none; }
+  .screen { height: 100%; border-radius: 16px; }
+  .pb { padding-top: 16px; }
+  .pb-chev { display: none; }
+  .kr { padding-top: 14px; }
+
+  /* research keeps its night panel */
+  .hour-demo.night .demo { padding: 0 12px 12px; border-radius: 20px; box-shadow: none; }
+
+  /* ── Also built and contact ── */
+  .also { padding-block: 40px 8px; }
+  .also .moment { display: none; }
+  .also-list a { padding-block: 16px; }
+  .foot { padding-block: 56px 40px; }
+  .cta .moment { display: none; }
+  .cta h2 { margin-top: 0; font-size: 1.875rem; }
+  .cta .links { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 24px; }
+  .cta .links li:first-child { flex-basis: 100%; display: flex; justify-content: center; }
+
+  /* ── "More": a sheet from the bottom ── */
+  dialog.more, dialog.more-wide {
+    width: 100%; max-width: 100%; max-height: 86dvh; margin: auto 0 0;
+    padding: 22px 20px calc(28px + env(safe-area-inset-bottom)); border-radius: 26px 26px 0 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.more[open] { animation: sheet-up 0.32s cubic-bezier(0.2, 0.9, 0.3, 1); }
+  }
+}
+@keyframes sheet-up { from { translate: 0 100%; } }
+
+/* the button beside GitHub: "More" on phones, the full label otherwise */
+.more-long { display: contents; } /* one run of text with "More", so the pill adds no gap */
+@media (max-width: 420px) { .more-long { display: none; } }
