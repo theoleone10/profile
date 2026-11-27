@@ -1,0 +1,70 @@
+/* The demos sit straight on the sky: tabs, then whatever the tab shows. */
+
+.demo {
+  --panel-h: clamp(460px, calc(100svh - var(--bar-h) - 110px), 580px);
+  container-type: inline-size;
+  color: var(--ink);
+}
+.demo-head { display: flex; align-items: center; gap: 16px; min-height: 52px; border-bottom: 1px solid var(--hair); }
+.tabs { display: flex; gap: 28px; }
+.tabs button { position: relative; min-width: 44px; min-height: 52px; font-size: 0.9375rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--ink); font-weight: 600; }
+.tabs button[aria-selected="true"]::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; border-bottom: 2px solid var(--accent); }
+
+/* panels share one cell; hidden ones stay findable with find-in-page */
+.panels { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); height: var(--panel-h); }
+.panel { grid-area: 1 / 1; min-width: 0; min-height: 0; }
+.panel:not([hidden]) { display: flex; flex-direction: column; position: relative; z-index: 1; }
+.panel[hidden] { pointer-events: none; }
+.panel-in { flex: 1; min-height: 0; }
+.cap { padding-top: 10px; font-size: 0.8125rem; line-height: 1.45; text-align: center; color: var(--muted); }
+.static-label { display: none; }
+
+/* ── Video ── */
+.stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding-top: 16px; }
+.phone { position: relative; flex: none; height: calc(var(--panel-h) - 24px); max-height: 580px; aspect-ratio: 440 / 960; max-width: 100%; padding: 6px; border-radius: 36px; background: #0C0C0F; }
+[data-demo="kaeru"] .phone { height: calc(var(--panel-h) - 80px); }
+.phone video { width: 100%; height: 100%; border-radius: 30px; object-fit: cover; }
+.bigplay { position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: var(--ink); box-shadow: 0 10px 30px rgb(0 0 0 / 0.3); }
+.bigplay[hidden] { display: none; }
+.bigplay svg { margin-left: 4px; }
+.loop-toggle[hidden] { display: none; }
+
+.loom { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: var(--night); }
+.loom iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.loom-link { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; color: #fff; text-underline-offset: 4px; }
+
+
+/* ── At night ── */
+.night .demo { color: #EEF0F7; }
+.night .tabs button:hover, .night .tabs button[aria-selected="true"] { color: #fff; }
+.night .code .c { color: #969DB3; }
+
+@media (max-width: 940px) {
+  .demo { --panel-h: 520px; }
+  .demo[data-demo="paperboy"] { --panel-h: 660px; }
+  .demo[data-demo="waypass"] { --panel-h: 300px; }
+  .demo[data-demo="fl"] { --panel-h: 560px; }
+}
+@media (max-width: 480px) {
+  .demo[data-demo="waypass"] { --panel-h: 240px; }
+}
+@media (forced-colors: active) {
+  .tabs button[aria-selected="true"]::after { border-bottom-color: Highlight; }
+}
+
+/* Before the script runs, show only each demo's first tab, so nothing jumps. */
+@media (scripting: enabled) {
+  .demo:not([data-ready]) .panel:not(:first-child) { display: none; }
+}
+/* Without JavaScript: no tabs, no Try it; the video and the code, one after the other. */
+@media (scripting: none) {
+  .hour .hour-demo { position: static; }
+  .demo-head, .panel[data-panel="try"], .loom iframe[data-src] { display: none; }
+  .panels { display: block; height: auto; }
+  .static-label { display: block; font: 500 0.75rem/1.6 var(--mono); color: var(--muted); }
+  .demo .phone { height: 560px; }
+  .code { max-height: 560px; }
+  .code > .static-label { padding-top: 16px; }
+}

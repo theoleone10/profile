@@ -1,0 +1,117 @@
+/* Inside the demo cards: each app as it looks on its own screen. Paperboy and
+   Kaeru run on a phone, Waypass in a browser window, the code in an editor. */
+
+:root { --ios: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif; }
+
+/* ── Code: in an editor ── */
+.code { overflow: auto; overscroll-behavior: contain; margin-top: 14px; padding: 0 18px 4px; border-radius: 14px; background: #17181D; color: #E6E4DF; }
+.code:focus-visible { outline-offset: 2px; }
+.code figure { width: max-content; min-width: 100%; }
+.code figure + figure { margin-top: 4px; border-top: 1px solid #2A2C33; }
+.code figcaption { padding: 14px 0 4px; font: 500 0.75rem/1.6 var(--mono); color: #8E919B; }
+.code pre { padding-block: 8px 16px; font-size: 0.78125rem; line-height: 1.7; tab-size: 2; }
+.code .c { color: #7D818C; font-style: italic; }
+.code .ran-mark { color: #fff; }
+
+/* ── The phone ── */
+.device-stage { display: grid; place-items: center; min-height: 0; overflow: hidden; padding-top: 14px; }
+.device {
+  position: relative; width: 300px; height: 640px; padding: 9px; border-radius: 44px; isolation: isolate;
+  background: #0C0C0F; box-shadow: 0 24px 46px -18px rgb(0 0 0 / 0.45), inset 0 0 0 1.5px #3A3A44;
+}
+.island { position: absolute; z-index: 2; top: 18px; left: 50%; width: 30%; height: 20px; margin-left: -15%; border-radius: 12px; background: #0C0C0F; pointer-events: none; }
+.screen { position: relative; height: 100%; border-radius: 35px; overflow: hidden; display: flex; flex-direction: column; }
+.screen > * { flex-shrink: 0; }
+.ios-status { display: flex; justify-content: space-between; padding: 13px 20px 8px; font: 600 13px var(--ios); }
+.ios-icons { font-size: 8px; letter-spacing: 1px; }
+
+/* ── Paperboy: the player sheet ── */
+.pb { --pb: var(--paperboy); padding: 0 16px 14px; background: #fff; color: #0A0A0B; font-family: var(--ios); }
+.pb .ios-status { margin-inline: -16px; }
+.pb-chev { width: 28px; height: 28px; margin: 0 0 8px; display: grid; place-items: center; border-radius: 50%; background: #F2F2F4; }
+.pb-heading { display: flex; align-items: center; gap: 10px; }
+.pb-heading img { width: 40px; height: 40px; border-radius: 10px; }
+.pb-heading b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.pb-heading small { font-size: 12.5px; color: #6E6E73; }
+.pb-scrub { height: 24px; display: flex; align-items: center; margin-top: 10px; cursor: pointer; touch-action: none; }
+.pb-track { position: relative; flex: 1; height: 4px; border-radius: 3px; background: #EDEDF0; overflow: hidden; }
+.pb-track i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--pb); }
+.pb-times { display: flex; justify-content: space-between; margin-top: -3px; font-size: 11px; color: #6E6E73; font-variant-numeric: tabular-nums; }
+.pb-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
+.pb-controls button { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; color: #0A0A0B; }
+.pb-controls button:disabled { opacity: 0.35; }
+.pb-controls .pb-speed { font-size: 13.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pb-controls .pb-speed[data-on] { color: var(--pb); }
+.pb-controls .pb-play { width: 58px; height: 58px; background: var(--pb); color: #fff; }
+.pb-play .i-play { margin-left: 3px; }
+.pb-play .i-pause, .pb-play[data-playing] .i-play { display: none; }
+.pb-play[data-playing] .i-pause { display: block; }
+.pb-sec { margin: 10px 0 6px; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+.pb .pb-chapters { border-radius: 16px; background: #F6F6F8; overflow: hidden; }
+.pb-chapters li + li button { border-top: 1px solid #E4E4E7; }
+.pb-chapters button { width: calc(100% - 24px); min-height: 34px; margin: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; font-size: 13.5px; letter-spacing: -0.01em; }
+.pb-chapters b { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 400; }
+.pb-chapters [aria-current="true"] b { color: var(--pb); font-weight: 600; }
+.pb-chapters .t { color: #A1A1A6; font-size: 11px; font-variant-numeric: tabular-nums; }
+.pb-label { margin-top: 10px; padding-top: 8px; border-top: 1px solid #E4E4E7; font-size: 11px; letter-spacing: 0.06em; color: #6E6E73; }
+.pb > .pb-script { flex: 1 1 0; min-height: 40px; margin-top: 4px; overflow: auto; font-size: 13.5px; line-height: 1.4; letter-spacing: -0.01em; }
+
+/* ── Kaeru: today's review ── */
+.kr { padding: 0 14px 14px; overflow: auto; scrollbar-width: none; background: #F4F6FA; color: #1B1D2B; font-family: 'M PLUS Rounded 1c', var(--jp), system-ui, sans-serif; }
+.kr .ios-status { margin-inline: -14px; }
+.kr [lang="ja"] { font-family: 'M PLUS Rounded 1c', var(--jp), sans-serif; }
+.kr-bar { display: flex; justify-content: space-between; align-items: center; padding: 4px 2px 0; }
+.kr-pill { padding: 3px 10px; border-radius: 999px; background: #DCF1EB; color: #1D6B58; font-size: 12.5px; font-weight: 800; }
+.kr-streak { display: inline-flex; align-items: center; gap: 4px; color: #EF7A22; font-size: 14px; font-weight: 800; }
+.kr-date-jp { margin-top: 8px; font-size: 12px; font-weight: 700; color: #646A80; }
+.kr-date-jp:empty { display: none; }
+.kr-date { margin-top: 4px; font-size: 21px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+.kr-mascot { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+.kr-mascot img { width: 56px; height: 56px; flex-shrink: 0; }
+.kr-bubble { position: relative; padding: 7px 12px; border-radius: 16px; background: #fff; }
+.kr-bubble::before { content: ''; position: absolute; left: -6px; top: 50%; margin-top: -6px; border: 6px solid transparent; border-left: 0; border-right-color: #fff; }
+.kr-bubble b { display: block; font-size: 14px; }
+.kr-bubble small { color: #646A80; font-size: 11px; font-weight: 700; }
+.kr-card { padding: 14px; border-radius: 22px; background: #fff; }
+.kr-top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 800; color: #646A80; }
+.kr-title { color: #3F51A8; }
+.kr-en { margin-top: 6px; font-size: 14.5px; font-weight: 700; }
+.kr-jp { margin-top: 2px; font-size: 22px; font-weight: 700; line-height: 1.5; }
+.kr-jp .blank { display: inline-block; min-width: 2.4em; padding: 0 2px; border-bottom: 3px solid #3F51A8; color: #A7ADD0; text-align: center; }
+.kr-jp .blank[data-filled] { color: #3F51A8; }
+.kr-hint { font-size: 12px; font-weight: 700; color: #646A80; }
+.kr-form { display: flex; gap: 8px; margin-top: 10px; }
+.kr-form input { flex: 1; width: 0; min-width: 0; height: 40px; padding: 0 11px; border: 2px solid #E0E3EF; border-radius: 12px; background: #FBFBFE; color: #1B1D2B; font: 700 16px 'M PLUS Rounded 1c', var(--jp), sans-serif; }
+.kr-form input:focus { border-color: #3F51A8; background: #fff; outline: none; }
+.kr-form input::placeholder { color: #A2A7BA; font: 500 13px 'M PLUS Rounded 1c', sans-serif; }
+.kr-form button { padding: 0 15px; border: 2px solid #3A9A45; border-radius: 999px; background: #fff; color: #2C7D36; font-size: 14px; font-weight: 800; }
+.kr-form button:hover:not(:disabled) { background: #3A9A45; color: #fff; }
+.kr-form button:disabled { opacity: 0.5; }
+.kr-feedback { border-radius: 12px; font-size: 12.5px; font-weight: 700; line-height: 1.38; }
+.kr-feedback:not(:empty) { margin-top: 8px; padding: 8px 10px; }
+.kr-feedback[data-tone="ok"] { background: #E6F6EA; color: #1F7A35; }
+.kr-feedback[data-tone="close"], .kr-feedback[data-tone="miss"] { background: #FFF3E2; color: #9A5300; }
+.kr-feedback b { margin-right: 4px; }
+.kr-sched { margin-top: 8px; }
+.kr-sched p { font-size: 11px; font-weight: 700; line-height: 1.35; color: #646A80; }
+.kr-sched .row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 5px; }
+.kr-sched .iv { padding: 2px 8px; border-radius: 999px; background: #EEF0FA; color: #3F51A8; font-size: 12px; font-weight: 800; }
+.kr-sched .iv.first { background: #3F51A8; color: #fff; }
+.kr-sched .arr { color: #A7ADD0; font-size: 11px; }
+.kr-loading { margin-top: 8px; font-size: 11px; color: #A2A7BA; }
+.kr-next { width: 100%; margin-top: 10px; padding: 9px; border-radius: 999px; background: #3F51A8; color: #fff; font-size: 14px; font-weight: 800; }
+.kr-next[hidden], .kr-sched[hidden], .kr-loading[hidden] { display: none; }
+
+/* ── Waypass: in a browser window ── */
+.browser { width: 100%; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 24px 46px -20px rgb(0 0 0 / 0.4); }
+.browser-bar { display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; background: #EEF1F4; }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #CFD5DC; }
+.browser-bar span { flex: 1; margin: 0 40px 0 12px; padding: 2px 10px; border-radius: 6px; background: #fff; color: #64748B; font: 11.5px var(--sans); text-align: center; }
+.browser .loom { border-radius: 0; }
+
+/* the button beside GitHub that opens a project's details */
+.pill-more::before { content: '+'; font: 400 1.0625rem/1 var(--mono); color: var(--accent); }
+
+@media (scripting: none) {
+  .device { height: auto; min-height: 560px; }
+}
